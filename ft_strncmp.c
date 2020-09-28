@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 15:34:06 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 16:43:58 by seungmki         ###   ########.fr       */
+/*   Created: 2020/09/28 16:27:46 by seungmki          #+#    #+#             */
+/*   Updated: 2020/09/28 16:40:54 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	*bp;
-	char	*lp;
-	size_t	i;
-	size_t	j;
+	size_t i;
 
-	if (*bp == 0)
-		return ((char*)big);
+	if (n == 0)
+		return (0);
 	i = 0;
-	while (*big != 0 && i < len)
+	while (*s1 != 0 && *s1 == *s2 && i < n)
 	{
-		bp = big;
-		lp = little;
-		j = i;
-		while (*lp != 0 && *bp == *lp && j < len)
-		{
-			bp++;
-			lp++;
-			j++;
-		}
-		if (*lp == 0)
-			return ((char*)big);
+		s1++;
+		s2++;
 		i++;
-		big++;
 	}
-	return (void*)0;
+	if (i == n)
+	{
+		s1--;
+		s2--;
+	}
+	return (*s1 - *s2);
 }
