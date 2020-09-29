@@ -6,9 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 14:54:57 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 15:25:41 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/09/29 23:52:33 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -16,9 +18,9 @@ char	*ft_strchr(const char *s, int c)
 	{
 		if (*s == (char)c)
 		{
-			return (s);
+			return ((char*)s);
 		}
 		s++;
 	}
-	return (s);
+	return ((void*)0);
 }
