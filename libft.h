@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 18:17:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/02 01:44:03 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 01:05:47 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-void				*memset(void *b, int c, size_t len);
+void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
@@ -47,7 +47,7 @@ int					ft_tolower(int c);
 int					ft_toupper(int c);
 
 void				*ft_calloc(size_t count, size_t size);
-char				*strdup(const char *s);
+char				*ft_strdup(const char *s);
 
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
