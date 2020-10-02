@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 10:34:44 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/29 11:23:32 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 00:36:53 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	unsigned char *dp;
 	unsigned char *sp;
 
-	if (dst == 0 || (dst == 0 && src == 0))
+	if (dst == 0 || src == 0)
 		return ((void*)0);
 	dp = (unsigned char*)dst;
 	sp = (unsigned char*)src;

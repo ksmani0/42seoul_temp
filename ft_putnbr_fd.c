@@ -6,12 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:43:05 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/30 17:50:03 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 00:39:48 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
 static void	print_num(long long temp, int fd)
 {
