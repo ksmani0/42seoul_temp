@@ -6,9 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:59:10 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 18:46:37 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/02 23:34:50 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isalpha(int c)
 {

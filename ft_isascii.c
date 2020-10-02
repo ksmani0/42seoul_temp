@@ -6,9 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 19:00:07 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 19:04:19 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/02 23:34:26 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isascii(int c)
 {
