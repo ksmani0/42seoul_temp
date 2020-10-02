@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 00:26:14 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/30 01:44:03 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/02 20:48:12 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	make_num(char *arr, int n)
 	}
 }
 
-char	*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
 	int		i;
 	char	*arr;

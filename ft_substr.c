@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:25:13 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/29 14:38:45 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/02 20:52:38 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char *arr;
-	size_t size;
-	size_t i;
+	char	*arr;
+	size_t	size;
+	size_t	i;
 
 	if (s == 0)
 		return ((void*)0);

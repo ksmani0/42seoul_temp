@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 16:19:27 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/29 17:16:37 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/02 20:49:21 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static size_t	get_word_num(char const *s, char c)
 	return (num);
 }
 
-static void	ft_strcpy(char *arr, char const *p, char const *s)
+static void		ft_strcpy(char *arr, char const *p, char const *s)
 {
 	while (p < s)
 		*arr++ = *p++;
 	*arr = 0;
 }
 
-static void	do_split(char **arr, char const *s, char c)
+static void		do_split(char **arr, char const *s, char c)
 {
 	size_t	i;
 	char	*p;
@@ -62,7 +62,7 @@ static void	do_split(char **arr, char const *s, char c)
 	}
 }
 
-char	**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	char	**arr;
 	size_t	num;
