@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 14:02:00 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/02 14:20:11 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/02 23:08:38 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (lst == 0)
+	if (lst == 0 || f == 0)
 		return ;
 	while (lst != 0)
 	{

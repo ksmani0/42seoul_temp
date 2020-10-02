@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:57:11 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/02 14:49:10 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/02 23:04:41 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list **p;
 
-	if (lst == 0)
+	if (lst == 0 || del == 0)
 		return ;
 	while (*lst != 0)
 	{
@@ -26,5 +26,4 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		free(*lst);
 		lst = p;
 	}
-	lst = NULL;
 }
