@@ -6,10 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 16:19:27 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/02 20:49:21 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 01:00:46 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdlib.h>
 
 static size_t	get_word_num(char const *s, char c)
