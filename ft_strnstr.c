@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:34:06 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 13:12:13 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 14:15:04 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		i++;
 		big++;
 	}
-	return (void*)0;
+	return (NULL);
 }
