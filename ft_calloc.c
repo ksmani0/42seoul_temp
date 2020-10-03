@@ -6,11 +6,12 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 20:06:53 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 20:39:58 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 22:09:05 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void	*ft_calloc(size_t count, size_t size)
 {

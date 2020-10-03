@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:34:06 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 14:15:04 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 21:51:48 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	i = 0;
 	while (*big != 0 && i < len)
 	{
-		bp = big;
-		lp = little;
+		bp = (char*)big;
+		lp = (char*)little;
 		j = i;
 		while (*lp != 0 && *bp == *lp && j < len)
 		{

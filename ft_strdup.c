@@ -6,11 +6,12 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 19:52:24 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 01:06:19 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 22:06:20 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 char	*ft_strdup(const char *s)
 {

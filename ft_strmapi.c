@@ -6,11 +6,12 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:15:39 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 13:14:00 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 22:00:31 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

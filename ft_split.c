@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 16:19:27 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 01:00:46 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 22:07:35 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static void		do_split(char **arr, char const *s, char c)
 	{
 		if (*s != c && *s != 0)
 		{
-			p = s;
+			p = (char*)s;
 			while (*s != c && *s != 0)
 				s++;
 			arr[i] = (char*)malloc(sizeof(char) * (s - p + 1));
-			ft_strcpy(arr, p, s);
+			ft_strcpy(arr[i], p, s);
 			i++;
 		}
 		else if (*s != 0)
@@ -70,7 +70,7 @@ char			**ft_split(char const *s, char c)
 
 	if (s == 0)
 		return ((void*)0);
-	num = get_word_num(s);
+	num = get_word_num(s, c);
 	arr = (char**)malloc(sizeof(char) * num + 1);
 	if (arr == 0)
 		return ((void*)0);
