@@ -6,9 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 12:36:04 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 13:48:13 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 15:31:10 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_atoi(const char *s)
 {
