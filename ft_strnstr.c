@@ -6,9 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:34:06 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 16:43:58 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 13:12:13 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
@@ -17,8 +19,6 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	i;
 	size_t	j;
 
-	if (*bp == 0)
-		return ((char*)big);
 	i = 0;
 	while (*big != 0 && i < len)
 	{

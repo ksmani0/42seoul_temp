@@ -6,9 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:27:46 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 16:40:54 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 13:12:51 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

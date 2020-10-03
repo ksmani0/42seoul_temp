@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:15:39 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/30 17:25:04 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 13:14:00 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t			len;
 	unsigned int	i;
 
-	if (s == 0)
+	if (s == 0 || f == 0)
 		return ((void*)0);
 	len = ft_strlen(s);
 	res = (char*)malloc(sizeof(char) * len + 1);
