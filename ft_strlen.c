@@ -6,9 +6,11 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 13:39:50 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 13:47:05 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 12:50:08 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 size_t	ft_strlen(const char *s)
 {

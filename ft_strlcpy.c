@@ -6,11 +6,13 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 13:52:40 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/28 14:32:52 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/03 12:51:27 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize)
+#include "libft.h"
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	len;
 	char	*sp;
