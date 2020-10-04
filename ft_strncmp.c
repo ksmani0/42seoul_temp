@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 16:27:46 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 13:12:51 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/04 18:03:42 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		s1--;
 		s2--;
 	}
-	return (*s1 - *s2);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

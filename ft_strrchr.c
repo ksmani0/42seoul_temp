@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:08:44 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 14:17:19 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/04 19:38:20 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,21 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char *p;
+	size_t	i;
+	char	cc;
 
-	p = (char*)s;
+	i = 0;
+	cc = (char)c;
 	while (*s != 0)
-		s++;
-	while (--s != p)
 	{
-		if (*s == (char)c)
-			return ((char*)s);
+		i++;
+		s++;
 	}
-	if (*s == (char)c)
-		return ((char*)s);
-	return ((void*)0);
+	while (*s != cc)
+	{
+		if (i-- == 0)
+			return (NULL);
+		s--;
+	}
+	return ((char*)s);
 }
