@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 14:22:49 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/04 19:15:45 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/05 16:03:12 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list *head;
 	t_list *new;
 
-	if (lst == 0 || f == 0 || del == 0)
+	if (lst == 0 || f == 0)
 		return (NULL);
 	head = NULL;
 	while (lst != 0)
