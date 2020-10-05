@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 12:36:04 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 15:31:10 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:44:22 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_atoi(const char *s)
 {
-	long long	res;
-	int			minus;
+	long	res;
+	int		minus;
 
 	res = 0;
 	minus = 1;
@@ -26,9 +26,9 @@ int	ft_atoi(const char *s)
 	while (*s >= '0' && *s <= '9')
 	{
 		res = res * 10 + (*s - '0');
+		if (res < 0)
+			return (minus == 1 ? -1 : 0);
 		s++;
 	}
-	if (res == 2147483648 && minus == -1)
-		return (-2147483648);
 	return ((int)res * minus);
 }

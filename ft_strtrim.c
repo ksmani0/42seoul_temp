@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 15:21:49 by seungmki          #+#    #+#             */
-/*   Updated: 2020/09/30 00:04:35 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:31:32 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,23 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*sp;
-	char	*ep;
+	int		fi;
+	int		bi;
 	char	*arr;
-	char	*p;
 
 	if (s1 == 0 || set == 0)
 		return ((void*)0);
-	while (*s1 != 0 && ft_strchr(set, *s1))
-		s1++;
-	sp = (char*)s1;
-	ep = (ft_strlen(s1) - 1) + (char*)s1;
-	while (ep > sp && ft_strchr(set, *ep))
-		ep--;
-	arr = (char*)malloc(sizeof(char) * (ep - sp + 1));
+	fi = 0;
+	while (s1[fi] != 0 && ft_strchr(set, s1[fi]))
+		fi++;
+	bi = ft_strlen(s1 + fi);
+	while (bi != 0 && ft_strchr(set, s1[fi + bi - 1]))
+		bi--;
+	arr = (char*)malloc(sizeof(char) * (bi + 1));
 	if (arr == 0)
 		return ((void*)0);
-	p = arr;
-	while (sp <= ep)
-	{
-		*p++ = *sp++;
-	}
-	*p = 0;
+	arr[bi] = 0;
+	while (bi-- != 0)
+		arr[bi] = s1[fi + bi];
 	return (arr);
 }

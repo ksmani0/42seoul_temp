@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 16:19:27 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/04 18:09:39 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/05 15:15:09 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char			**ft_split(char const *s, char c)
 	if (s == 0)
 		return ((void*)0);
 	num = get_word_num(s, c);
-	arr = (char**)malloc(sizeof(char*) * num + 1);
+	arr = (char**)malloc(sizeof(char*) * (num + 1));
 	if (arr == 0)
 		return ((void*)0);
 	arr[num] = 0;
