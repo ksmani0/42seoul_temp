@@ -6,11 +6,11 @@
 /*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 09:23:51 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/16 19:34:12 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/16 23:41:08 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	find_nline(char *store)
 {
