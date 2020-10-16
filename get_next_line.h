@@ -6,7 +6,7 @@
 /*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 09:25:07 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/06 09:27:40 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/16 19:42:09 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,16 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE (256)
+#  define BUFFER_SIZE 256
 # endif
-
-
-/* get_next_line.c */
 
 int	line_str_nline(char **line, char **store, int w_num);
 int	line_just_str(char **line, char **store);
 int	get_next_line(int fd, char **line);
 
-
-/* get_next_line_utils.c */
-
 int	find_nline(char *store);
 int	ft_strlen(char *s);
 int	free_store(int rbytes, char **store, char **line);
-int	paste_malloc(char** store, char* buf, char **line);
+int	paste_malloc(char **store, char *buf, char **line);
 
 #endif

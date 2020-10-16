@@ -6,7 +6,7 @@
 /*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 09:23:51 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/06 12:01:37 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/16 19:34:12 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	free_store(int rbytes, char **store, char **line)
 	return (-1);
 }
 
-int	paste_malloc(char** store, char* buf, char **line)
+int	paste_malloc(char **store, char *buf, char **line)
 {
 	int		len;
 	char	*temp;

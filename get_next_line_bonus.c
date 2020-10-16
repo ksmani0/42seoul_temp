@@ -6,7 +6,7 @@
 /*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 09:23:51 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/06 12:01:37 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/16 19:44:23 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ int	line_just_str(char **line, char **store)
 
 int	get_next_line(int fd, char **line)
 {
-	char rd_buf[BUFFER_SIZE + 1];
-	static char *store[OPEN_SIZE];
-	int rbytes;
-	int w_num;
+	char		rd_buf[BUFFER_SIZE + 1];
+	static char	*store[OPEN_SIZE];
+	int			rbytes;
+	int			w_num;
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
 		return (-1);
