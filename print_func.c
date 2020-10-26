@@ -32,55 +32,89 @@ size_t	count_num_len(long num, long temp, t_format *list)
 		len++;
 	}
 	i = (int)len;
-	list->if_num[i] = 0;
 	while (--i >= 0)
 	{
-		list->if_num[i] = temp % 10;
+		list->if_num[i] = temp % 10 + '0';
 		temp /= 10;
 	}
+	list->if_num[0] = i == 0 ? '-' : list->if_num[0];
 	return (len);
 }
 
-void	make_int(char *out, t_format *list, int value, int size)
+void	make_int(char *out, t_format *list, size_t len)
 {
+	int i;
 
-	if ()
+	i = 0;
+	if (list->flag[0] == 1 && list->if_num[0] == '-')
+		out[i++] = '-';
+	while (i + len < list->out_len && list->width > list->prec &&	
+		list->flag[0] == 0)
+		out[i++] = ' ';
+	while (i + len < list->width && list->flag[0] == 1 && list->width > list->prec)//너비 크고 0
+		out[i++] = '0';
+	while (i + len < list->prec && list->width <= list->prec)//정밀도 더 큼
+		out[i++] = '0';
+	len = 0;
+	while (i < list->out_len)
+		out[i++] = list->if_num[len++];
+	write(1, out, i);
+	free(out);
 }
 
 void	print_s_int(va_list ap, t_format *list)
 {
-	long	num;
+	int	num;
 	size_t	len;
 	char	*out;
 
 	num = va_arg(ap, int);
-	len = count_num_len(num, num, list);
-	list->output_len = list->width > list->precision ?
-		list->width : list->precision;
-	list->output_len = len > list->output_len ? len : list->output_len;
-	if ((out = (char*)malloc(sizeof(char) * (longest + 1))) == 0)
+	len = count_num_len((long)num, (long)num, list);/*수 저장해놓음*/
+	list->if_num[0] = num == 0 ? '0' : list->if_num[0];
+	list->out_len = list->width > list->prec ? list->width : list->prec;
+	list->out_len = len > list->out_len ? len : list->out_len;
+	if ((out = (char*)malloc(sizeof(char) * (list->out_len + 1))) == 0)
 		return ;
-	if (list->flags[0] == 1 && list->flags[1] == 1)/*-, 0*/
-		list->flags[0] = 0;
-	make_int(out, list, value);
+	out[list->out_len] = 0;
+	if (list->flag[0] == 1 && list->flag[1] == 1)/*-, 0*/
+		list->flag[0] = 0;
+	make_int(out, list, len);
 }
 
-void	output_specific(va_list ap, t_format *list)
+void	print_s_uint(va_list ap, t_format *list)
 {
-	if (list->specific == 'd' || list->specific == 'i')
-		print_s_int(list);
-	else if (list->specific == 'u')
-		print_s_uint(list);
-	else if (list->specific == 'c' || list->specific == 's')
-		print_s_char(list);
-	else if (list->specific == '%')
-		print_s_percent(list);
-	else if (list->specific == 'x' || list->specific == 'X')
-		print_s_octal(list);
-	else if (list->specific == 'e' || list->specific == 'f' || list->specific == 'g')
-		print_s_float(list);
-	else if (list->specific == 'p')
-		print_s_point(list);
-	else if (list->specific == 'n')
-		print_s_number(list);
+	unsigned int	num;
+	size_t		len;
+	char		*out;
+
+	num = va_arg(ap, unsigned int);
+	len = count_num_len((long)num, (long)num, list);/*수 저장해놓음*/
+	list->if_num[0] = num == 0 ? '0' : list->if_num[0];
+	list->out_len = list->width > list->prec ? list->width : list->prec;
+	list->out_len = len > list->out_len ? len : list->out_len;
+	if ((out = (char*)malloc(sizeof(char) * (list->out_len + 1))) == 0)
+		return ;
+	out[list->out_len] = 0;
+	if (list->flag[0] == 1 && list->flag[1] == 1)/*-, 0*/
+		list->flag[0] = 0;
+	make_int(out, list, len);
+}
+
+void	print_s_char(va_list ap, t_format *list)
+{
+	char	c;
+	size_t	len;
+	char	*out;
+
+	c = va_arg(ap, int);////
+	len = count_num_len((long)num, (long)num, list);/*수 저장해놓음*/
+	list->if_num[0] = num == 0 ? '0' : list->if_num[0];
+	list->out_len = list->width > list->prec ? list->width : list->prec;
+	list->out_len = len > list->out_len ? len : list->out_len;
+	if ((out = (char*)malloc(sizeof(char) * (list->out_len + 1))) == 0)
+		return ;
+	out[list->out_len] = 0;
+	if (list->flag[0] == 1 && list->flag[1] == 1)/*-, 0*/
+		list->flag[0] = 0;
+	make_int(out, list, len);
 }

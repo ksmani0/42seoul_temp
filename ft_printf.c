@@ -29,19 +29,19 @@ void	print_char(t_format* list)
 int	if_flags_check(t_format *list)
 {
 	if (*list->str == '-')
-		list->flags[0] = 1;
+		list->flag[0] = 1;
 	else if (*list->str == '0')
-		list->flags[1] = 1;
+		list->flag[1] = 1;
         else if (*list->str == '.')
-		list->flags[2] = 1;
+		list->flag[2] = 1;
         else if (*list->str == '*')
-		list->flags[3] = 1;
+		list->flag[3] = 1;
 	else if (*list->str == '#')
-		list->flags[4] = 1;
+		list->flag[4] = 1;
 	else if (*list->str == ' ')
-		list->flags[5] = 1;
+		list->flag[5] = 1;
 	else if (*list->str == '+')
-		list->flags[6] = 1;
+		list->flag[6] = 1;
 	else
 		return (-1);
 	return (1);

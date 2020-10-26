@@ -20,14 +20,14 @@
 
 typedef struct s_format {
 	char	*str;
-	char	flags[7];/*-0.*# +*/
-	char	specifier;/*cspdiuxX%nfge*/
+	char	flag[7];/*-0.*# +*/
+	char	spec;/*specifier: cspdiuxX%nfge*/
 	char	if_num[12];
-	int	width;
-	int	precision;
-	int	length;/*h:1, hh:2, l:3, ll:6*/
-	int	output_len;
-	int	output_num;
+	short	width;
+	short	prec;/*precision*/
+	short	length;/*h:1, hh:2, l:3, ll:6*/
+	short	out_len;
+	int	out_num;
 }		t_format
 
 #endif

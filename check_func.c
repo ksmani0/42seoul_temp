@@ -50,20 +50,20 @@ void	check_specific(t_format *list)
 
 void	output_specific(va_list ap, t_format *list)
 {
-	if (list->specific == 'd' || list->specific == 'i')
+	if (list->spec == 'd' || list->spec == 'i')
 		print_s_int(ap, list);
-	else if (list->specific == 'u')
+	else if (list->spec == 'u')
 		print_s_uint(ap, list);
-	else if (list->specific == 'c' || list->specific == 's')
+	else if (list->spec == 'c' || list->spec == 's')
 		print_s_char(ap, list);
-	else if (list->specific == '%')
+	else if (list->spec == '%')
 		print_s_percent(ap, list);
-	else if (list->specific == 'x' || list->specific == 'X')
+	else if (list->spec == 'x' || list->spec == 'X')
 		print_s_octal(ap, list);
-	else if (list->specific == 'e' || list->specific == 'f' || list->specific == 'g')
+	else if (list->spec == 'e' || list->spec == 'f' || list->spec == 'g')
 		print_s_float(ap, list);
-	else if (list->specific == 'p')
+	else if (list->spec == 'p')
 		print_s_point(ap, list);
-	else if (list->specific == 'n')
+	else if (list->spec == 'n')
 		print_s_number(ap, list);
 }
