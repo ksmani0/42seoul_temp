@@ -12,21 +12,21 @@
 
 #include "ft_printf.h"
 
-t_format	*initial_malloc(t_format *list)
+t_format	*initial_malloc(t_format **list)
 {
-	if((list = (t_format*)malloc(sizeof(t_format) * 1)) == 0)
+	if((*list = (t_format*)malloc(sizeof(t_format) * 1)) == 0)
 		return ((void*)0);
-	*list = { 0, };
-	return (list);
+	*(*list) = { 0, };
+	return (*list);
 }
 
-void	print_char(t_format* list)
+void		print_char(t_format* list)
 {
-	list->output_num++;
+	list->out_num++;
 	write(1, list->str++, 1);
 }
 
-int	if_flags_check(t_format *list)
+int		if_flag_check(t_format *list)
 {
 	if (*list->str == '-')
 		list->flag[0] = 1;
@@ -34,14 +34,12 @@ int	if_flags_check(t_format *list)
 		list->flag[1] = 1;
         else if (*list->str == '.')
 		list->flag[2] = 1;
-        else if (*list->str == '*')
-		list->flag[3] = 1;
 	else if (*list->str == '#')
-		list->flag[4] = 1;
+		list->flag[3] = 1;
 	else if (*list->str == ' ')
-		list->flag[5] = 1;
+		list->flag[4] = 1;
 	else if (*list->str == '+')
-		list->flag[6] = 1;
+		list->flag[5] = 1;
 	else
 		return (-1);
 	return (1);
@@ -49,23 +47,22 @@ int	if_flags_check(t_format *list)
 
 void		str_or_format(va_list ap, t_format *list)
 {
-	int i;
-
 	while (*list->str != 0)
 	{
 		if (*list->str != '%')
 			print_char(list);
-		else if (*list->str == '%')
+		else if (*list->str++ == '%')
 		{
-			i = 2;
-			while (i-- != 0)
-			{
-				while ((if_flags_check(list)) != -1 && *list->str != 0)
+			initial_part(&list);
+			while ((if_flag_check(list)) == 1 && *list->str != 0)
 				list->str++;
-				check_width_prec(list);
-			}
+			check_width_prec(ap, list);
+			while ((if_flag_check(list)) == 1 && *list->str != 0)
+				list->str++;
+			check_width_prec(ap, list);
 			check_length(list);
-			check_specific(list);
+			if ((check_specific(list)) == -1)
+				return ;
 			output_specific(ap, list);
 		}
 		list->str++;
@@ -78,14 +75,13 @@ int		ft_printf(const char *format, ...)
 	va_list		ap;/*char**/
 	int		ret;
 
-	if ((initial_malloc(list)) == 0)
+	if (format == 0 || (initial_malloc(&list)) == 0)
 		return (-1);
-	list->str = format;/*서식지정자 등 내용 남긴 문자열*/
-	va_start(ap, list->str);/*ap가 고정 인자 다음 인자로 주소 이동*/
+	list->str = format;/*서식지정자 등 담긴 문자열*/
+	va_start(ap, list->str);/*ap가 고정 인자 너머 가변 인자로 주소 이동*/
 	str_or_format(ap, list);
 	va_end(ap);
 	ret = list->output_num;
-	free(list->flags);
 	free(list);
 	return (ret);
 }

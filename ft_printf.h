@@ -20,14 +20,29 @@
 
 typedef struct s_format {
 	char	*str;
-	char	flag[7];/*-0.*# +*/
+	char	flag[6];/* -0.# + */
 	char	spec;/*specifier: cspdiuxX%nfge*/
 	char	if_num[12];
+	char	len;/*h, hh:H, l, ll:L*/
 	short	width;
 	short	prec;/*precision*/
-	short	length;/*h:1, hh:2, l:3, ll:6*/
 	short	out_len;
 	int	out_num;
 }		t_format
+
+/*
+*****ft_printf.c*****
+/*
+
+t_format	*initial_malloc(t_format **list);
+void		print_char(t_format* list);
+int		if_flag_check(t_format *list);
+void		str_or_format(va_list ap, t_format *list);
+int		ft_printf(const char *format, ...);
+
+/*
+*****check_func.c*****
+/*
+
 
 #endif
