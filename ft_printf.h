@@ -24,6 +24,7 @@ typedef struct s_format {
 	char	spec;/*specifier: cspdiuxX%nfge*/
 	char	if_num[12];
 	char	len;/*h, hh:H, l, ll:L*/
+	va_list	ap;
 	short	width;
 	short	prec;/*precision*/
 	short	out_len;

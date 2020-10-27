@@ -12,60 +12,64 @@
 
 #include "ft_printf.h"
 
-void	check_width_prec(va_list ap, t_format *list)
+void	check_width_prec(t_format **list)
 {
 	short	w_or_p;
 
 	w_or_p = 0;
-	if (*list->str == '*')/* *.*, *., .*, *d */
+	if (*(*list)->str == '*')/* *.*, *., .*, *d */
 	{
-		if (ist->flag[2] == 0)
-			list->width = (short)va_arg(ap, int);
-		else if (ist->flag[2] == 1)
-			list->prec = (short)va_arg(ap, int);
-		list->str++;
+		if ((*list)->flag[2] == 0)
+			(*list)->width = (short)va_arg((*list)->ap, int);
+		else if ((*list)->flag[2] == 1)
+			(*list)->prec = (short)va_arg((*list)->ap, int);
+		(*list)->str++;
 		return ;
 	}
-	while (*list->str >= '0' && *list->str <= '9')
-		w_or_p = w_or_p * 10 + (*list->str++ - '0');
-	if (list->flag[2] == 0 && w_or_p > 0)/*.*/
-		list->width = w_or_p;
-	else if (list->flag[2] == 1 && w_or_p > 0)
-		list->prec = w_or_p;
-	if (list->flag[0] == 1)/*-*/
-		list->flag[1] = 0;
-	if (list->flag[5] == 1)/*+*/
-		list->flag[4] = 0;
+	while (*(*list)->str >= '0' && *(*list)->str <= '9')
+		w_or_p = w_or_p * 10 + (*(*list)->str++ - '0');
+	if ((*list)->flag[2] == 0 && w_or_p > 0)/*.*/
+		(*list)->width = w_or_p;
+	else if ((*list)->flag[2] == 1 && w_or_p > 0)
+		(*list)->prec = w_or_p;
+	if ((*list)->flag[0] == 1)/*-*/
+		(*list)->flag[1] = 0;
+	if ((*list)->flag[5] == 1)/*+*/
+		(*list)->flag[4] = 0;
 }
 
-void	check_length(t_format *list)
+void	check_length(t_format **list)
 {
-	if (*list->str == 'h' && *(list->str + 1) == 'h')
-		list->len = 'H';
-	else if (*list->str == 'h' && *(list->str + 1) != 'h')
-		list->len = 'h';
-	else if (*list->str == 'l' && *(list->str + 1) == 'l')
+	t_format *lp;
+
+	lp = *list;
+	if (*lp->str == 'h' && *(lp->str + 1) == 'h')
+		lp->len = 'H';
+	else if (*lp->str == 'h' && *(lp->str + 1) != 'h')
+		lp->len = 'h';
+	else if (*lp->str == 'l' && *(lp->str + 1) == 'l')
 		list->len = 'l';
-	else if (*list->str == 'l' && *(list->str + 1) != 'l')
-		list->len = 'L';
+	else if (*lp->str == 'l' && *(lp->str + 1) != 'l')
+		lp->len = 'L';
 	else
 		return ;
-	list->str = list->len == 'h' || list->len == 'l' ?
-		list->str + 1 : list->str + 2;
+	lp->str = lp->len == 'h' || lp->len == 'l' ? lp->str + 1 : lp->str + 2;
+	*list->str = lp->str;
 }
 
-int	check_specific(t_format *list)
+int	check_specific(t_format **list)
 {
 	char c;
 
-	c = *list->str;
+	c = *(*list)->str;
 	if ((c >= 'd' && c <= 'g') || c == '%')
-		list->spec = c;
+		(*list)->spec = c;
 	else if (c == 'i' || c == 'n' || c == 'p' ||
 		c == 's' || c == 'u' || c == 'x' || c == 'X')
-		list->specifier = c;
+		(*list)->specifier = c;
 	else
 		return (-1);
+	(*list)->str++;
 	return (1);
 }
 
@@ -86,22 +90,23 @@ void	initial_part(t_format **list)
 	(*list)->out_len = 0;
 }
 
-void	output_specific(va_list ap, t_format *list)
+int	output_specific(t_format *list)
 {
 	if (list->spec == 'd' || list->spec == 'i')
-		print_s_int(ap, list);
+		return (print_s_int(list));
 	else if (list->spec == 'u')
-		print_s_uint(ap, list);
+		ret = print_s_uint(list);
 	else if (list->spec == 'c' || list->spec == 's')
-		print_s_char(ap, list);
+		ret = print_s_char(list);
 	else if (list->spec == '%')
-		print_s_percent(ap, list);
+		ret = print_s_percent(list);
 	else if (list->spec == 'x' || list->spec == 'X')
-		print_s_octal(ap, list);
+		ret = print_s_octal(list);
 	else if (list->spec == 'e' || list->spec == 'f' || list->spec == 'g')
-		print_s_float(ap, list);
+		ret = print_s_float(list);
 	else if (list->spec == 'p')
-		print_s_point(ap, list);
+		ret = print_s_point(list);
 	else if (list->spec == 'n')
-		print_s_number(ap, list);
+		ret = print_s_number(list);
+	return (-1);
 }
