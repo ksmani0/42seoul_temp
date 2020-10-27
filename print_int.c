@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_func.c                                       :+:      :+:    :+:   */
+/*   print_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/19 13:04:19 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/10/27 11:47:13 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	count_num_len(long num, t_format *list)
 {
 	size_t	len;
-	int	i;
+	int		i;
 
 	if (num == 0)
 		return (1);
@@ -52,7 +52,7 @@ void	input_list_num(t_format *list, long num, size_t len)
 	}
 }
 
-void	output_int(char *out, t_format *list, size_t len)
+void	output_num(char *out, t_format *list, size_t len)
 {
 	int i;
 
@@ -69,8 +69,11 @@ void	output_int(char *out, t_format *list, size_t len)
 	len = 0;
 	while (i < list->out_len)
 		out[i++] = list->if_num[len++];
+	while (i < list->out_len)
+		out[i++] = ' ';
 	write(1, out, i);
 	free(out);
+	list->out_num += i;
 }
 
 int	print_s_int(t_format *list)

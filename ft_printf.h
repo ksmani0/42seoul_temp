@@ -18,9 +18,12 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
+char g_hex_b[17] = "0123456789ABCDEF";
+char g_hex_s[17] = "0123456789abcdef";
+
 typedef struct s_format {
 	char	*str;
-	char	flag[6];/* -0.# + */
+	char	flag[6];/*-0.# +*/
 	char	spec;/*specifier: cspdiuxX%nfge*/
 	char	if_num[12];
 	char	len;/*h, hh:H, l, ll:L*/
@@ -45,5 +48,22 @@ int		ft_printf(const char *format, ...);
 *****check_func.c*****
 /*
 
+/*
+*****print_int.c*****
+/*
+
+size_t		count_num_len(long num, t_format *list);
+void		input_list_num(t_format *list, long num, size_t len);
+void		output_int(char *out, t_format *list, size_t len);
+int		print_s_int(t_format *list);
+
+/*
+*****print_uint.c*****
+/*
+
+int		print_s_uint(t_format *list);
+int		print_s_char(t_format *list);
+size_t		parse_input_hex(unsigend int x, t_format *list);
+int		print_s_octal(t_format **list);
 
 #endif

@@ -95,18 +95,18 @@ int	output_specific(t_format *list)
 	if (list->spec == 'd' || list->spec == 'i')
 		return (print_s_int(list));
 	else if (list->spec == 'u')
-		ret = print_s_uint(list);
-	else if (list->spec == 'c' || list->spec == 's')
-		ret = print_s_char(list);
-	else if (list->spec == '%')
-		ret = print_s_percent(list);
+		return (print_s_uint(list));
+	else if (list->spec == 'c' || list->spec == '%')
+		return (print_s_char(list));
+	else if (list->spec == 's')
+		print_s_str(list);
 	else if (list->spec == 'x' || list->spec == 'X')
-		ret = print_s_octal(list);
+		return (print_s_octal(list));
 	else if (list->spec == 'e' || list->spec == 'f' || list->spec == 'g')
 		ret = print_s_float(list);
 	else if (list->spec == 'p')
 		ret = print_s_point(list);
 	else if (list->spec == 'n')
-		ret = print_s_number(list);
+		print_s_number(list);
 	return (-1);
 }
