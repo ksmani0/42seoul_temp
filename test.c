@@ -51,17 +51,17 @@ int main(void)
     printf("%-2.s|\n", "\0");
     printf("%-6.s|\n", "\0");
 
-    printf("%+- 06.06s|\n", s_hidden);
-    printf("% -+012.06s|\n", s_hidden);
-    printf("%+-0 6.04s|\n", s_hidden);
-    printf("%+-0 6.09s|\n", s_hidden);
+    printf("%%+- 06.06s: error|\n");//. 앞이든 뒤든 0플래그는 s랑 정의할 수 없는 조합
+    printf("%% -+012.06s: error|\n");//. 앞이든 뒤든 ' '플래그는 s랑 정의할 수 없는 조합
+    printf("%%+-0 6.04s: error|\n");//. 앞이든 뒤든 +플래그는 s랑 정의할 수 없는 조합
+    printf("%%+-0 6.09s: error|\n");//이렇게 4개 예시 속 인자 다 지움
 
     printf("%00s|\n", s_hidden);
     printf("%-00s|\n", s_hidden);
     printf("%0-0s|\n", s_hidden);
     printf("%03s|\n", s_hidden);
     printf("%09s|\n", s_hidden);
-    printf("%+03s|\n", s_hidden);
+    printf("%+03s|\n", s_hidden);//
     printf("%+09s|\n", s_hidden);
     printf("%-03s|\n", s_hidden);
     printf("%-09s|\n", s_hidden);
