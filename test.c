@@ -56,17 +56,17 @@ int main(void)
     printf("%%+-0 6.04s: error|\n");//. 앞이든 뒤든 +플래그는 s랑 정의할 수 없는 조합
     printf("%%+-0 6.09s: error|\n");//이렇게 4개 예시 속 인자 다 지움
 
-    printf("%00s|\n", s_hidden);
-    printf("%-00s|\n", s_hidden);
-    printf("%0-0s|\n", s_hidden);
-    printf("%03s|\n", s_hidden);
-    printf("%09s|\n", s_hidden);
-    printf("%+03s|\n", s_hidden);//
-    printf("%+09s|\n", s_hidden);
-    printf("%-03s|\n", s_hidden);
-    printf("%-09s|\n", s_hidden);
-    printf("%+ 3s|\n", s_hidden);
-    printf("%+ 9s|\n", s_hidden);
+    printf("%%00s: error|\n");//.가 있든 없든 0플래그는 s랑은 정의할 수 없는 조합
+    printf("%%-00s: error|\n");
+    printf("%%0-0s: error|\n");
+    printf("%%03s: error|\n");
+    printf("%%09s: error|\n");
+    printf("%%+03s: error|\n");//.가 있든 없든 +플래그는 s랑은 정의할 수 없는 조합
+    printf("%%+09s: error|\n");
+    printf("%%-03s: error|\n");
+    printf("%%-09s: error|\n");
+    printf("%%+ 3s: error|\n");//.가 있든 없든 ' '플래그는 s랑은 정의할 수 없는 조합
+    printf("%%+ 9s: error|\n");
 
     printf("%%.09s: |%.09s|\n", NULL);//정밀도 시작 0이면 정밀도 무시
     printf("%%.9s: |%.9s|\n", NULL);//NULL은 (NULL)로 출력
