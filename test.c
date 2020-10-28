@@ -2,6 +2,8 @@
 
 int main(void)
 {
+    int ncm_p = 5;
+
     printf("str test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("min.max\n");
     printf("%%.09s: |%.09s|\n", NULL);//정밀도 시작 0이면 정밀도 무시
@@ -12,25 +14,24 @@ int main(void)
 
 
     printf("\n# test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("%%#0-8.5X: |%#0-8.5X|\n", 34);
-    printf("%%#0-8.5X: |%#0-8.5X|\n", 0);
-    printf("%#0-8.3X|\n", 8375);
-    printf("%#0-2.7X|\n", 3267);
-    printf("%#0-3.3X|\n", 6983);
+    printf("%%#0-8.5X: error|\n", 34);//- 있으면 0 무시. 에러
+    printf("%%#0-8.5X: error|\n", 0);//- 있으면 0 무시. 에러
+    printf("%%#0-2.7X: error|\n", 3267);//- 있으면 0 무시. 에러
+    printf("%%#0-3.3X: error|\n", 6983);//- 있으면 0 무시. 에러
 
-    printf("%#|\n");
-    printf("%#s|\n", NULL);
+    printf("%#\n");
+    printf("%%#s: error|\n", NULL);//정의되지 않은 조합
     printf("%##x|\n", 42);
-    printf("%#++#-5x|\n", 42);
+    printf("%#++#-5x|\n", 42);//x에 +플래그는 정의되지 않은 조합
 
-    printf("%%#c: error|\n", 'a');//정의되지 않은 조합
-    printf("%%#s: error|\n", "hello");//정의되지 않은 조합
-    printf("%#p|\n", &ncm_p);
-    printf("%%#d: error|\n", 42);//정의되지 않은 조합
-    printf("%%#i: error|\n", 42);//정의되지 않은 조합
-    printf("%%#u: error|\n", 42);//정의되지 않은 조합
+    printf("%%#c: error|\n");//정의되지 않은 조합, 인자 지움
+    printf("%%#s: error|\n");//정의되지 않은 조합, 인자 지움
+    printf("%#p|\n", &ncm_p);//선언되지 않은 ncm_p 썼다고 에러
+    printf("%%#d: error|\n");//정의되지 않은 조합, 인자 지움
+    printf("%%#i: error|\n");//정의되지 않은 조합, 인자 지움
+    printf("%%#u: error|\n");//정의되지 않은 조합, 인자 지움
 
     printf("\nd test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("%%.-5d: error\n", 10);//정밀도에 -있으면 불유효, 에러
+    printf("%%.-5d: error\n");//정밀도에 -있으면 불유효, 에러, 인자 지움
     printf("|%.09d|\n", 10);
 }
