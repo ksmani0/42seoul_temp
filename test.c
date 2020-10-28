@@ -14,33 +14,33 @@ int main(void)
 
 
     printf("\n# test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("%#X", 4294967295u);
+    printf("%#X|\n", 4294967295u);
 
-    printf("%#3X", 0);
-    printf("%#7X", 52625);
-    printf(%#-4X", 9648627);
+    printf("%#3X|\n", 0);
+    printf("%#7X|\n", 52625);
+    printf("%#-4X|\n", 9648627);
 
-    printf("%#.3X", 0);
-    printf("%#.3X", 938862);
-    printf("%#.0X", 0);
-    printf("%#.X", 0);
-    printf("%#5.0X", 0);
-    printf("%#5.X", 0);
+    printf("%#.3X|\n", 0);
+    printf("%#.3X|\n", 938862);
+    printf("%#.0X|\n", 0);
+    printf("%#.X|\n", 0);
+    printf("%#5.0X|\n", 0);
+    printf("%#5.X|\n", 0);
 
-    printf("%#8.3X", 8375);//
-    printf("%#2.7X", 3267);//
-    printf("%#3.3X", 6983);//
+    printf("%#8.3X|\n", 8375);//
+    printf("%#2.7X|\n", 3267);//
+    printf("%#3.3X|\n", 6983);//
 
-    printf("%#-8.3X", 8375);//
-    printf("%#-2.7X", 3267);//
-    printf("%#-3.3X", 6983);//
+    printf("%#-8.3X|\n", 8375);//
+    printf("%#-2.7X|\n", 3267);//
+    printf("%#-3.3X|\n", 6983);//
 
-    printf("%#05X", 43);//
-    printf("%#03X", 0);//
-    printf("%#03X", 698334);//
-    printf("%#08.3X", 8375);//
-    printf("%#02.7X", 3267);//
-    printf("%#03.3X", 6983);//
+    printf("%#05X|\n", 43);//
+    printf("%#03X|\n", 0);//
+    printf("%#03X|\n", 698334);//
+    printf("%#08.3X|\n", 8375);//
+    printf("%#02.7X|\n", 3267);//
+    printf("%#03.3X|\n", 6983);//
 
     printf("%%#0-8.5X: error|\n");//- 있으면 0 무시. 에러, 인자 지움
     printf("%%#0-8.5X: error|\n");//- 있으면 0 무시. 에러, 인자 지움
@@ -62,4 +62,5 @@ int main(void)
     printf("\nd test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("%%.-5d: error\n");//정밀도에 -있으면 불유효, 인자 지움
     printf("|%.09d|\n", 10);
+    return 0;
 }
