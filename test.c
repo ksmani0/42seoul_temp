@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    int ncm_p = 5;
+    //int ncm_p = 5;
 
     printf("str test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("min.max\n");
@@ -14,12 +14,40 @@ int main(void)
 
 
     printf("\n# test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("%#X", 4294967295u);
+
+    printf("%#3X", 0);
+    printf("%#7X", 52625);
+    printf(%#-4X", 9648627);
+
+    printf("%#.3X", 0);
+    printf("%#.3X", 938862);
+    printf("%#.0X", 0);
+    printf("%#.X", 0);
+    printf("%#5.0X", 0);
+    printf("%#5.X", 0);
+
+    printf("%#8.3X", 8375);//
+    printf("%#2.7X", 3267);//
+    printf("%#3.3X", 6983);//
+
+    printf("%#-8.3X", 8375);//
+    printf("%#-2.7X", 3267);//
+    printf("%#-3.3X", 6983);//
+
+    printf("%#05X", 43);//
+    printf("%#03X", 0);//
+    printf("%#03X", 698334);//
+    printf("%#08.3X", 8375);//
+    printf("%#02.7X", 3267);//
+    printf("%#03.3X", 6983);//
+
     printf("%%#0-8.5X: error|\n");//- 있으면 0 무시. 에러, 인자 지움
     printf("%%#0-8.5X: error|\n");//- 있으면 0 무시. 에러, 인자 지움
     printf("%%#0-2.7X: error|\n");//- 있으면 0 무시. 에러, 인자 지움
     printf("%%#0-3.3X: error|\n");//- 있으면 0 무시. 에러, 인자 지움
 
-    printf("%#");//
+    printf("%%#: error|\n");//불완전한 형식 지정자
     printf("%%#s: error|\n", NULL);//정의되지 않은 조합
     printf("%##x|\n", 42);//
     printf("%%#++#-5x: error|\n");//x에 +플래그는 정의되지 않은 조합, 인자 지움
