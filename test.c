@@ -3,11 +3,12 @@
 int main(void)
 {
     printf("str test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("%%.09s: |%.09s|\n", NULL);//정밀도 앞에 0있으면 정밀도 무시
+    printf("min.max\n");
+    printf("%%.09s: |%.09s|\n", NULL);//정밀도 시작 0이면 정밀도 무시
     printf("%%.9s: |%.9s|\n", NULL);//NULL은 (NULL)로 출력
-    printf("%%.-9s: |%.-9s|\n", NULL);//에러
-    printf("%%.+9s: |%.+9s|\n", NULL);//에러
-    printf("%%. 9s: |%. 9s|\n", NULL);//에러
+    printf("%%.-9s: error\n", NULL);//문자열에 -플래그는 불유효. 에러
+    printf("%%.+9s: error\n", NULL);//문자열에 +플래그는 불유효. 에러
+    printf("%%. 9s: error\n", NULL);//문자열에 ' '플래그는 불유효. 에러
 
 
     printf("\n# test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -22,14 +23,14 @@ int main(void)
     printf("%##x|\n", 42);
     printf("%#++#-5x|\n", 42);
 
-    printf("%#c|\n", 'a');
-    printf("%#s|\n", "hello");
+    printf("%%#c: error|\n", 'a');//정의되지 않은 조합
+    printf("%%#s: error|\n", "hello");//정의되지 않은 조합
     printf("%#p|\n", &ncm_p);
-    printf("%#d|\n", 42);
-    printf("%#i|\n", 42);
-    printf("%#u|\n", 42);
+    printf("%%#d: error|\n", 42);//정의되지 않은 조합
+    printf("%%#i: error|\n", 42);//정의되지 않은 조합
+    printf("%%#u: error|\n", 42);//정의되지 않은 조합
 
     printf("\nd test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("|%.-5d|\n", 10);
+    printf("%%.-5d: error\n", 10);//정밀도에 -있으면 불유효, 에러
     printf("|%.09d|\n", 10);
 }
