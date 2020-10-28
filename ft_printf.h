@@ -23,13 +23,13 @@ char g_hex_s[17] = "0123456789abcdef";
 
 typedef struct s_format {
 	char	*str;
-	char	flag[6];/*-0.# +*/
+	char	flag[5];/*-0# +*/
 	char	spec;/*specifier: cspdiuxX%nfge*/
 	char	if_num[12];
 	char	len;/*h, hh:H, l, ll:L*/
 	va_list	ap;
-	short	width;
-	short	prec;/*precision*/
+	char	*width;
+	char	*prec;/*precision*/
 	short	out_len;
 	int	out_num;
 }		t_format
@@ -64,6 +64,7 @@ int		print_s_int(t_format *list);
 int		print_s_uint(t_format *list);
 int		print_s_char(t_format *list);
 size_t		parse_input_hex(unsigend int x, t_format *list);
-int		print_s_octal(t_format **list);
+int		print_s_octal(t_format *list);
+void		print_s_number(t_format *list);
 
 #endif

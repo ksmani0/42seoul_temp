@@ -67,7 +67,7 @@ void	output_num(char *out, t_format *list, size_t len)
 	while (i + len < list->prec && list->width <= list->prec)//정밀도 더 큼
 		out[i++] = '0';
 	len = 0;
-	while (i < list->out_len)
+	while (i < list->out_len && list->if_num[len] != 0)
 		out[i++] = list->if_num[len++];
 	while (i < list->out_len)
 		out[i++] = ' ';

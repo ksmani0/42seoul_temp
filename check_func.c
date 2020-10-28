@@ -12,30 +12,30 @@
 
 #include "ft_printf.h"
 
-void	check_width_prec(t_format **list)
+void	check_width_prec(t_format *list)
 {
 	short	w_or_p;
 
 	w_or_p = 0;
-	if (*(*list)->str == '*')/* *.*, *., .*, *d */
+	if (*list)->str == '*')/* *.*, *., .*, *d */
 	{
-		if ((*list)->flag[2] == 0)
-			(*list)->width = (short)va_arg((*list)->ap, int);
-		else if ((*list)->flag[2] == 1)
-			(*list)->prec = (short)va_arg((*list)->ap, int);
-		(*list)->str++;
+		if (list->flag[2] == 0)
+			list->width = (short)va_arg(list->ap, int);
+		else if (list->flag[2] == 1)
+			list->prec = (short)va_arg(list->ap, int);
+		list->str++;
 		return ;
 	}
-	while (*(*list)->str >= '0' && *(*list)->str <= '9')
-		w_or_p = w_or_p * 10 + (*(*list)->str++ - '0');
-	if ((*list)->flag[2] == 0 && w_or_p > 0)/*.*/
-		(*list)->width = w_or_p;
-	else if ((*list)->flag[2] == 1 && w_or_p > 0)
-		(*list)->prec = w_or_p;
-	if ((*list)->flag[0] == 1)/*-*/
-		(*list)->flag[1] = 0;
-	if ((*list)->flag[5] == 1)/*+*/
-		(*list)->flag[4] = 0;
+	while (*list->str >= '0' && *list->str <= '9')
+		w_or_p = w_or_p * 10 + (*list->str++ - '0');
+	if (list->flag[2] == 0 && w_or_p > 0)/*.*/
+		list->width = w_or_p;
+	else if list->flag[2] == 1 && w_or_p > 0)
+		list->prec = w_or_p;
+	if (list->flag[0] == 1)/*-*/
+		list->flag[1] = 0;
+	if (list->flag[5] == 1)/*+*/
+		list->flag[4] = 0;
 }
 
 void	check_length(t_format **list)
