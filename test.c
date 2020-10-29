@@ -2,7 +2,8 @@
 
 int main(void)
 {
-    //int n;
+    int n;
+    int nn;
 
     printf("f test~~~~~~~~~~~~~~~~~\n");
     printf("min.Below the decimal point\n");
@@ -59,8 +60,14 @@ int main(void)
     printf("% 5.6f|\n", 7.3);//
     printf("% 05.f|\n", 7.3);//
 
-    printf("%%# 0#5.d: error|\n");//#플래그와 d 조합은 정의할 수 없는 결과, 인자 지움
-    printf("%# 05.d|\n", 5);//
+    printf("%##x|\n", 42);//
+    printf("%##o|\n", 42);//
+    printf("%#%, "%##%|\n");//
+    printf("%#4f, %##4f|\n", 1.2, 1.2);//
+    printf("%#4n, %##4n|\n", 1.2, 1.2);//
+    printf("%#4g, %##4g|\n", &n, &nn);//
+    printf("%#4e, %##4e|\n", 1.2, 1.2);//
+
 
     return 0;
 }
