@@ -2,93 +2,92 @@
 
 int main(void)
 {
-    unsigned long long a10 = 1;
+    int n;
 
-    printf("\nd test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("max.min\n");
+    printf("f test~~~~~~~~~~~~~~~~~\n");
+    printf("min.Below the decimal point\n");
+    printf("%f|\n", -0.0);
+    printf("%f|\n", 9873.000001);
+    printf("%f|\n", -0.999999);
 
-    printf("%d|\n", 2147483647);//
-    printf("%d|\n", (int)(-2147483678));//
-    printf("%7d|\n", 33);//
-    printf("%7d|\n", -14);//
-    printf("%3d|\n", 0);//
-    printf("%4d|\n", 94827);//
-    printf("%4d|\n", -2464);//
+    printf("%.0f|\n", 0.0);
+    printf("%.0f|\n", -0.0);
+    printf("%.0f|\n", -7.00036);
 
-    printf("%-7d|\n", 33);//
-    printf("%-7d|\n", -14);//
-    printf("%-3d|\n", 0);//
-    printf("%-4d|\n", 94827);//
-    printf("%-4d|\n", -2464);//
+    printf("%.1f|\n", -0.0);
+    printf("%.1f|\n", 0.0);
+    printf("%.1f|\n", -7.00036);
+    printf("%.3f|\n", 573.924);
+    printf("%.3f|\n", -0.0);
 
-    printf("%.5d|\n", 2);//
-    printf("%.6d|\n", -3);//
-    printf("%.3d|\n", 0);//
-    printf("%.3d|\n", 13862);//
-    printf("%.3d|\n",-23646);//
+    printf("%.7f|\n", -875.000001);
+    printf("%.7f|\n", 999.9999999);
+    printf("%.7f|\n", -985.765426499);
 
-    printf("%05d|\n", 43);//
-    printf("%07d|\n", -54);//
-    printf("%03d|\n", 0);//
-    printf("%04d|\n", -4825);//
+    printf("%.13f|\n", 99.999999999999900000);
+    printf("%.17f|\n", 0.000000000000000010);
+    printf("%.18f|\n", 0.125978548534310421);
 
-    printf("%10.5d|\n", -216);//
-    printf("%8.5d|\n", 0);//
-    printf("%3.7d|\n", -2375);//
-    printf("%3.3d|\n", -8462);//
+    printf("%#.0f|\n", 0.0);
+    printf("%#.0f|\n", -0.0);
+    printf("%#.1f|\n", 0.0);
+    printf("%#.1f|\n", -0.0);
 
-    printf("%-10.5d|\n", -216);//
-    printf("%-8.5d|\n", 0);//
-    printf("%-3.7d|\n", 3267);//
-    printf("%-3.3d|\n", -8462);//
+    printf("%#.0f|\n", 7.4);
+    printf("%#.1f|\n", 7.3);
+    printf("%#.0f|\n", -7.4);
+    printf("%#.1f|\n", -7.3);
 
-    printf("%08.5d|\n", 34);//
-    printf("%010.5d|\n", -216);//
-    printf("%08.5d|\n", 0);//
-    printf("%8.05d|\n", 0);//
-    printf("%08.3d|\n", -8473);//
-    printf("%03.7d|\n", 3267);//0003267|
-    printf("%03.3d|\n", -8462);//-8462|
+    printf("%+.0f|\n", -0.0);
+    printf("%+.3f|\n", 0.0);
+    printf("%+.0f|\n", -7.4);
+    printf("%+.3f|\n", -7.3);
 
-    printf("%%0-10.5d: error|\n");//모든 서식지정자에서 0와 -플래그 같이 쓰면 0이 무시된다는 오류
-    printf("%010.5d|\n", -216);//    -00216|역시 최대너비 앞 0플래그는 최소너비에 적용
-    printf("%%0-8.5d: error|\n");//인자 지움
-    printf("%08.3d|\n", -8473);//   -8473|최대너비에 0플래그 있어도 최소너비가 인자 너비보다 작아 0 없음
-    printf("%%0-3.7d: error|\n");
-    printf("%%0-3.3d: error|\n");
+    printf("%5.0f|\n", 0.0);
+    printf("%5.3f|\n", -0.0);
+    printf("%5.0f|\n", -0.0);
+    printf("%5.6f|\n", -7.3);
 
-    printf("%%03.-3d: error|\n");//.정밀도가 -플래그로 시작하면 불유효, 인자 지움
-    printf("%%03.+3d: error|\n");//.정밀도가 +플래그로 시작하면 불유효
-    printf("%%03. 3d: error|\n");//.정밀도가 ' '플래그로 시작하면 불유효
+    printf("%05.0f|\n", 0.0);
+    printf("%05.3f|\n", -0.0);
+    printf("%05.1f|\n", 7.3);
+    printf("%05.6f|\n", -7.3);
 
-    printf("%.0d|\n", 0);//|
-    printf("%.d|\n", 0);//|
-    printf("%5.0d|\n", 0);//     |
-    printf("%5.d|\n", 0);//     |
-    printf("%-5.0d|\n", 0);//     |
-    printf("%-5.d|\n", 0);//     |
-    printf("%.0d|\n", 1);//1|
-    printf("%.d|\n", 1);//1|
-    printf("%5.0d|\n", 1);//    1|
-    printf("%5.d|\n", 1);//    1|
-    printf("%-5.0d|\n", 1);//1    |
-    printf("%-5.d|\n", 1);//1    |
+    printf("%-5.3f|\n", -0.0);
+    printf("%-5.6f|\n", -7.3);
+    printf("%-5.0f|\n", 0.0);
 
-    printf("%%.-5d: error|\n");//정밀도에 -있으면 불유효, 인자 지움
-    printf("%.09d|\n", 10);//|000000010|정밀도 앞에 0 있으면 최소너비 남는 공간에 0 채움
+    printf("n test~~~~~~~~~~~~~~~~~\n");
+    printf("pft%ntest|\n", &n);
+    printf("pft% ntest|\n", &n);
+    printf("pft%#ntest|\n", &n);
+    printf("pft%0ntest|\n", &n);
+    printf("pft%-ntest|\n", &n);
+    printf("pft%+ntest|\n", &n);
 
+    printf("pft%5ntest|\n", &n);
+    printf("pft%.5ntest|\n", &n);
+    printf("pft%5.5ntest|\n", &n);
 
-    printf("\np test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("%p|\n", &a10);//
-    printf("%%9.2p: error|\n");//p와 정밀도 조합은 정의되지 않은 결과
-    printf("%%2.9p: error|\n");//인자 삭제
-    printf("%%.5p: error|\n");//
-    printf("%%.0p: error|\n");//
-    printf("%%5p: error|\n");//p는 void*형인데 인자가 숫자만 들어오면 int형이라 안 맞음
-    printf("%15p|\n", &a10);//
-    printf("%-15p|\n", &a10);//
-    printf("%%015p: error|\n");//p와 0플래그 조합은 정의되지 않은 결과, 인자 삭제
+    printf("pft%.*ntest%d|\n", 5, &n, 123);
+    printf("pft%*.ntest%d|\n", 5, &n, 123);
+    printf("pft%*.*ntest%d|\n", 5, 5, &n, 123);
 
+    printf("* test~~~~~~~~~~~~~~~~~\n");
+    printf("%.*f|\n", -3, 3.1415926535);
+    printf("%.*e|\n", -3, 3.1415926535);
+    printf("%.*g|\n", -3, 3.1415926535);
+    printf("%.*o|\n", -1, 12345);
+
+    printf("%-*s|\n", 32, "abc");
+    printf("%-*.*s|\n", 7, 3, "yolo");
+    printf("%0*i|\n", 7, -54);
+    printf("%.*i|\n", 6, -3);
+
+    printf("%*s|\n", -32, "abc");
+    printf("%-*s|\n", -32, "abc");
+    printf("%-*.*s|\n", -7, -3, "yolo");
+    printf("%0*i|\n", -7, -54);
 
     return 0;
 }
