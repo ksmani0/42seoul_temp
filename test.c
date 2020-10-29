@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    int n;
+    //int n;
 
     printf("f test~~~~~~~~~~~~~~~~~\n");
     printf("min.Below the decimal point\n");
@@ -57,29 +57,27 @@ int main(void)
     printf("%-5.6f|\n", -7.3);//-7.300000|
     printf("%-5.0f|\n", 0.0);//0    |
 
-    printf("%-05.3f|\n", -0.0);//
+    printf("%%-05.3f: error|\n");//f서도 -플래그 있을 땐 0플래그 무시
     printf("%#-5.6f|\n", -7.3);//
     printf("%-5.0f|\n", 0.0);//
     printf("%+5.6f|\n", -7.3);//
     printf("%+5.6f|\n", 7.3);//
     printf("%+05.6f|\n", -7.3);//
     printf("%+-5.6f|\n", -7.3);//
-    printf("%+-05.6f|\n", -7.3);//
+    printf("%%+-05.6f: error|\n");//f서도 -플래그 있을 땐 0플래그 무시
     printf("%-+5.6f|\n", -7.3);//
     printf("%+#-5.6f|\n", -7.3);//
     printf("% 5.6f|\n", -7.3);//
     printf("% 05.6f|\n", -7.3);//
     printf("% -5.6f|\n", -7.3);//
-    printf("% -05.6f|\n", -7.3);//
+    printf("%% -05.6f: error|\n");//f서도 -플래그 있을 땐 0플래그 무시
     printf("%- 5.6f|\n", -7.3);//
 
-    printf("%+ .6f|\n", -7.3);//
-    printf("% +.6f|\n", -7.3);//
+    printf("%%+ .6f: error|\n");//f서도 +플래그 있을 땐 ' '플래그 무시
+    printf("%% +.6f: error|\n");//+플래그만 있는 걸로 처리하기
 
-    printf("%.-3f|\n", 3.1415926535);//3.141593|
-    printf("%.-3e|\n", 3.1415926535);//3.141593e+00|
-    printf("%.-3g|\n", 3.1415926535);//3.14159|
-    printf("%.-1o|\n", 12345);//30071
+    printf("%-*.*d|\n", -7, -5, 123);//
+    printf("%-*.*d|\n", 7, -5, 123);//
 
     return 0;
 }
