@@ -59,7 +59,8 @@ int main(void)
     printf("% 5.6f|\n", 7.3);//
     printf("% 05.f|\n", 7.3);//
 
-    printf("%# 0#5.d|\n", 7);//
+    printf("%%# 0#5.d: error|\n");//#플래그와 d 조합은 정의할 수 없는 결과, 인자 지움
+    printf("%# 05.d|\n", 5);//
 
     return 0;
 }
