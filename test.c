@@ -74,20 +74,20 @@ int main(void)
     printf("%-5.0d|\n", 1);//1    |
     printf("%-5.d|\n", 1);//1    |
 
-    printf("%%.-5d: error\n");//정밀도에 -있으면 불유효, 인자 지움
+    printf("%%.-5d: error|\n");//정밀도에 -있으면 불유효, 인자 지움
     printf("%.09d|\n", 10);//|000000010|정밀도 앞에 0 있으면 최소너비 남는 공간에 0 채움
 
 
     printf("\np test~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("%p|\n", &a10);//
-    printf("%9.2p|\n", 1234);//
-    printf("%2.9p|\n", 1234);//
-    printf("%.5p|\n", 0);//
-    printf("%.0p|\n", 0);//
-    printf("%5p|\n", 0);//
+    printf("%%9.2p: error|\n");//p와 정밀도 조합은 정의되지 않은 결과
+    printf("%%2.9p: error|\n");//인자 삭제
+    printf("%%.5p: error|\n");//
+    printf("%%.0p: error|\n");//
+    printf("%%5p: error|\n");//p는 void*형인데 인자가 숫자만 들어오면 int형이라 안 맞음
     printf("%15p|\n", &a10);//
     printf("%-15p|\n", &a10);//
-    printf("%015p|\n", &a10);//
+    printf("%%015p: error|\n");//p와 0플래그 조합은 정의되지 않은 결과, 인자 삭제
 
 
     return 0;
