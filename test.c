@@ -58,20 +58,20 @@ int main(void)
     printf("%-5.0f|\n", 0.0);
 
     printf("n test~~~~~~~~~~~~~~~~~\n");
-    printf("pft%ntest|\n", &n);
-    printf("pft% ntest|\n", &n);
-    printf("pft%#ntest|\n", &n);
-    printf("pft%0ntest|\n", &n);
-    printf("pft%-ntest|\n", &n);
-    printf("pft%+ntest|\n", &n);
+    printf("pft%ntest|\n", &n);//
+    printf("pft%% ntest: error|\n", &n);//' '플래그와 n 조합은 정의되지 않은 결과
+    printf("pft%%#ntest: error|\n", &n);//#플래그와 n 조합은 정의되지 않은 결과
+    printf("pft%%0ntest: error|\n", &n);//0플래그와 n 조합은 정의되지 않은 결과
+    printf("pft%%-ntest: error|\n");//-플래그와 n 조합은 정의되지 않은 결과
+    printf("pft%%+ntest: error|\n");//인자 지움
 
-    printf("pft%5ntest|\n", &n);
-    printf("pft%.5ntest|\n", &n);
-    printf("pft%5.5ntest|\n", &n);
+    printf("pft%%5ntest: error|\n");//그냥 너비도 n과 정의되지 않은 결과
+    printf("pft%%.5ntest: error|\n");//인자 지움
+    printf("pft%%5.5ntest: error|\n");//
 
-    printf("pft%.*ntest%d|\n", 5, &n, 123);
-    printf("pft%*.ntest%d|\n", 5, &n, 123);
-    printf("pft%*.*ntest%d|\n", 5, 5, &n, 123);
+    printf("pft%%.*ntest%d: error|\n");//n과 정밀도 조합은 정의되지 않은 결과, 인자 지움
+    printf("pft%%*.ntest%d: error|\n");//
+    printf("pft%%*.*ntest%d: error|\n");//
 
     printf("* test~~~~~~~~~~~~~~~~~\n");
     printf("%.*f|\n", -3, 3.1415926535);
