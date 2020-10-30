@@ -18,8 +18,12 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
-char g_hex_b[17] = "0123456789ABCDEF";
-char g_hex_s[17] = "0123456789abcdef";
+static char s_hex_b[17] = "0123456789ABCDEF";
+static char s_hex_s[17] = "0123456789abcdef";
+
+static char *s_double[52];
+
+s_double[0] = "5000000000_0000000000_0000000000";
 
 typedef struct s_format {
 	char	*str;
