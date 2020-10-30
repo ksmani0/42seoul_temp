@@ -18,27 +18,28 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
-//static char s_hex_b[17] = "0123456789ABCDEF";
-//static char s_hex_s[17] = "0123456789abcdef";
+static char	s_hex_b[17] = "0123456789ABCDEF";
+static char	s_hex_s[17] = "0123456789abcdef";
 
-//static char *s_double[52];
+char		*g_double[52];
+g_double[0] = "500000000";
 
 typedef struct s_format {
 	char	*str;
-	char	flag[5];/*-0# +*/
-	char	spec;/*specifier: cspdiuxX%nfge*/
+	char	flag[5];
+	char	spec;
 	char	if_num[12];
-	char	len;/*h, hh:H, l, ll:L*/
+	char	len;
 	va_list	ap;
 	char	*width;
-	char	*prec;/*precision*/
+	char	*prec;
 	short	out_len;
 	int	out_num;
 }		t_format
 
 /*
 *****ft_printf.c*****
-/*
+*/
 
 t_format	*initial_malloc(t_format **list);
 void		print_char(t_format* list);
@@ -48,11 +49,11 @@ int		ft_printf(const char *format, ...);
 
 /*
 *****check_func.c*****
-/*
+*/
 
 /*
 *****print_int.c*****
-/*
+*/
 
 size_t		count_num_len(long num, t_format *list);
 void		input_list_num(t_format *list, long num, size_t len);
@@ -61,7 +62,7 @@ int		print_s_int(t_format *list);
 
 /*
 *****print_uint.c*****
-/*
+*/
 
 int		print_s_uint(t_format *list);
 int		print_s_char(t_format *list);
