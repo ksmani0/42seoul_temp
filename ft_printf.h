@@ -21,7 +21,7 @@
 //static char s_hex_b[17] = "0123456789ABCDEF";
 //static char s_hex_s[17] = "0123456789abcdef";
 
-static char *s_double[52];
+//static char *s_double[52];
 
 typedef struct s_format {
 	char	*str;
