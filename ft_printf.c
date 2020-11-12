@@ -20,38 +20,27 @@ t_format	*initial_malloc(t_format **list)
 	return (*list);
 }
 
-void		print_char(t_format **list)
+void		print_char(t_format *list)
 {
-	(*list)->out_num++;
-	write(1, (*list)->str++, 1);
+	list->nums++;
+	write(1, list->str++, 1);
 }
 
-void		if_flag_check(t_format **list)
+void	initial_part(t_format *list)
 {
-	t_format *lp;
+	int i;
 
-	lp = *list;
-	while (1)
-	{
-		if (*lp->str == '-')
-			lp->flag[0] = 1;
-		else if (*lp->str == '0')
-			lp->flag[1] = 1;
-        	else if (*lp->str == '.')
-			lp->flag[2] = 1;
-		else if (*lp->str == '#')
-			lp->flag[3] = 1;
-		else if (*lp->str == ' ')
-			lp->flag[4] = 1;
-		else if (*lp->str == '+')
-			lp->flag[5] = 1;
-		else
-		{
-			(*list)->str = lp->str;
-			return ;
-		}
-		lp->str++;
-	}
+	i = 0;
+	while (i < 6)
+		list->flag[i++] = 0;
+	list->spec = 0;
+	i = 0;
+	while (i < 21 && list->if_num[i] != 0)
+		list->if_num[i++] = 0;
+	list->len = 0;
+	list->width = 0;
+	list->prec = 0;
+	list->size = 0;
 }
 
 int		str_or_format(t_format *list)
@@ -59,16 +48,15 @@ int		str_or_format(t_format *list)
 	while (*list->str != 0)
 	{
 		if (*list->str != '%')
-			print_char(&list);
+			print_char(list);
 		else if (*list->str++ == '%')
 		{
-			initial_part(&list);
-			if_flag_check(&list);
-			check_width_prec(&list);
-			if_flag_check(&list);
-			check_width_prec(&list);
-			check_length(&list);
-			if ((check_specific(&list)) == -1 || (output_specific(list)) == -1)
+			initial_part(list);
+			if_flag_check(list);
+			check_width_star(list);
+			check_prec_star(list);
+			check_length(list);
+			if ((check_spec(list)) == -1 || (output_spec(list)) == -1)
 				return (-1);
 		}
 		list->str++;
@@ -86,9 +74,9 @@ int		ft_printf(const char *format, ...)
 	list->str = format;/*서식지정자 등 담긴 문자열*/
 	va_start(list->ap, list->str);/*ap가 고정 인자 너머 가변 인자로 주소 이동*/
 	if ((str_or_format(list)) == -1)
-		list->out_num = -1;
+		list->nums = -1;
 	va_end(list->ap);
-	ret = list->out_num;
+	ret = list->nums;
 	free(list);
 	return (ret);
 }

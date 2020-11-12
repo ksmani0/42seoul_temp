@@ -12,101 +12,109 @@
 
 #include "ft_printf.h"
 
-void	check_width_prec(t_format *list)
+void		if_flag_check(t_format *list)
 {
-	short	w_or_p;
-
-	w_or_p = 0;
-	if (*list)->str == '*')/* *.*, *., .*, *d */
+	while (1)
 	{
-		if (list->flag[2] == 0)
-			list->width = (short)va_arg(list->ap, int);
-		else if (list->flag[2] == 1)
-			list->prec = (short)va_arg(list->ap, int);
+		if (*list->str == '+')
+			list->flag[0] = 1;
+		else if (*list->str == '-')
+			list->flag[1] = 1;
+        	else if (*list->str == '0')
+			list->flag[2] = 1;
+		else if (*list->str == ' ')
+			list->flag[3] = 1;
+		else if (*list->str == '*')
+			list->flag[4] = 1;
+		else if (*list->str == '#')
+			list->flag[5] = 1;
+		else
+			return ;
+		list->str++;
+	}
+}
+
+void	check_width_star(t_format *list)
+{
+	int w;
+
+	w = 0;
+	if (*list->str != '.' && (*list->str >= '0' && *list->str <= '9'))
+		return ;
+	list->flag[6] = *list->str == '.' ? 1 : 0;
+	if (list->flag[4] == 1 && *list->str == '.')/* *./*d */
+	{
+		w = va_arg(list->ap, int);
+		list->flag[1] = w < 0 ? 1 : list->flag[1];
+		list->width = w < 0 ? w * -1 : w;
+		list->str = *list->str == '.' ? list->str + 1 : list->str;
+		return ;
+	}
+	else if (list->flag[4] == 0 && *list->str == '.')/* n. */
+	{
 		list->str++;
 		return ;
 	}
-	while (*list->str >= '0' && *list->str <= '9')
-		w_or_p = w_or_p * 10 + (*list->str++ - '0');
-	if (list->flag[2] == 0 && w_or_p > 0)/*.*/
-		list->width = w_or_p;
-	else if list->flag[2] == 1 && w_or_p > 0)
-		list->prec = w_or_p;
-	if (list->flag[0] == 1)/*-*/
-		list->flag[1] = 0;
-	if (list->flag[5] == 1)/*+*/
-		list->flag[4] = 0;
+	while (*list->str >= '0' && *list->str <= '9')/* 수./d/수d/수* */
+		w = w * 10 + (*list->str++ - '0');
+	list->width = w;
+	list->str = *list->str == '.' ? list->str + 1 : list->str
 }
 
-void	check_length(t_format **list)
+void	check_prec_star(t_format *list)
+{
+	int p;
+
+	p = 0;
+	if (*list->str != '*' && (*list->str >= '0' && *list->str <= '9'))
+		return ;/* . 뒤에 +' '#- 안 오니 신경 안 써도 됨 */
+	if (*list->str == '*')/* (.)수d/*/*d */
+	{
+		list->flag[4] = 1;
+		p = va_arg(list->ap, int);
+		list->prec = p < 0 ? 0 : p;
+		return ;
+	}
+	while (*list->str >= '0' && *list->str <= '9')/* 1d */
+		p = p * 10 + (*list->str++ - '0');
+	list->prec = p;
+}
+
+void	check_length(t_format *list)
 {
 	t_format *lp;
 
-	lp = *list;
+	lp = list;
+	if (lp->flag[1] == 1)/*-*/
+		lp->flag[2] = 0;/*0*/
+	if (lp->flag[0] == 1)/*+*/
+		lp->flag[3] = 0;/*' '*/
 	if (*lp->str == 'h' && *(lp->str + 1) == 'h')
 		lp->len = 'H';
 	else if (*lp->str == 'h' && *(lp->str + 1) != 'h')
 		lp->len = 'h';
 	else if (*lp->str == 'l' && *(lp->str + 1) == 'l')
-		list->len = 'l';
+		lp->len = 'l';
 	else if (*lp->str == 'l' && *(lp->str + 1) != 'l')
 		lp->len = 'L';
 	else
 		return ;
-	lp->str = lp->len == 'h' || lp->len == 'l' ? lp->str + 1 : lp->str + 2;
-	*list->str = lp->str;
+	lp->str = (lp->len == 'h' || lp->len == 'l') ? lp->str + 1 : lp->str + 2;
+	list->str = lp->str;
 }
 
-int	check_specific(t_format **list)
+int	check_spec(t_format *list)
 {
 	char c;
 
-	c = *(*list)->str;
+	c = *list->str;
 	if ((c >= 'd' && c <= 'g') || c == '%')
-		(*list)->spec = c;
+		list->spec = c;
 	else if (c == 'i' || c == 'n' || c == 'p' ||
 		c == 's' || c == 'u' || c == 'x' || c == 'X')
-		(*list)->specifier = c;
+		list->spec = c;
 	else
 		return (-1);
-	(*list)->str++;
+	list->str++;
 	return (1);
-}
-
-void	initial_part(t_format **list)
-{
-	int i;
-
-	i = 0;
-	while (i < 6)
-		(*list)->flag[i++] = 0;
-	(*list)->spec = 0;
-	i = 0;
-	while (i < 12 && (*list)->if_num[i] != 0)
-		(*list)->if_num[i++] = 0;
-	(*list)->len = 0;
-	(*list)->width = 0;
-	(*list)->prec = 0;
-	(*list)->out_len = 0;
-}
-
-int	output_specific(t_format *list)
-{
-	if (list->spec == 'd' || list->spec == 'i')
-		return (print_s_int(list));
-	else if (list->spec == 'u')
-		return (print_s_uint(list));
-	else if (list->spec == 'c' || list->spec == '%')
-		return (print_s_char(list));
-	else if (list->spec == 's')
-		print_s_str(list);
-	else if (list->spec == 'x' || list->spec == 'X')
-		return (print_s_octal(list));
-	else if (list->spec == 'e' || list->spec == 'f' || list->spec == 'g')
-		ret = print_s_float(list);
-	else if (list->spec == 'p')
-		ret = print_s_point(list);
-	else if (list->spec == 'n')
-		print_s_number(list);
-	return (-1);
 }

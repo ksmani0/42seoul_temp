@@ -1,0 +1,265 @@
+*flag: +-0' '*#
+
+
+
+
+
+
+
+
+
+
+~~~~~~~~~~~~
+
+void	output_int_ngf(char *out, t_format *list, size_t len)
+{
+	int i;
+
+	i = 0;
+	if (list->if_num[0] == '-')/* -음수 */
+		out[i++] = '-';
+	else if (list->flag[0] == 1)/* -+ */
+		out[i++] = list->num[0] != '-' ? '+' : '-';
+	else if (list->flag[3] == 1)/* -' ' */
+		out[i++] = list->num[0] != '-' ? ' ' : '-';
+	if (list->prec > len)/* 정밀도>인자>최대너비(1.5, 123 00123) 정밀도>최너>인자(4.5, 123 00123) */
+		fill_space_or_zero(&i, list->size - len, out, '0');
+	len = list->if_num[0] == '-' ? 1 : 0;
+	while (list->if_num[len] != 0)/* 인>정>최대너비(1.2, 123) 인>최너>정(2.1, 123) */
+		out[i++] = list->if_num[len++];
+	if (i < list->size)/* 최너>인>정(5.1, 123..) 최너>정>인(5.3, 1 001..) */
+		fill_space_or_zero(&i, list->size, out, ' ');
+	write(1, out, i);
+	free(out);
+	list->nums += i;
+}
+
++)
+void	output_int(char *out, t_format *list, size_t len)
+{
+	int i;
+
+	i = 0;
+	if (len >= list->width || list->prec >= list->width)
+	{/* |12345|+12345| 12345|-12345| */
+		if (list->if_num[0] == '-')
+			out[i++] = '-';
+		else if (list->flag[0] == 1 || list->flag[3] == 1)
+			out[i++] = list->flag[0] == 1 ? '+' : ' ';
+		if (list->prec > len)/* |0001|+0001| 0001|-0001| */
+			fill_space_or_zero(&i, list->size - len, out, '0');
+	}
+	else if (list->width > len && list->width > list->prec)/*|  001| +001| -001| |  12|  +12|  -12|*/
+	{
+		int longer = len > list->prec ? len : list->prec;
+		if (ist->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1))
+			longer++;
+		fill_space_or_zero(&i, list->size - longer, out, ' ');
+		if (list->if_num[0] == '-')
+			out[i++] = '-';
+		else if (list->flag[0] == 1 || list->flag[3] == 1)
+			out[i++] = list->flag[0] == 1 ? '+' : ' ';
+		fill_space_or_zero(&i, list->prec - len, out, '0');
+	}
+	len = list->if_num[0] == '-' ? 1 : 0;
+	while (list->if_num[len] != 0)
+		out[i++] = list->if_num[len++];
+	write(1, out, i);
+	free(out);
+	list->nums += i;
+}//30
+
+
+===============
+int	print_di_int(t_format *list)
+{
+	int	num;
+	size_t	len;
+	char	*out;
+
+	if (list->flag[5] == 1)
+		(-1);
+	num = va_arg(list->ap, int);
+	len = count_num_len((long)num, list);
+	input_list_num(list, (long)num, len);
+	list->size = list->width > list->prec ? list->width : list->prec;
+	list->size = len > list->out_len ? len : list->size;
+	if (list->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1)
+		&& (len == list->size || list->prec == list->size))/* +' ' |+0002/ 1234 */
+		list->size++;
+	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
+		return (-1);
+	out[list->size] = 0;
+	if (list->flag[1] == 1)/* -flag */
+		output_int_ngf(out, list, len);
+	else
+		output_int(out, list, len);
+	return (1);
+}
+
+void	output_c(t_format *list, t_uchar *out, t_uchar c)
+{
+	int i;
+
+	i = 0;
+	if (list->flag[1] == 1 || list->width <= 1)
+		out[i++] = c;
+	if (list->flag[1] == 0 && list->width > 1)
+	{
+		fill_space_or_zero(&i, list->size - 1, out, ' ');
+		out[i++] = c;
+	}
+	if (list->flag[1] == 1 && list->width > 1)
+		fill_space_or_zero(&i, list->size, out, ' ');
+	write(1, out, i);
+	free(out);
+}
+
+int	print_ls(t_format *list)
+{
+	wchar_t	*ls;
+	t_uchar *ls_t[2];
+	t_uchar	len;
+	int	i;
+
+	if ((ls = va_arg(list->ap, wchar_t*)) == 0)/*wchar == 4bytes*/
+		return (print_ls_null(list));
+	len[1] = 0;
+	i = 0;
+	ls_t[0] = 0;
+	ls_t[1] = 0;
+	while (ls[i] != 0)
+	{
+		if ((len[0] = check_ls_size(ls[i++], &ls_t[0])) < 0)
+			return (-1);
+		len[1] += len[0];
+		if ((ls_t[1] = ls_join(ls_t[1], ls_t[0], len[0])) == 0)
+			return (-1);
+	}
+	if ((check_size_output(list, ls_t[1], len[1])) < 0)
+	{
+		free(ls_t[1]);
+		return (-1);
+	}
+	return (1);
+}
+
+t_uchar	*ls_join(t_uchar *store, t_uchar *buf, int temp)/*1->store, 0->buf*/
+{
+	t_uchar *s;
+	int	len;
+	int	i;
+	int	j;
+
+	if (store == 0)
+		return (buf);
+	len = (int)ft_ustrlen(store) + (int)ft_ustrlen(buf);
+	if ((s = (t_uchar*)malloc(sizeof(t_uchar) * (len + 1))) == 0)
+		return ((void*)0);
+	i = -1;
+	while (store[++i] != 0)
+		s[i] = store[i];
+	j = 0;
+	while (buf[j] != 0)
+		s[i++] = buf[j++];
+	s[i] = 0;
+	free(store);
+	free(buf);
+	return (s);
+}
+
+int	check_size_output(t_format *list, t_uchar *ls, int len)
+{/*len = ls 총 바이트 수|num = 출력되는 ls 문자수*/
+	t_uchar *out;
+	int	num;
+	int	gap;
+
+	num = list->size;
+	num = list->prec < num ? list->prec : num;
+	list->size = list->width >
+	if (list->flag[6] == 1)
+	{
+		list->size = list->width > list->prec ? list->width : list->prec;
+		list->size = list->size > num ? list->size : num;
+	}
+	else if (list->flag[6] == 0)
+		list->size = list->width > len ? list->width : len;
+	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
+		return (-1);
+	out[list->size] = 0;
+	output_ls(list, ls, out, len);
+	return (1);
+}
+
+int	print_s(t_format *list)
+{
+	t_uchar	*s;
+	t_uchar	*out;
+	int	len;
+
+	if (list->flag[0] == 1 || list->flag[2] == 1
+		|| list->flag[3] == 1 || list->flag[5] == 1)
+		return (-1);/*최너/정밀/-/*만 가능*/
+	if (list->len == 'l')
+		return (print_ls(list));
+	if ((s = (t_uchar*)va_arg(list->ap, char*)) == 0)
+		return (print_null(list));
+	len = ft_strlen(s);/*최소.최대*/
+	if (list->flag[6] == 1)
+	{
+		list->size = list->width > list->prec ? list->width : list->prec;
+		list->size = list->size > len ? list->size : len;
+	}
+	else if (list->flag[6] == 0)
+		list->size = list->width > len ? list->width : len;
+	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
+		return (-1);
+	out[list->size] = 0;
+	output_s(list, out, s, len);
+	return (1);
+}
+
+void	output_s(t_format *list, t_uchar *out, t_uchar *s, int len)
+{
+	int i;
+	int longer;
+
+	i = 0;/* ||(null)|..(null)|(null)..|*/
+	longer = list->prec > len ? list->prec : len;
+	if (list->flag[1] == 0 && list->width > list->prec && list->width > len)
+		fill_space_or_zero(&i, list->size - longer, out, ' ');
+	len = 0;
+	while (s[len] != 0 && len <= longer)
+		out[i++] = s[len++];
+	if (list->flag[1] == 1 && list->width > longer)
+		fill_space_or_zero(&i, list->size - longer, out, ' ');
+	write(1, out, i);
+	free(out);
+	list->nums += i;
+	if (list->if_num[0] == 'n')
+		free(s);
+}
+
+int	print_null(t_format *list)
+{
+	t_uchar *nul_s;
+
+	if ((nul_s = (t_uchar*)malloc(sizeof(t_uchar) * 7)) == 0)
+		return (-1);
+	make_nul_s(list, nul_s);
+	if (list->flag[6] == 1 && list->prec < len)
+	{
+		list->size = list->width > list->prec ? list->width : list->prec;
+		list->size = list->size > 6 ? list->size : 6;
+	}
+	else if (list->flag[6] == 0)
+		list->size = list->width > 6 ? list->width : 6;
+	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
+	{
+		free(nul_s);
+		return (-1);
+	}
+	out[list->size] = 0;
+	output_s(list, nul_s, 6);
+	return (1);
+}
