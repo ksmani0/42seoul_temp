@@ -53,6 +53,32 @@ typedef struct	s_format
 }			t_format;
 
 /*
+*m:mantissa
+*e:exponent
+*s:sign
+*/
+
+typedef union		u_dble
+{
+	double		dble_v;
+	struct
+	{
+		size_t	m : 52;
+		size_t	e : 11;
+		size_t	s : 1;
+	}		s_int;
+	size_t		total_v;
+}			t_dble;
+
+typedef struct		s_dble
+{
+	char		*s_div;
+	char		*s_mod;
+	size_t		d_len;
+	size_t		m_len;
+}			t_sble;
+
+/*
 *****ft_printf.c*****
 */
 
