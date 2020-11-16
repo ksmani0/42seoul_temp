@@ -113,7 +113,7 @@ int	output_spec(t_format *list)
 	else if (list->spec == 'o')
 		return (print_o(list));
 	else if (list->spec == 'e' || list->spec == 'f' || list->spec == 'g')
-		ret = print_f(list);
+		ret = print_feg(list);
 	else if (list->spec == 'p')
 		return (print_p(list));
 	else if (list->spec == 'n')

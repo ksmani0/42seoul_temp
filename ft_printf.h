@@ -18,13 +18,11 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
-char	g_hex_b[17] = "0123456789ABCDEF";
-char	g_hex_s[17] = "0123456789abcdef";
+char				g_hex_b[17] = "0123456789ABCDEF";
+char				g_hex_s[17] = "0123456789abcdef";
 
 /*
-*flag: +-0' '*#.
-*spec: diuxXcsp%nfge
-*prec: .
+*flag: +-0' '*#. | spec: diuxXcsp%nfge | prec: precision
 *len: hHlL(signed char~sigend long long)
 */
 
@@ -38,45 +36,51 @@ typedef long int		t_lint;
 typedef long long int		t_llint;
 typedef long double		t_ldble;
 
-typedef struct	s_format
+typedef struct			s_format
 {
-	char	*str;
-	char	flag[7];
-	char	spec;
-	char	if_num[21];
-	char	len;
-	va_list	ap;
-	int	width;
-	int	prec;
-	int	size;
-	int	nums;
-}			t_format;
+	char			*str;
+	char			flag[7];
+	char			spec;
+	char			if_num[21];
+	char			len;
+	va_list			ap;
+	int			width;
+	int			prec;
+	int			size;
+	int			nums;
+}				t_format;
 
 /*
-*m:mantissa
-*e:exponent
-*s:sign
+*m:mantissa | e:exponent | s:sign
 */
 
-typedef union		u_dble
+typedef union			u_dble
 {
-	double		dble_v;
+	double			dble_v;
 	struct
 	{
-		size_t	m : 52;
-		size_t	e : 11;
-		size_t	s : 1;
-	}		s_int;
-	size_t		total_v;
-}			t_dble;
+		size_t		m : 52;
+		size_t		e : 11;
+		size_t		s : 1;
+	}			s_int;
+	size_t			total_v;
+}				t_dble;
 
-typedef struct		s_dble
+typedef struct			s_dble
 {
-	char		*s_div;
-	char		*s_mod;
-	size_t		d_len;
-	size_t		m_len;
-}			t_sble;
+	char			*s_div;
+	char			*d_bit;
+	char			*s_mod;
+	char			*m_bit;
+	size_t			d_len;
+	size_t			m_len;
+}				t_sble;
+
+typedef struct			s_deci
+{
+	char			s[1076];
+	size_t			len;
+}				t_deci;
 
 /*
 *****ft_printf.c*****
