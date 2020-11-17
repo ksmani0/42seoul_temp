@@ -73,6 +73,7 @@ typedef struct			s_dble
 	char			*d_bit;
 	char			*s_mod;
 	char			*m_bit;
+	char			*e;
 	size_t			d_len;
 	size_t			m_len;
 }				t_sble;

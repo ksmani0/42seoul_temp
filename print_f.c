@@ -91,6 +91,7 @@ int	free_sble(int error_or_not, t_sble *sble)
 	free(sble->d_bit);
 	free(sble->s_mod);
 	free(sble->m_bit);
+	free(sble->e);
 	return (error_or_not);
 }
 
