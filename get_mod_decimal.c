@@ -25,10 +25,11 @@ void	input_div_pow(t_deci *pow)
 		if ((temp = (pow->s[i] - '0') * 2 + up) > 9)
 		{
 			up = temp / 10;
-			temp %= 10;
-			pow->len++;
+			pow->len = i == pow->len - 1 ? pow->len++ : pow->len;
 		}
-		pow->s[i++] = temp - '0';
+		else
+			up = 0;
+		pow->s[i++] = temp % 10 + '0';
 	}
 }
 
@@ -49,14 +50,15 @@ void	input_div_sum(char bit, t_deci *pow, t_deci *sum)
 		if ((temp = (pow->s[i] - '0') + (sum->s[i] - '0') + up) > 9)
 		{
 			up = temp / 10;
-			temp %= 10;
 			if (i == longer - 1)
 			{
 				sum->len++;
 				longer++;
 			}
 		}
-		sum->s[i++] = temp - '0';
+		else
+			up = 0;
+		sum->s[i++] = temp % 10 + '0';
 	}
 }
 
@@ -73,45 +75,6 @@ void	fill_mod_bit(t_dble *dble, t_sble *sble, int len)
 	sble->s[i++] = '1';
 	while (len-- >= 0)
 		sble->s[i++] = ((dble->m >> len) & 1) + '0';
-}
-
-void	input_mod_pow(t_deci *pow)//다른 파일로 옮겨야 함
-{
-	int i;
-
-	i = 0;
-	while (i < pow->len)
-	{
-		if (((pow->s[i] - '0') % 2) != 0)
-			pow->s[i + 1] = '5';
-		pow->s[i] = (pow->s[i] - '0') / 2;
-		i++;
-	}
-	pow->len++;
-}
-
-void	input_mod_sum(char bit, t_deci *pow, t_deci *sum)//다른 파일로 옮겨야 함
-{
-	int i;
-	int up;
-	int temp;
-	int longer;
-
-	if (bit == 0)
-		return ;
-	up = 0;
-	longer = pow->len > sum->len ? pow->len : sum->len;
-	i = longer;
-	while (i >= 0)
-	{
-		if ((temp = (pow->s[i] - '0') + (sum->s[i] - '0') + up) > 9)
-		{
-			up = temp / 10;
-			temp %= 10;
-			sum->s[i--] = temp - '0';
-		}
-	}
-	sum->len = longer;
 }
 
 int	get_mod_decimal(t_dble *dble, t_sble *sble, int len)
@@ -134,7 +97,10 @@ int	get_mod_decimal(t_dble *dble, t_sble *sble, int len)
 		return (-1);
 	i = -i;
 	while (++i > sum.len)
+	{
 		sble->s_mod[i] = sum.s[i];
+		sble->m_len++;
+	}
 	return (1);
 }
 

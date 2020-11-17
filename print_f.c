@@ -20,7 +20,11 @@ int	get_div_decimal(t_dble *dble, t_sble *sble, int len)
 		return (-1);
 	i = -i;
 	while (++i > sum.len)
+	{
 		sble->s_div[i] = sum.s[i];
+		sble->d_len++;
+	}
+	sble->sign = dble->s == 1 ? 1 : 0;
 	return (1);
 }
 
@@ -60,10 +64,12 @@ int	check_inf_nan(t_dble dble, t_format *list)
 
 	i = 0;
 	len = 3;
-	if ((dble.e == 0 && dble.e == 1023 && dble.m == 0) ||
-		(dble.e == 1023 && dble.m >= 1))
+	if (dble.e != 2047)
+		return ;
+	if ((dble.e == 0 && dble.e == 2047 && dble.m == 0) ||
+		(dble.e == 2047 && dble.m >= 1))
 		s = dble.m >= 1 ? "nan" : "inf";
-	else if (dble.e == 1 && dble.e == 1023 && dble.m == 0 && (len = 4))
+	else if (dble.e == 1 && dble.e == 2047 && dble.m == 0 && (len = 4))
 		s = "-inf";
 	if (list->flag[1] != 0 && list->width > len)
 	{
@@ -79,30 +85,32 @@ int	check_inf_nan(t_dble dble, t_format *list)
 	return (1);
 }
 
-int	free_bles(t_sble *sble)
+int	free_sble(int error_or_not, t_sble *sble)
 {
 	free(sble->s_div);
 	free(sble->d_bit);
 	free(sble->s_mod);
 	free(sble->m_bit);
-	return (-1);
+	return (error_or_not);
 }
 
 int	print_feg(t_format *list)
 {
-	t_dble dble;
-	t_sble sble;
+	t_dble dble;//인자 보관
+	t_sble sble;//인자의 정수-소수 비트 패턴, 10진수로 바꾼 값 문자열 보관
 
+	if (list->len == 'h' || list->len == 'H' || list->len == 'L')
+		return (-1);
 	dble = va_arg(list->ap, double);
 	if ((check_inf_nan(dble, list)) == 1)
 		return (1);
 	ft_bzero((void*)&dble, sizeof(dble));
 	ft_bzero((void*)&sble, sizeof(sble));
 	if (!(parse_div(&dble, &sble)) || !(parse_mod(&dble, &sble)))
-		return (free_bles(&sble));
+		return (free_sble(-1, &sble));
 	if (list->spec == 'e')
-		return (get_e(list, &dble, &sble));
+		return (get_e_str(list, &dble, &sble));
 	else if (list->spec == 'g')
-		return (get_g(list, &dble, &sble));
-	return (get_f(list, &dble, &sble));
+		return (get_g_str(list, &dble, &sble));
+	return (get_f_str(list, &dble, &sble));
 }

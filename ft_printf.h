@@ -68,6 +68,7 @@ typedef union			u_dble
 
 typedef struct			s_dble
 {
+	char			sign;
 	char			*s_div;
 	char			*d_bit;
 	char			*s_mod;
@@ -78,7 +79,7 @@ typedef struct			s_dble
 
 typedef struct			s_deci
 {
-	char			s[1076];
+	char			s[1076];/*52+1+1022 + 1*/
 	size_t			len;
 }				t_deci;
 

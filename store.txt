@@ -1,11 +1,41 @@
-*flag: +-0' '*#
-
-
-
-
-
-
-
+void	output_feg(t_format *list, t_sble *ret, int i)//다른 파일로 옮기기
+{
+	if (list->width > list->size && list->flag[1] == 0)/*-*/
+	{
+		if (list->flag[0] == 1 && list->flag[2] == 1 && (i = 1))
+			ret->sign == 1 ? write(1, "+", 1) : write(1, "-", 1);
+		if (list->flag[3] == 1 && list->flag[2] == 1 && (i = 1))
+			ret->sign == 1 ? write(1, " ", 1) : write(1, "-", 1);
+		while (list->flat[2] == 1 && i++ < list->width - list->size)
+			write(1, "0", 1);
+		while (list->flat[2] != 1 && i++ < list->width - list->size)
+			write(1, " ", 1);
+		if (list->flag[0] == 1 && list->flag[2] != 1)
+			ret->sign == 1 ? write(1, "+", 1) : write(1, "-", 1);
+		else if (list->flag[3] == 1 && list->flag[2] != 1)
+			ret->sign == 1 ? write(1, " ", 1) : write(1, "-", 1);
+	}
+	if (list->flag[1] == 1)
+	{
+		if (list->flag[0] == 1)
+			ret->sign == 1 ? write(1, "+", 1) : write(1, "-", 1);
+		else if (list->flag[3] == 1)
+			ret->sign == 1 ? write(1, " ", 1) : write(1, "-", 1);
+	}
+	i = ret->d_len - 1;
+	while (i >= 0)
+		write(1, &ret->[i--], 1);
+	write(1, ".", 1);
+	i = 0;
+	while (i < ret->m_len)
+		write(1, &ret->[i++], 1);
+	i = 0;
+	if (list->width > list->size && list->flag[1] == 1)
+	{
+		while (i++ < list->width - list->size)
+			write(1, " ", 1);
+	}
+}
 
 
 
@@ -144,51 +174,36 @@ int	print_ls(t_format *list)
 	return (1);
 }
 
-t_uchar	*ls_join(t_uchar *store, t_uchar *buf, int temp)/*1->store, 0->buf*/
+
+void	output_feg(t_format *list, t_sble *ret)//다른 파일로 옮기기
 {
-	t_uchar *s;
-	int	len;
-	int	i;
-	int	j;
+	int i;
 
-	if (store == 0)
-		return (buf);
-	len = (int)ft_ustrlen(store) + (int)ft_ustrlen(buf);
-	if ((s = (t_uchar*)malloc(sizeof(t_uchar) * (len + 1))) == 0)
-		return ((void*)0);
-	i = -1;
-	while (store[++i] != 0)
-		s[i] = store[i];
-	j = 0;
-	while (buf[j] != 0)
-		s[i++] = buf[j++];
-	s[i] = 0;
-	free(store);
-	free(buf);
-	return (s);
-}
-
-int	check_size_output(t_format *list, t_uchar *ls, int len)
-{/*len = ls 총 바이트 수|num = 출력되는 ls 문자수*/
-	t_uchar *out;
-	int	num;
-	int	gap;
-
-	num = list->size;
-	num = list->prec < num ? list->prec : num;
-	list->size = list->width >
-	if (list->flag[6] == 1)
+	i = 0;
+	if (list->width > list->size)
 	{
-		list->size = list->width > list->prec ? list->width : list->prec;
-		list->size = list->size > num ? list->size : num;
+		while (i++ < list->width - list->size)
+			write(1, "0", 1);
+		while (i++ < list->width - list->size)
+			write(1, " ", 1);
 	}
-	else if (list->flag[6] == 0)
-		list->size = list->width > len ? list->width : len;
-	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
-		return (-1);
-	out[list->size] = 0;
-	output_ls(list, ls, out, len);
-	return (1);
+	if (list->flag[0] == 1 && list->flag[2] == 1)/*+/0*/
+	{
+		write(1, " ");
+	}
+
+		&& list->width - temp > i++)
+		write(1, " ", 1);
+	temp = ret->d_len - 1;
+	while (temp >= 0)
+		write(1, &ret->s_div[temp--], 1);
+	write(1, ".", 1);
+	while (temp < ret->m_len)
+		write(1, &ret->s_div[temp++], 1);
+	temp = ret->d_len + ret->m_len + 1;
+	while (list->flag[1] == 1 && list->width > temp && list->width - temp > i++)
+		write(1, " ", 1);
+	list->nums = list->nums + i + 1 + ret->d_len + ret->m_len;
 }
 
 int	print_s(t_format *list)
