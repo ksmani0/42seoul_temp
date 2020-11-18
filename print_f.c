@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_f.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/18 15:12:07 by seungmki          #+#    #+#             */
+/*   Updated: 2020/11/18 15:12:27 by seungmki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	get_div_decimal(t_dble *dble, t_sble *sble, int len)
@@ -66,7 +78,7 @@ int	check_inf_nan(t_dble dble, t_format *list)
 	len = 3;
 	if (dble.e != 2047)
 		return ;
-	if ((dble.e == 0 && dble.e == 2047 && dble.m == 0) ||
+	if ((dble.s == 0 && dble.e == 2047 && dble.m == 0) ||
 		(dble.e == 2047 && dble.m >= 1))
 		s = dble.m >= 1 ? "nan" : "inf";
 	else if (dble.e == 1 && dble.e == 2047 && dble.m == 0 && (len = 4))

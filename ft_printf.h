@@ -73,13 +73,15 @@ typedef struct			s_dble
 	char			*d_bit;
 	char			*s_mod;
 	char			*m_bit;
+	size_t			d_len;
+	size_t			m_len;
 	char			*out;
+	size_t			out_mlen;
+	int			p_idx;/*index until 0div*/
 	char			*e;
 	char			esign;
 	int			e_int;
-	int			p_idx;
-	size_t			d_len;
-	size_t			m_len;
+
 }				t_sble;
 
 typedef struct			s_deci
@@ -129,5 +131,48 @@ int			print_s_char(t_format *list);
 size_t		parse_input_hex(unsigned int x, t_format *list);
 int			print_s_octal(t_format *list);
 void		print_s_number(t_format *list);
+
+/*
+*****print_f.c*****
+*/
+
+int	get_div_decimal(t_dble *dble, t_sble *sble, int len)
+int	parse_div(t_dble *dble, t_sble *sble)
+int	check_inf_nan(t_dble dble, t_format *list)
+int	free_sble(int error_or_not, t_sble *sble)
+int	print_feg(t_format *list)
+
+/*
+*****parse_mod.c*****
+*/
+
+void	input_div_pow(t_deci *pow)
+void	input_div_sum(char bit, t_deci *pow, t_deci *sum)
+void	fill_mod_bit(t_dble *dble, t_sble *sble, int len)
+int	get_mod_decimal(t_dble *dble, t_sble *sble, int len)
+int	parse_mod(t_dble *dble, t_sble *sble)
+
+/*
+*****input_mod.c*****
+*/
+
+void	input_mod_pow(t_deci *pow)
+void	input_mod_sum(char bit, t_deci *pow, t_deci *sum)
+
+/*
+*****get_f_str.c*****
+*/
+
+void	rounding_meet_five(t_sble *ret, int prec)
+void	round_up(t_sble *ret, int prec)
+void	round_f(t_format *list, t_sble *ret)
+int	get_f_str(t_format *list, t_dble *dble, t_sble *sble)//need
+
+/*
+*****get_e_str.c*****
+*/
+
+
+int	get_e_str(t_format *list, t_dble *dble, t_sble *sble)
 
 #endif

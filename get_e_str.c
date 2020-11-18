@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_feg.c                                       :+:      :+:    :+:   */
+/*   get_e_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,7 @@
 
 #include "ft_printf.h"
 
-void	rounding_meet_five(t_sble *ret, int prec)
-{
-	int i;
-	int not_zero;
 
-	i = prec + 2;
-	not_zero = 0;
-	while (i <= ret->m_len && not_zero == 0)
-	{
-		if (ret->s_mod[i++] != '0')
-			not_zero = 1;
-	}
-	if (not_zero == 1)
-		round_up(ret, prec);
-	else if (not_zero == 0 && (ret->s_mod[prec] - '0') % 2 != 0)
-		round_up(ret, prec);
-}
 
 void	output_feg_sign(t_format *list, t_sble *ret, int *i)
 {
@@ -106,6 +90,7 @@ int	get_e_str(t_format *list, t_dble *dble, t_sble *sble)
 	t_sble	ret;
 
 	ret = *sble;
+	make_out_str(ret);
 	if ((move_point(&ret)) == 0)
 		return (free_sble(-1, sble));
 	round_e(list, &ret);
