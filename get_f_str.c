@@ -75,7 +75,7 @@ void	round_up(t_sble *ret, int prec)
 	}
 }
 
-void	round_feg(t_format *list, t_sble *ret)
+void	round_f(t_format *list, t_sble *ret)
 {
 	int prec;
 

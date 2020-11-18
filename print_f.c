@@ -35,7 +35,7 @@ int	parse_div(t_dble *dble, t_sble *sble)
 	int	j;
 
 	if (dble->e - 1023 <= -1)
-	{
+	{//정수가 0일 때
 		if ((sble->d_bit = (char*)malloc(sizeof(char) * 2) == 0))
 			return (-1);
 		sble->d_bit[0] = '0';
@@ -43,12 +43,12 @@ int	parse_div(t_dble *dble, t_sble *sble)
 		len = 1;
 	}
 	else
-	{
-		len = dble->e - 1023 + 1 > 53 ? 53 : dble->e - 1023 + 1;//가수부 비트가 52개니까
+	{//52개 가수부 비트와 1.~의 1자리보다 지수 크면 정수 비트만 53개
+		len = dble->e - 1023 + 1 > 53 ? 53 : dble->e - 1023 + 1;
 		if ((sble->d_bit = (char*)malloc(sizeof(char) * (len + 1)) == 0))
 			return (-1);
 		d_bit[len] = 0;
-		d_bit[(i = 0)] = 1;//부동소수점을 2진수로 표현하면 1.~ 식이니까
+		d_bit[(i = 0)] = 1;//부동소수점을 2진수로 표현하면 1.~니까
 		j = 51;
 		while (j >= 0 && j > 52 - len)
 			d_bit[++i] = (dble->m & 1 >> j--) + '0';//52번째 비트부터 기록
@@ -91,6 +91,7 @@ int	free_sble(int error_or_not, t_sble *sble)
 	free(sble->d_bit);
 	free(sble->s_mod);
 	free(sble->m_bit);
+	free(sble->out);
 	free(sble->e);
 	return (error_or_not);
 }
@@ -102,7 +103,7 @@ int	print_feg(t_format *list)
 
 	if (list->len == 'h' || list->len == 'H' || list->len == 'L')
 		return (-1);
-	dble = va_arg(list->ap, double);
+	dble.value = va_arg(list->ap, double);
 	if ((check_inf_nan(dble, list)) == 1)
 		return (1);
 	ft_bzero((void*)&dble, sizeof(dble));

@@ -56,7 +56,7 @@ typedef struct			s_format
 
 typedef union			u_dble
 {
-	double			dble_v;
+	double			value;
 	struct
 	{
 		size_t		m : 52;
@@ -73,7 +73,11 @@ typedef struct			s_dble
 	char			*d_bit;
 	char			*s_mod;
 	char			*m_bit;
+	char			*out;
 	char			*e;
+	char			esign;
+	int			e_int;
+	int			p_idx;
 	size_t			d_len;
 	size_t			m_len;
 }				t_sble;
