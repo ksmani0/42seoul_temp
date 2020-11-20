@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 18:17:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/03 01:05:47 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 00:13:53 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <unistd.h>
 # include <wchar.h>
 
-typedef unsigned char		t_uchar;
+typedef unsigned char			t_uchar;
 typedef unsigned long long int	t_ullint;
 
 typedef struct		s_list

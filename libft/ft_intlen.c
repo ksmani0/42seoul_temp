@@ -6,7 +6,7 @@
 /*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 10:34:19 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/18 10:39:33 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 00:03:52 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_intlen(int n)
 {
 	size_t		len;
-	t_ullint		temp;
+	t_ullint	temp;
 
 	if (n == 0)
 		return (1);
