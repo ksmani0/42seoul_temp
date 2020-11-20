@@ -18,9 +18,9 @@ void	round_up(t_sble *sble, int prec)
 	int up;
 	int temp;
 
-	i = sble->p_idx + prec;
+	i = sble->d_idx + prec;
 	up = 1;
-	sble->out_mlen = prec;
+	sble->m_idx = sble->d_idx + prec;
 	whlie (i > sble->p_idx && up = 1)
 	{
 		temp = (sble->out[i] - '0') + up;
@@ -40,34 +40,38 @@ void	rounding_meet_five(t_sble *sble, int prec)
 	int i;
 	int not_zero;
 
-	i = sble->p_idx + prec + 2;////
+	i = sble->d_idx + prec + 2;
 	not_zero = 0;
-	while (i <= sble->m_len + prec && not_zero == 0)
+	while (i < sble->m_len + sble->d_idx && not_zero == 0)
 	{
-		if (ret->s_mod[i++] != '0')
+		if (sble->out[i++] != '0')
 			not_zero = 1;
 	}
 	if (not_zero == 1)
 		round_up(sble, prec);
-	else if (not_zero == 0 && (ret->s_mod[prec] - '0') % 2 != 0)
+	else if (not_zero == 0 && (sble->s_mod[prec] - '0') % 2 != 0)
 		round_up(sble, prec);
-	sble->out_mlen = prec;
+	else
+		sble->m_idx = sble->d_idx + prec;
 }
 
-void	round_f(t_format *list, t_sble *sble)
-{
+void	round_feg(t_format *list, t_sble *sble)
+{/*if e, always sble->d_idx = 1*/
 	int prec;
 
 	prec = list->flag[6] == 0 ? 6 : list->prec;
 	prec = list->prec >= 1075 ? 1075 : prec;
 	if ((list->flag[6] == 0 && sble->m_len < 6) || (sble->m_len < prec))
-		sble->out_mlen = list->flag[6] == 0 ? 6 : prec;/*append 0*/
+	{
+		sble->m_idx = list->flag[6] == 0 ?
+		sble->d_idx + 6 : sble->d_idx + prec;
+	}
 	else if (prec == 1075 && sble->m_len == 1075)
-		sble->out_mlen = 1075;
+		sble->m_idx = 1076;/*1074+2 becuase ??.~*/
 	else
 	{
 		if (sble->s_mod[prec] < '5')
-			sble->out_mlen = prec;
+			sble->m_idx = sble->d_idx + prec;
 		else if (sble->s_mod[prec] > '5')
 			round_up(sble, prec);
 		else
@@ -81,7 +85,7 @@ int	make_out_str(t_sble *sble)
 
 	i = 1;
 	j = sble->d_len - 1;
-	sble->p_idx = sble->d_len;
+	sble->d_idx = sble->d_len;
 	if ((sble->out = (char*)malloc(sizeof(char) *
 		(sble->d_len + 1 + m_len + 1))) == 0)
 		return (-1);
@@ -96,16 +100,16 @@ int	make_out_str(t_sble *sble)
 
 int	get_f_str(t_format *list, t_dble *dble, t_sble *sble)
 {
-	t_sble	ret;
-
-	ret = *sble;
-	if ((make_out_str(sble)) == 0)
+	if ((make_out_str(sble)) == -1)
 		return (free_sble(-1, sble));
-	round_f(list, sble);
-	list->size = ret->d_len + 1 + ret->m_len;
-	if (list->flag[0] == 1 || list->flag[3] == 1)
+	round_feg(list, sble);
+	list->size = sble->out[0] == '0' ? sble->m_idx + 1 : sble->m_idx + 2;
+	list->size = sble->sign == '-' ? list->size++ : list->size;
+	if ((sble->sign == '+') && (list->flag[0] == 1 || list->flag[3] == 1))
 		list->size++;
-	output_feg(list, &ret, 0);//need
+	if (list->flag[5] == 1 && list->flag[6] == 1 && list->prec == 0)
+		list->size++;
+	output_feg(list, sble, 0);
 	list->nums = list->nums + (list->size > list->width ?
 		list->size : list->width);
 	return (free_sble(1, sble));

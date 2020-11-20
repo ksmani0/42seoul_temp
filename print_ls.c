@@ -1,18 +1,5 @@
 #include "ft_printf.h"
 
-size_t	ft_wcharlen(const wchar_t *s)//나중에 지워야 함
-{
-	size_t len;
-
-	len = 0;
-	while (*s != 0)
-	{
-		s++;
-		len++;
-	}
-	return (len);
-}
-
 int	count_lsw_size(wchar_t ls, t_uchar *new)
 {
 	int len;
@@ -100,7 +87,7 @@ int	count_out_num(t_format *list, wchar_t *ls, t_uchar *out, int *bytes)
 void	output_ls(t_format *list, t_uchar *out, int bytes)
 {
 	int i;
-	int size;/*출력되는 문자수*/
+	int size;/*number of characters to be printed*/
 
 	size = list->size;
 	i = 0;
@@ -124,7 +111,7 @@ int	print_ls(t_format *list)
 {
 	wchar_t	*ls;
 	t_uchar	*out;
-	int	bytes;/*출력될 ls 바이트 수*/
+	int	bytes;/*ls's bytes to print*/
 
 	out = 0;
 	bytes = 0;

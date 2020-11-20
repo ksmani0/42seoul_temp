@@ -12,60 +12,56 @@
 
 #include "ft_printf.h"
 
-int	get_div_decimal(t_dble *dble, t_sble *sble, int len)
+int	get_div_decimal(t_dble *dble, t_sble *sble, int blen)
 {
 	int	i;
 	t_deci	pow;
 	t_deci	sum;
 
-	i = len;
+	i = blen;
 	ft_bzero(pow, sizeof(pow));
 	pow.s[0] = 1;
 	pow.len = 1;
 	ft_bzero(sum, sizeof(sum));
 	while (i >= 0)
 	{
-		input_div_pow(&pow);
-		input_div_sum(sble->d_bit[i--], &pow, &sum);
+		input_div_pow(&pow);/*reversal*/
+		input_div_sum(sble->d_bit[i--], &pow, &sum);/*reversal*/
 	}
 	if ((sble->s_div = (char*)malloc(sizeof(char) * (sum.len + 1))) == 0)
 		return (-1);
+	sble->s_div[sum.len] = 0;
 	i = -i;
-	while (++i > sum.len)
+	while (++i < sum.len)
 	{
-		sble->s_div[i] = sum.s[i];
+		sble->s_div[i] = sum.s[i];/*reversal*/
 		sble->d_len++;
 	}
-	sble->sign = dble->s == 1 ? 1 : 0;
 	return (1);
 }
 
 int	parse_div(t_dble *dble, t_sble *sble)
 {
-	size_t	len;
+	size_t	blen;
 	int	i;
 	int	j;
 
-	if (dble->e - 1023 <= -1)
-	{//정수가 0일 때
-		if ((sble->d_bit = (char*)malloc(sizeof(char) * 2) == 0))
-			return (-1);
+	if (dble->e - 1023 <= -1)/*largest dble->e is 2036*/
+	{/*if integer is zero*/
 		sble->d_bit[0] = '0';
-		sble->d_bit[1] = 0;
-		len = 1;
+		blen = 1;
 	}
 	else
 	{//52개 가수부 비트와 1.~의 1자리보다 지수 크면 정수 비트만 53개
-		len = dble->e - 1023 + 1 > 53 ? 53 : dble->e - 1023 + 1;
-		if ((sble->d_bit = (char*)malloc(sizeof(char) * (len + 1)) == 0))
-			return (-1);
-		d_bit[len] = 0;
-		d_bit[(i = 0)] = 1;//부동소수점을 2진수로 표현하면 1.~니까
+		blen = dble->e - 1023 + 1 > 53 ? 53 : dble->e - 1023 + 1;
+		sble->d_bit[0] = 1;//부동소수점을 2진수로 표현하면 1.~니까
+		i = 0;
 		j = 51;
-		while (j >= 0 && j > 52 - len)
-			d_bit[++i] = (dble->m & 1 >> j--) + '0';//52번째 비트부터 기록
+		while (j >= 0 && j > 52 - blen)
+			sble->d_bit[++i] = (dble->m & 1 >> j--) + '0';//52번째 비트부터 기록
 	}
-	return (get_div_decimal(dble, sble, len));
+	sble->sign = dble->s == 1 ? '-' : '+';
+	return (get_div_decimal(dble, sble, blen));
 }
 
 int	check_inf_nan(t_dble dble, t_format *list)
@@ -100,9 +96,7 @@ int	check_inf_nan(t_dble dble, t_format *list)
 int	free_sble(int error_or_not, t_sble *sble)
 {
 	free(sble->s_div);
-	free(sble->d_bit);
 	free(sble->s_mod);
-	free(sble->m_bit);
 	free(sble->out);
 	free(sble->e);
 	return (error_or_not);

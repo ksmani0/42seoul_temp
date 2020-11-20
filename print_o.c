@@ -1,8 +1,8 @@
 #include "ft_printf.h"
 
-static int	octal_to_str(t_ullint o, t_format *list)
+int	octal_to_str(t_ullint o, t_format *list)
 {
-	t_ullint	temp;
+	t_ullint		temp;
 	char		*octal;
 	int		len;
 	int		ret;
@@ -26,7 +26,7 @@ static int	octal_to_str(t_ullint o, t_format *list)
 	return (ret != 0 ? ret : 1);
 }
 
-void	output_sharp_x(char *out, t_format *list, int len)
+void	output_sharp_o(char *out, t_format *list, int len)
 {
 	int i;
 	int longer;
@@ -76,13 +76,15 @@ void	output_o(char *out, t_format *list, int len)
 
 int	print_o(t_format *list)
 {
-	t_ullint	o;
+	t_ullint		o;
 	int		len;
 
 	if (list->flag[0] == 1 || list->flag[3] == 1)/* +' ' */
 		return (-1);
 	o = check_ullint(list);
 	len = octal_to_str(o, list);
+	len = o == 0 && list->prec == 0 ? 0 : len;
+	list->if_num[0] = o == 0 && list->prec == 0 ? 0 : list->if_num[0];
 	list->size = list->width > list->prec ? list->width : list->prec;
 	list->size = len > list->size ? len : list->size;
 	if (list->flag[5] == 1&& list->width < len + 1 && ist->prec < len + 1)

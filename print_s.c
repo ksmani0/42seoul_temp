@@ -5,7 +5,7 @@ void	output_s(t_format *list, t_uchar *s, int len)
 	int i;
 	int size;
 
-	i = 0;/* ||(null)|..(null)|(null)..|*/
+	i = 0;/* ||(null)|..(null)|(null)..| */
 	size = 0;
 	if (list->flag[1] == 0 && list->width > len)
 	{
@@ -58,12 +58,12 @@ int	print_s(t_format *list)
 
 	if (list->flag[0] == 1 || list->flag[2] == 1
 		|| list->flag[3] == 1 || list->flag[5] == 1)
-		return (-1);/*최너/정밀/-/*만 가능*/
+		return (-1);/* only width/prec/-/* ok */
 	if (list->len == 'l')
 		return (print_ls(list));
 	if ((s = (t_uchar*)va_arg(list->ap, char*)) == 0)
 		return (print_null(list));
-	len = ft_strlen(s);/*최소.최대*/
+	len = ft_strlen(s);/* min.max */
 	if (list->flag[6] == 1 && list->prec < len)
 		len = list->prec;
 	output_s(list, s, len);

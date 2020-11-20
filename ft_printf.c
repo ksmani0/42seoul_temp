@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-t_format	*initial_malloc(t_format **list)
+t_format		*initial_malloc(t_format **list)
 {
 	if((*list = (t_format*)malloc(sizeof(t_format) * 1)) == 0)
 		return ((void*)0);
@@ -26,7 +26,7 @@ void		print_char(t_format *list)
 	write(1, list->str++, 1);
 }
 
-void	initial_part(t_format *list)
+void		initial_part(t_format *list)
 {
 	int i;
 

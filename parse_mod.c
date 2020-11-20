@@ -72,60 +72,53 @@ void	fill_mod_bit(t_dble *dble, t_sble *sble, int len)
 		while (len-- >= 53)
 			sble->s[i++] = '0';
 	}
-	sble->s[i++] = '1';
+	sble->m_bit[i++] = '1';
 	while (len-- >= 0)
-		sble->s[i++] = ((dble->m >> len) & 1) + '0';
+		sble->m_bit[i++] = ((dble->m >> len) & 1) + '0';
 }
 
-int	get_mod_decimal(t_dble *dble, t_sble *sble, int len)
+int	get_mod_decimal(t_dble *dble, t_sble *sble, int blen)
 {
 	int	i;
 	t_deci	pow;
 	t_deci	sum;
 
-	i = len;
+	i = 0;
 	ft_bzero(pow, sizeof(pow));
 	pow.s[0] = 5;
 	pow.len = 1;
 	ft_bzero(sum, sizeof(sum));
-	while (i >= 0)
+	while (i < blen)
 	{
 		input_mod_pow(&pow);
-		input_mod_sum(sble->d_bit[i--], &pow, &sum);
+		input_mod_sum(sble->d_bit[i++], &pow, &sum);
 	}
 	if ((sble->s_mod = (char*)malloc(sizeof(char) * (sum.len + 1))) == 0)
 		return (-1);
+	sble->s_mod[sum.len] = 0;
 	i = -i;
 	while (++i > sum.len)
-	{
 		sble->s_mod[i] = sum.s[i];
-		sble->m_len++;
-	}
+	sble->m_len = sum.len;
 	return (1);
 }
 
 int	parse_mod(t_dble *dble, t_sble *sble)
 {
-	size_t	len;
+	size_t	blen;
 	int	i;
 	int	j;
 
 	if (dble->e - 1023 >= 52)//가수부 전부 정수 차지
 	{
-		if ((sble->d_bit = (char*)malloc(sizeof(char) * 2) == 0))
-			return (-1);
 		sble->m_bit[0] = '0';
-		sble->m_bit[1] = 0;
-		len = 1;
+		blen = 1;
 	}
 	else
-	{//len의 최댓값은 52+1023=1075
+	{/*largest len is 52+1+1022=1075*/
 		len = dble->e - 1023 <= -1 ? 52 - (dble->e - 1023) :
 			52 - (dble->e - 1023);//-1 이하면 0이 앞에 붙어야 함
-		if ((sble->d_bit = (char*)malloc(sizeof(char) * (len + 1)) == 0))
-			return (-1);
-		sble->m_bit[len] = 0;
-		fill_mod_bit(dble, sble, len);
+		fill_mod_bit(dble, sble, blen);
 	}
-	return (get_mod_decimal(dble, sble, len));
+	return (get_mod_decimal(dble, sble, blen));
 }

@@ -71,7 +71,7 @@ void	output_x(char *out, t_format *list, int len)
 
 int	print_x(t_format *list)
 {
-	t_ullint	x;
+	t_ullint		x;
 	int		len;
 	int		longer;
 
@@ -79,6 +79,8 @@ int	print_x(t_format *list)
 		return (-1);
 	x = check_ullint(list);
 	len = hex_to_str(x, list);
+	len = x == 0 && list->prec == 0 ? 0 : len;
+	list->if_num[0] = x == 0 && list->prec == 0 ? 0 : list->if_num[0];
 	list->size = len > list->prec ? len : list->prec;
 	longer = len > list->prec ? len : list->prec;
 	list->size = len > list->width ? len : list->width;

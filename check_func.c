@@ -20,7 +20,7 @@ void		if_flag_check(t_format *list)
 			list->flag[0] = 1;
 		else if (*list->str == '-')
 			list->flag[1] = 1;
-        	else if (*list->str == '0')
+		else if (*list->str == '0')
 			list->flag[2] = 1;
 		else if (*list->str == ' ')
 			list->flag[3] = 1;

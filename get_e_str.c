@@ -12,90 +12,102 @@
 
 #include "ft_printf.h"
 
-
-
-void	output_feg_sign(t_format *list, t_sble *ret, int *i)
-{
-	*i = *i + 1;
-	if (list->flag[0] == 1)
-		ret->sign == 1 ? write(1, "+", 1) : write(1, "-", 1);
-	else if (list->flag[3] == 1)
-		ret->sign == 1 ? write(1, " ", 1) : write(1, "-", 1);
-}
-
-void	output_decimal(t_format *list, t_sble *ret)//
+void	input_mod_pow(t_deci *pow)
 {
 	int i;
 
-	i = ret->d_len - 1;
-	if (ret->e != 0 && ret->esign = '+')
-		write(1, &ret->s_div[i], 1);
-	else if (ret->e != 0 && ret->esign = '-')
-		write(1, &ret->s_mod[e - 1], 1);
-	else if (ret->e == 0)
-	{
-		while (i >= 0)
-			write(1, &ret->s_div[i--], 1);
-	}
-	write(1, ".", 1);
-	if (ret->e != 0 && ret->esign = '+')
-	{
-		i = 0;
-		while (i < ret->m_len)
-			write(1, &ret->[i++], 1);
-	}
-	else if (ret->e == 0)
-	{
-		while (i < ret->m_len)
-			write(1, &ret->[i++], 1);
-	}
-}
-
-void	output_e(t_format *list, t_sble *ret)//
-{
-	int i;
-
-	if (ret->e == 0)
-		return ;
-	i = ft_strlen(ret->e) - 1;
-	list->nums += (i + 1);
-	while (i >= 0)
-		wirte(1, &ret->e[i--], 1);
-}
-
-void	output_feg(t_format *list, t_sble *ret, int i)/////////# 하고 e는 따로??
-{
-	if (list->width > list->size && list->flag[1] == 0)
-	{
-		if (list->flag[2] == 1)
-			output_feg_sign(list, ret, &i);
-		while (list->flat[2] == 1 && i++ < list->width - list->size)
-			write(1, "0", 1);
-		while (list->flat[2] == 0 && i++ < list->width - list->size)
-			write(1, " ", 1);
-		if (list->flag[2] == 0)
-			output_feg_sign(list, ret, &i);
-	}
-	if (list->flag[1] == 1)
-		output_feg_sign(list, ret, &i);
-	output_decimal(list, ret);
-	output_e(list, ret);
 	i = 0;
-	while (list->flag[1] == 1 && i++ < list->width - list->size)
-		write(1, " ", 1);
+	while (i < pow->len)
+	{
+		if (((pow->s[i] - '0') % 2) != 0)
+			pow->s[i + 1] = '5';
+		pow->s[i] = (pow->s[i] - '0') / 2 + '0';
+		i++;
+	}
+	pow->len++;
+}
+
+void	input_mod_sum(char bit, t_deci *pow, t_deci *sum)
+{
+	int i;
+	int up;
+	int temp;
+	int longer;
+
+	if (bit == 0)
+		return ;
+	up = 0;
+	longer = pow->len > sum->len ? pow->len : sum->len;
+	i = longer - 1;
+	while (i >= 0)
+	{
+		if ((temp = (pow->s[i] - '0') + (sum->s[i] - '0') + up) > 9)
+			up = temp / 10;
+		else
+			up = 0;
+		sum->s[i--] = (temp % 10) + '0';
+	}
+	sum->len = longer;
+}
+
+void	fill_e_num(t_sble *sble, int e, int elen)
+{
+	int i;
+
+	sble->e[elen + 2] = 0;
+	sble->e[elen + 1] = 'e';
+	sble->e[elen] = sble->esign;
+	i = 0;
+	sble->e[0] = e == 0 ? '0' : 0;/*+00*/
+	sble->e[1] = e == 0 ? '0' : 0;
+	while (e != 0)
+	{
+		sble->e[i++] = (e % 10) + '0';
+		e /= 10;
+	}
+	sble->e[i] = i == 1 ? '0' : sble->e[i];
+}
+
+int	move_point(t_dble *dble, t_sble *sble)
+{/*always sble->out[0] = '0'*/
+	int i;
+	int elen;
+
+	i = 0;
+	sble->esign = '+';
+	if ((sble->out[1] == '0') && (esign = sble->m_idx > 2 ||
+	sble->m_idx == 2 && sble->out[2] != '0'))
+		sble->esign = '-';
+	if (sble->esign != '+')
+		sble->e_int = sble->d_idx - 1;
+	else if (sble->esign == '-')
+	{
+		i = sble->d_idx + 1;
+		while (sble->out[i++] == '0')
+			sble->e_int--;
+		sble->e_int--;
+	}
+	elen = ft_intlen(sble->e_int);
+	elen = elen == 1 ? 2 : elen;
+	if ((sble->e = (char*)melloc(sizeof(char) * (elen + 3))) == 0)
+		return (-1);
+	fill_e_num(sble, sble->e, elen);/*reversal*/
+	sble->d_idx = sble->out[1] != '0' ? 1 : sble->e_int * -1;
+	return (1);
 }
 
 int	get_e_str(t_format *list, t_dble *dble, t_sble *sble)
 {
-	t_sble	ret;
-
-	ret = *sble;
-	make_out_str(ret);
-	if ((move_point(&ret)) == 0)
+	if ((make_out_str(sble)) == -1 || (move_point(dble, sble)) == -1)
 		return (free_sble(-1, sble));
-	round_e(list, &ret);
-	list->size = ret->d_len + 1 + ret->m_len;
-	if (list->flag[0] == 1 || list->flag[3] == 1)
+	round_feg(list, sble);
+	if ((chage_e_num(sble)) == -1)
+		return (free_sble(-1, sble));
+	list->size = sble->out[0] == '0' ? sble->m_idx + 1 : sble->m_idx + 2;
+	list->size = sble->sign == '-' ? list->size++ : list->size;
+	if ((sble->sign == '+') && (list->flag[0] == 1 || list->flag[3] == 1))
+		list->size++;
+	if (list->flag[5] == 1 && list->flag[6] == 1 && list->prec == 0)
 		list->size++;
 	output_feg(list, &ret, 0);
 	list->nums = list->nums + (list->size > list->width ?

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_int.c                                        :+:      :+:    :+:   */
+/*   print_di.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -81,6 +81,8 @@ int	print_di(t_format *list)
 		(-1);
 	num = check_llint(list);
 	len = ft_llint_to_s(num, list);
+	len = num == 0 && list->prec == 0 ? 0 : len;
+	list->if_num[0] = num == 0 && list->prec == 0 ? 0 : list->if_num[0];
 	list->size = list->width > list->prec ? list->width : list->prec;
 	list->size = len > list->size ? len : list->size;
 	if (list->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1)
@@ -113,10 +115,10 @@ int	output_spec(t_format *list)
 	else if (list->spec == 'o')
 		return (print_o(list));
 	else if (list->spec == 'e' || list->spec == 'f' || list->spec == 'g')
-		ret = print_feg(list);
+		return = (print_feg(list));
 	else if (list->spec == 'p')
 		return (print_p(list));
 	else if (list->spec == 'n')
-		print_n(list);
+		return (print_n(list));
 	return (-1);
 }
