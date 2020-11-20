@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suntlee <suntlee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/28 20:49:16 by suntlee           #+#    #+#             */
-/*   Updated: 2020/04/05 22:20:20 by suntlee          ###   ########.fr       */
+/*   Created: 2020/11/18 10:34:19 by seungmki          #+#    #+#             */
+/*   Updated: 2020/11/18 10:39:33 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/libft.h"
+#include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+size_t	ft_intlen(int n)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	size_t		len;
+	t_ullint		temp;
+
+	if (n == 0)
+		return (1);
+	len = 0;
+	temp = n < 0 ? n * -1 : n;
+	while (temp != 0)
+	{
+		temp /= 10;
+		len++;
+	}
+	return (len);
 }

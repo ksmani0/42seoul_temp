@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <unistd.h>
+# include <wchar.h>
 # include "libft/libft.h"
 
 char				g_hex_b[17] = "0123456789ABCDEF";

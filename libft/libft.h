@@ -13,6 +13,10 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <unistd.h>
+# include <wchar.h>
+
+typedef unsigned char		t_uchar;
+typedef unsigned long long int	t_ullint;
 
 typedef struct		s_list
 {
@@ -71,5 +75,13 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void (*del)(void *));
+
+/*
+*****circle2 ft_printf*****
+*/
+
+size_t				ft_wcharlen(const wchar_t *s):
+size_t				ft_ustrlen(const t_uchar *s);
+size_t				ft_intlen(int n);
 
 #endif
