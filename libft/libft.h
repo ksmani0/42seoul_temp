@@ -80,7 +80,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 *****circle2 ft_printf*****
 */
 
-size_t				ft_wcharlen(const wchar_t *s):
+size_t				ft_wcharlen(const wchar_t *s);
 size_t				ft_ustrlen(const t_uchar *s);
 size_t				ft_intlen(int n);
 
