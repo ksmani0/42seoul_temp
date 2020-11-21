@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:06:17 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 01:54:20 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 11:26:44 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ void							ft_ullint_to_s(t_llint num, t_format *list);
 
 void							fill_space_or_zero(int *i, int limit, char *out,
 		char s_or_z);
-void							output_di_ngf(char *out, t_format *list, int len);
+void							output_di_ngf(char *out, t_format *list,
+		int len);
 void							output_di(char *out, t_format *list, int len);
 int								print_di(t_format *list);
 int								output_spec(t_format *list);
@@ -142,7 +143,8 @@ int								print_u(t_format *list);
 */
 
 int								hex_to_str(t_ullint x, t_format *list);
-void							output_sharp_x(char *out, t_format *list, int len);
+void							output_sharp_x(char *out, t_format *list,
+		int len);
 void							output_x(char *out, t_format *list, int len);
 int								print_x(t_format *list);
 
@@ -151,7 +153,8 @@ int								print_x(t_format *list);
 */
 
 int								octal_to_str(t_ullint o, t_format *list);
-void							output_sharp_o(char *out, t_format *list, int len);
+void							output_sharp_o(char *out, t_format *list,
+		int len);
 void							output_o(char *out, t_format *list, int len);
 int								print_o(t_format *list);
 
@@ -169,11 +172,13 @@ void							print_p(t_format *list);
 *****print_c.c*****
 */
 
-void							output_lc(t_format *list, t_uchar *out, t_uchar *lc_s,
-		int len);
-int								input_lc_s(t_format *list, wint_t lc, t_uchar *lc_s);
+void							output_lc(t_format *list, t_uchar *out,
+		t_uchar *lc_s, int len);
+int								input_lc_s(t_format *list, wint_t lc,
+		t_uchar *lc_s);
 int								print_lc(t_format *list);
-void							output_c(t_format *list, t_uchar *out, t_uchar c);
+void							output_c(t_format *list, t_uchar *out,
+		t_uchar c);
 int								print_c(t_format *list);
 
 /*
@@ -190,17 +195,20 @@ int								print_s(t_format *list);
 */
 
 int								count_lsw_size(wchar_t ls, t_uchar *new);
-int								input_ls_to_us(t_format *list, wchar_t ls, t_uchar *out);
-int								count_out_num(t_format *list, wchar_t *ls, t_uchar *out,
-		int *bytes);
-void							output_ls(t_format *list, t_uchar *out, int bytes);
+int								input_ls_to_us(t_format *list, wchar_t ls,
+		t_uchar *out);
+int								count_out_num(t_format *list, wchar_t *ls,
+		t_uchar *out, int *bytes);
+void							output_ls(t_format *list, t_uchar *out,
+		int bytes);
 int								print_ls(t_format *list);
 
 /*
 *****print_f.c*****
 */
 
-int								get_div_decimal(t_dble *dble, t_sble *sble, int blen);
+int								get_div_decimal(t_dble *dble, t_sble *sble,
+		int blen);
 int								parse_div(t_dble *dble, t_sble *sble);
 int								check_inf_nan(t_dble dble, t_format *list);
 int								free_sble(int error_or_not, t_sble *sble);
@@ -211,9 +219,12 @@ int								print_feg(t_format *list);
 */
 
 void							input_div_pow(t_deci *pow);
-void							input_div_sum(char bit, t_deci *pow, t_deci *sum);
-void							fill_mod_bit(t_dble *dble, t_sble *sble, int len);
-int								get_mod_decimal(t_dble *dble, t_sble *sble, int blen);
+void							input_div_sum(char bit, t_deci *pow,
+		t_deci *sum);
+void							fill_mod_bit(t_dble *dble, t_sble *sble,
+		int len);
+int								get_mod_decimal(t_dble *dble, t_sble *sble,
+		int blen);
 int								parse_mod(t_dble *dble, t_sble *sble);
 
 /*
@@ -221,10 +232,12 @@ int								parse_mod(t_dble *dble, t_sble *sble);
 */
 
 void							input_mod_pow(t_deci *pow);
-void							input_mod_sum(char bit, t_deci *pow, t_deci *sum);
+void							input_mod_sum(char bit, t_deci *pow,
+		t_deci *sum);
 void							fill_e_num(t_sble *sble, int e, int elen);
 int								move_point(t_dble *dble, t_sble *sble);
-int								get_e_str(t_format *list, t_dble *dble, t_sble *sble);
+int								get_e_str(t_format *list, t_dble *dble,
+		t_sble *sble);
 
 /*
 *****get_f_str.c*****
@@ -234,16 +247,20 @@ void							round_up(t_sble *sble, int prec);
 void							rounding_meet_five(t_sble *sble, int prec);
 void							round_feg(t_format *list, t_sble *sble);
 int								make_out_str(t_sble *sble);
-int								get_f_str(t_format *list, t_dble *dble, t_sble *sble);
+int								get_f_str(t_format *list, t_dble *dble,
+		t_sble *sble);
 
 /*
 *****output_feg.c*****
 */
 
 int								change_e_num(t_sble *sble);
-void							output_feg_sign(t_format *list, t_sble *sble, int *i);
-void							output_decimal(t_format *list, t_sble *sble, int i);
+void							output_feg_sign(t_format *list,
+		t_sble *sble, int *i);
+void							output_decimal(t_format *list,
+		t_sble *sble, int i);
 void							output_feg(t_format *list, t_sble *sble, int i);
-int								get_g_str(t_format *list, t_dble *dble, t_sble *sble);
+int								get_g_str(t_format *list, t_dble *dble,
+		t_sble *sble);
 
 #endif

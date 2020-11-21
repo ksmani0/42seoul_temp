@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/19 13:04:19 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 11:31:07 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int		str_or_format(t_format *list)
 int		ft_printf(const char *format, ...)
 {
 	t_format	*list;
-	int		ret;
+	int			ret;
 
 	if (format == 0 || (initial_malloc(&list)) == 0)
 		return (-1);
-	list->str = format;/*서식지정자 등 담긴 문자열*/
-	va_start(list->ap, list->str);/*ap가 고정 인자 너머 가변 인자로 주소 이동*/
+	list->str = format;
+	va_start(list->ap, list->str);
 	if ((str_or_format(list)) == -1)
 		list->nums = -1;
 	va_end(list->ap);
