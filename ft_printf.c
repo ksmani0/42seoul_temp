@@ -6,20 +6,20 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 11:31:07 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:05:30 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_format		*initial_malloc(t_format **list)
+t_format	*initial_malloc(t_format **list)
 {
 	t_format *temp;
 
 	temp = *list;
-	if((temp = (t_format*)malloc(sizeof(t_format) * 1)) == 0)
+	if ((temp = (t_format*)malloc(sizeof(t_format) * 1)) == 0)
 		return ((void*)0);
-	temp = str = 0;
+	temp->str = 0;
 	ft_bzero(temp->flag, (sizeof(char) * 7));
 	temp->spec = 0;
 	ft_bzero(temp->if_num, (sizeof(char) * 21));
@@ -54,7 +54,7 @@ void		initial_part(t_format *list)
 	list->size = 0;
 }
 
-int		str_or_format(t_format *list)
+int			str_or_format(t_format *list)
 {
 	while (*list->str != 0)
 	{
@@ -75,7 +75,7 @@ int		str_or_format(t_format *list)
 	return (1);
 }
 
-int		ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
 	t_format	*list;
 	int			ret;

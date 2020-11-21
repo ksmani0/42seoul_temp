@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/27 11:47:13 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:17:43 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	fill_mod_bit(t_dble *dble, t_sble *sble, int len)
 	int i;
 
 	i = 0;
-	if (dble->s_int.e - 1023 <= -1)//이때 len은 53 이상일 것
+	if (dble->s_int.e - 1023 <= -1)
 	{
 		while (len-- >= 53)
 			sble->s_mod[i++] = '0';
@@ -77,9 +77,9 @@ void	fill_mod_bit(t_dble *dble, t_sble *sble, int len)
 		sble->m_bit[i++] = ((dble->s_int.m >> len) & 1) + '0';
 }
 
-int	get_mod_decimal(t_sble *sble, int blen)
+int		get_mod_decimal(t_sble *sble, int blen)
 {
-	int	i;
+	int		i;
 	t_deci	pow;
 	t_deci	sum;
 
@@ -103,19 +103,19 @@ int	get_mod_decimal(t_sble *sble, int blen)
 	return (1);
 }
 
-int	parse_mod(t_dble *dble, t_sble *sble)
+int		parse_mod(t_dble *dble, t_sble *sble)
 {
 	size_t	blen;
 
-	if (dble->s_int.e - 1023 >= 52)//가수부 전부 정수 차지
+	if (dble->s_int.e - 1023 >= 52)
 	{
 		sble->m_bit[0] = '0';
 		blen = 1;
 	}
 	else
-	{/*largest len is 52+1+1022=1075*/
+	{
 		blen = dble->s_int.e - 1023 <= -1 ?
-		52 - (dble->s_int.e - 1023) : 52 - (dble->s_int.e - 1023);//-1 이하면 0이 앞에 붙어야 함
+		52 - (dble->s_int.e - 1023) : 52 - (dble->s_int.e - 1023);
 		fill_mod_bit(dble, sble, blen);
 	}
 	return (get_mod_decimal(sble, blen));

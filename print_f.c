@@ -6,15 +6,15 @@
 /*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 15:12:07 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/18 15:12:27 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:36:17 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	get_div_decimal(t_dble *dble, t_sble *sble, int blen)
+int		get_div_decimal(t_dble *dble, t_sble *sble, int blen)
 {
-	int	i;
+	int		i;
 	t_deci	pow;
 	t_deci	sum;
 
@@ -25,8 +25,8 @@ int	get_div_decimal(t_dble *dble, t_sble *sble, int blen)
 	ft_bzero(sum, sizeof(sum));
 	while (i >= 0)
 	{
-		input_div_pow(&pow);/*reversal*/
-		input_div_sum(sble->d_bit[i--], &pow, &sum);/*reversal*/
+		input_div_pow(&pow);
+		input_div_sum(sble->d_bit[i--], &pow, &sum);
 	}
 	if ((sble->s_div = (char*)malloc(sizeof(char) * (sum.len + 1))) == 0)
 		return (-1);
@@ -34,45 +34,45 @@ int	get_div_decimal(t_dble *dble, t_sble *sble, int blen)
 	i = -i;
 	while (++i < sum.len)
 	{
-		sble->s_div[i] = sum.s[i];/*reversal*/
+		sble->s_div[i] = sum.s[i];
 		sble->d_len++;
 	}
 	return (1);
 }
 
-int	parse_div(t_dble *dble, t_sble *sble)
+int		parse_div(t_dble *dble, t_sble *sble)
 {
 	size_t	blen;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
-	if (dble->s_int.e - 1023 <= -1)/*largest dble->e is 2036*/
-	{/*if integer is zero*/
+	if (dble->s_int.e - 1023 <= -1)
+	{
 		sble->d_bit[0] = '0';
 		blen = 1;
 	}
 	else
-	{//52개 가수부 비트와 1.~의 1자리보다 지수 크면 정수 비트만 53개
+	{
 		blen = dble->s_int.e - 1023 + 1 > 53 ? 53 : dble->s_int.e - 1023 + 1;
-		sble->d_bit[0] = 1;//부동소수점을 2진수로 표현하면 1.~니까
+		sble->d_bit[0] = 1;
 		i = 0;
 		j = 51;
 		while (j >= 0 && j > 52 - blen)
-			sble->d_bit[++i] = (dble->s_int.m & 1 >> j--) + '0';//52번째 비트부터 기록
+			sble->d_bit[++i] = (dble->s_int.m & 1 >> j--) + '0';
 	}
 	sble->sign = dble->s_int.s == 1 ? '-' : '+';
 	return (get_div_decimal(dble, sble, blen));
 }
 
-int	check_inf_nan(t_dble *dble, t_format *list, int i)
+int		check_inf_nan(t_dble *dble, t_format *list, int i)
 {
 	char	*s;
-	int	len;
+	int		len;
 
 	len = 3;
 	if (dble->s_int.e != 2047)
 		return ;
-	if ((dble->s_int.s == 0 && dble->s_int.e == 2047 && dble->s_int.m == 0)	
+	if ((dble->s_int.s == 0 && dble->s_int.e == 2047 && dble->s_int.m == 0)
 	|| (dble->s_int.e == 2047 && dble->s_int.m >= 1))
 		s = dble->s_int.m >= 1 ? "nan" : "inf";
 	else if (dble->s_int.e == 1 && dble->s_int.e == 2047 &&
@@ -92,7 +92,7 @@ int	check_inf_nan(t_dble *dble, t_format *list, int i)
 	return (1);
 }
 
-int	free_sble(int error_or_not, t_sble *sble)
+int		free_sble(int error_or_not, t_sble *sble)
 {
 	free(sble->s_div);
 	free(sble->s_mod);
@@ -101,10 +101,10 @@ int	free_sble(int error_or_not, t_sble *sble)
 	return (error_or_not);
 }
 
-int	print_feg(t_format *list)
+int		print_feg(t_format *list)
 {
-	t_dble dble;//인자 보관
-	t_sble sble;//인자의 정수-소수 비트 패턴, 10진수로 바꾼 값 문자열 보관
+	t_dble dble;
+	t_sble sble;
 
 	if (list->len == 'h' || list->len == 'H' || list->len == 'L')
 		return (-1);

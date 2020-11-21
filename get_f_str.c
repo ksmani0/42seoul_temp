@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/27 11:47:13 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:14:43 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	rounding_meet_five(t_sble *sble, int prec)
 }
 
 void	round_feg(t_format *list, t_sble *sble)
-{/*if e, always sble->d_idx = 1*/
+{
 	int prec;
 
 	prec = list->flag[6] == 0 ? 6 : list->prec;
@@ -67,7 +67,7 @@ void	round_feg(t_format *list, t_sble *sble)
 		sble->d_idx + 6 : sble->d_idx + prec;
 	}
 	else if (prec == 1075 && sble->m_len == 1075)
-		sble->m_idx = 1076;/*1074+2 becuase ??.~*/
+		sble->m_idx = 1076;
 	else
 	{
 		if (sble->s_mod[prec] < '5')
@@ -79,7 +79,7 @@ void	round_feg(t_format *list, t_sble *sble)
 	}
 }
 
-int	make_out_str(t_sble *sble)
+int		make_out_str(t_sble *sble)
 {
 	int i;
 	int j;
@@ -99,7 +99,7 @@ int	make_out_str(t_sble *sble)
 	return (1);
 }
 
-int	get_f_str(t_format *list, t_sble *sble)
+int		get_f_str(t_format *list, t_sble *sble)
 {
 	if ((make_out_str(sble)) == -1)
 		return (free_sble(-1, sble));

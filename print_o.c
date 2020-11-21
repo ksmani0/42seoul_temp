@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   print_o.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungmki </var/mail/seungmki>              +#+  +:+       +#+        */
+/*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 22:51:19 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/20 22:51:21 by seungmki         ###   ########.fr       */
+/*   Created: 2020/11/21 17:38:03 by seungmki          #+#    #+#             */
+/*   Updated: 2020/11/21 17:40:59 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	octal_to_str(t_ullint o, t_format *list)
+int		octal_to_str(t_ullint o, t_format *list)
 {
-	t_ullint		temp;
+	t_ullint	temp;
 	char		*octal;
-	int		len;
-	int		ret;
+	int			len;
+	int			ret;
 
 	temp = o;
 	len = 0;
@@ -47,7 +47,7 @@ void	output_sharp_o(char *out, t_format *list, int len)
 	longer = len > list->prec ? len : list->prec;
 	if (list->flag[1] == 0 && list->width > len + 1 && len >= list->prec)
 		fill_space_or_zero(&i, list->size - (len + 1), ' ');
-	else if (list->flag[1] == 0 && list->width > longer)/* | 0c8| 00c8| */
+	else if (list->flag[1] == 0 && list->width > longer)
 		fill_space_or_zero(&i, list->size - longer, ' ');
 	out[i++] = '0';
 	if (list->prec > len + 1)
@@ -70,11 +70,11 @@ void	output_o(char *out, t_format *list, int len)
 
 	i = 0;
 	if (list->flag[1] == 0 && list->width > len && list->width > list->prec)
-	{/* |..123|..00123| */
+	{
 		longer = len > list->prec ? len : list->prec;
 		fill_space_or_zero(&i, list->size - longer, out, ' ');
 	}
-	if (list->prec > len)/* |..00123|00123| */
+	if (list->prec > len)
 		fill_space_or_zero(&i, list->size - len, out, '0');
 	len = 0;
 	while (list->if_num[len] != 0)
@@ -86,13 +86,13 @@ void	output_o(char *out, t_format *list, int len)
 	list->nums += i;
 }
 
-int	print_o(t_format *list)
+int		print_o(t_format *list)
 {
-	t_ullint		o;
-	int		len;
+	t_ullint	o;
+	int			len;
 	char		*out;
 
-	if (list->flag[0] == 1 || list->flag[3] == 1)/* +' ' */
+	if (list->flag[0] == 1 || list->flag[3] == 1)
 		return (-1);
 	o = check_ullint(list);
 	len = octal_to_str(o, list);
@@ -101,7 +101,7 @@ int	print_o(t_format *list)
 	list->size = list->width > list->prec ? list->width : list->prec;
 	list->size = len > list->size ? len : list->size;
 	if (list->flag[5] == 1&& list->width < len + 1 && list->prec < len + 1)
-		list->size = list->size + 1;/* |0x00aa|0xaaa|0x0000aa| */
+		list->size = list->size + 1;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
 	out[list->size] = 0;
