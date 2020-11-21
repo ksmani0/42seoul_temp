@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_length.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungmki </var/mail/seungmki>              +#+  +:+       +#+        */
+/*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 22:53:10 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/20 22:53:12 by seungmki         ###   ########.fr       */
+/*   Created: 2020/11/21 20:25:38 by seungmki          #+#    #+#             */
+/*   Updated: 2020/11/21 20:27:29 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_llint	check_llint(t_format *list)
+t_llint		check_llint(t_format *list)
 {
 	t_llint arg;
 
@@ -50,12 +50,12 @@ t_ullint	check_ullint(t_format *list)
 	return (arg);
 }
 
-void	ft_llint_to_s(t_llint num, t_format *list)
+void		ft_llint_to_s(t_llint num, t_format *list)
 {
-	t_llint temp;
-	int 	sign;
-	int	len;
-	int	ret;
+	t_llint	temp;
+	int		sign;
+	int		len;
+	int		ret;
 
 	sign = num >= 0 ? 1 : -1;
 	temp = sign == 1 ? num : num * -1;
@@ -77,11 +77,11 @@ void	ft_llint_to_s(t_llint num, t_format *list)
 	return (ret);
 }
 
-void	ft_ullint_to_s(t_llint num, t_format *list)
+void		ft_ullint_to_s(t_llint num, t_format *list)
 {
 	t_ullint	temp;
-	int		len;
-	int		ret;
+	int			len;
+	int			ret;
 
 	temp = num;
 	len = num == 0 ? 1 : 0;

@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/27 11:47:13 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 20:30:38 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	fill_e_num(t_sble *sble, int e, int elen)
 	sble->e[elen + 1] = 'e';
 	sble->e[elen] = sble->esign;
 	i = 0;
-	sble->e[0] = e == 0 ? '0' : 0;/*+00*/
+	sble->e[0] = e == 0 ? '0' : 0;
 	sble->e[1] = e == 0 ? '0' : 0;
 	while (e != 0)
 	{
@@ -68,8 +68,8 @@ void	fill_e_num(t_sble *sble, int e, int elen)
 	sble->e[i] = i == 1 ? '0' : sble->e[i];
 }
 
-int	move_point(t_dble *dble, t_sble *sble)
-{/*always sble->out[0] = '0'*/
+int		move_point(t_dble *dble, t_sble *sble)
+{
 	int i;
 	int elen;
 
@@ -91,12 +91,12 @@ int	move_point(t_dble *dble, t_sble *sble)
 	elen = elen == 1 ? 2 : elen;
 	if ((sble->e = (char*)melloc(sizeof(char) * (elen + 3))) == 0)
 		return (-1);
-	fill_e_num(sble, sble->e, elen);/*reversal*/
+	fill_e_num(sble, sble->e, elen);
 	sble->d_idx = sble->out[1] != '0' ? 1 : sble->e_int * -1;
 	return (1);
 }
 
-int	get_e_str(t_format *list, t_dble *dble, t_sble *sble)
+int		get_e_str(t_format *list, t_dble *dble, t_sble *sble)
 {
 	if ((make_out_str(sble)) == -1 || (move_point(dble, sble)) == -1)
 		return (free_sble(-1, sble));

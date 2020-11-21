@@ -6,26 +6,26 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/27 11:47:13 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 20:35:16 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	change_e_num(t_sble *sble)
+int		change_e_num(t_sble *sble)
 {
-	int	elen;
+	int		elen;
 	char	*tp;
 
 	if (sble->out[sble->d_idx] != '0')
 		return ;
-	if (sble->esign == '-' && sble->out[sble->d_idx] == '0' &&	
+	if (sble->esign == '-' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')
 	{
 		sble->esign = '+';
 		elen = 2;
 	}
-	else if (sble->esign == '+' && sble->out[sble->d_idx] == '0' &&	
+	else if (sble->esign == '+' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')
 	{
 		elen = ft_numlen(sble->e_int + 1);
@@ -34,7 +34,7 @@ int	change_e_num(t_sble *sble)
 		free(sble->e);
 		sble->e = tp;
 	}
-	fill_e_num(sble, ++sble->e_int, elen);/*reversal*/
+	fill_e_num(sble, ++sble->e_int, elen);
 	sble->d_idx--;
 	return (1);
 }
@@ -108,7 +108,7 @@ void	output_feg(t_format *list, t_sble *sble, int i)
 	free_sble(1, sble);
 }
 
-int	get_g_str(t_format *list, t_dble *dble, t_sble *sble)
+int		get_g_str(t_format *list, t_dble *dble, t_sble *sble)
 {
 	int p;
 

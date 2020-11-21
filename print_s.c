@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_s.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungmki </var/mail/seungmki>              +#+  +:+       +#+        */
+/*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 22:50:21 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/20 22:50:24 by seungmki         ###   ########.fr       */
+/*   Created: 2020/11/21 20:24:22 by seungmki          #+#    #+#             */
+/*   Updated: 2020/11/21 20:24:27 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	output_s(t_format *list, t_uchar *s, int len)
 	int i;
 	int size;
 
-	i = 0;/* ||(null)|..(null)|(null)..| */
+	i = 0;
 	size = 0;
 	if (list->flag[1] == 0 && list->width > len)
 	{
@@ -48,10 +48,10 @@ void	make_nul_s(t_uchar *nul_s)
 	nul_s[6] = 0;
 }
 
-int	print_null(t_format *list)
+int		print_null(t_format *list)
 {
 	t_uchar *nul_s;
-	int	len;
+	int		len;
 
 	if ((nul_s = (t_uchar*)malloc(sizeof(t_uchar) * 7)) == 0)
 		return (-1);
@@ -63,19 +63,19 @@ int	print_null(t_format *list)
 	return (1);
 }
 
-int	print_s(t_format *list)
+int		print_s(t_format *list)
 {
 	t_uchar	*s;
-	int	len;
+	int		len;
 
 	if (list->flag[0] == 1 || list->flag[2] == 1
 		|| list->flag[3] == 1 || list->flag[5] == 1)
-		return (-1);/* only width/prec/-/* ok */
+		return (-1);
 	if (list->len == 'l')
 		return (print_ls(list));
 	if ((s = (t_uchar*)va_arg(list->ap, char*)) == 0)
 		return (print_null(list));
-	len = ft_strlen(s);/* min.max */
+	len = ft_strlen(s);
 	if (list->flag[6] == 1 && list->prec < len)
 		len = list->prec;
 	output_s(list, s, len);

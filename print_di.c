@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/27 11:47:13 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 20:44:49 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ void	output_di_ngf(char *out, t_format *list, int len)
 	int i;
 
 	i = 0;
-	if (list->if_num[0] == '-')/* -음수 */
+	if (list->if_num[0] == '-')
 		out[i++] = '-';
 	else if (list->flag[0] == 1 || list->flag[3] == 1)
 		out[i++] = list->flag[0] == 1 ? '+' : ' ';
-	if (list->prec > len)/* 정밀도>인자>최대너비(1.5, 123 00123) 정밀도>최너>인자(4.5, 123 00123) */
+	if (list->prec > len)
 		fill_space_or_zero(&i, list->size - len, out, '0');
 	len = list->if_num[0] == '-' ? 1 : 0;
-	while (list->if_num[len] != 0)/* 인>정>최대너비(1.2, 123) 인>최너>정(2.1, 123) */
+	while (list->if_num[len] != 0)
 		out[i++] = list->if_num[len++];
-	if (i < list->size)/* 최너>인>정(5.1, 123..) 최너>정>인(5.3, 1 001..) */
+	if (i < list->size)
 		fill_space_or_zero(&i, list->size, out, ' ');
 	write(1, out, i);
 	free(out);
@@ -49,19 +49,20 @@ void	output_di(char *out, t_format *list, int len)
 
 	i = 0;
 	if (list->width > len && list->width > list->prec)
-	{/*|  001| +001| -001| |  12|  +12|  -12|*/
+	{
 		int longer = len > list->prec ? len : list->prec;
-		if (list->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1))
+		if (list->if_num[0] != '-' && (list->flag[0] == 1 ||
+		list->flag[3] == 1))
 			longer++;
 		fill_space_or_zero(&i, list->size - longer, out, ' ');
 	}
-	if (list->if_num[0] == '-')/* |12345|+12345| 12345|-12345| */
-		out[i++] = '-';/* |0001|+0001| 0001|-0001| */
+	if (list->if_num[0] == '-')
+		out[i++] = '-';
 	else if (list->flag[0] == 1 || list->flag[3] == 1)
 		out[i++] = list->flag[0] == 1 ? '+' : ' ';
-	if (list->prec > len)/* |0001|+0001| 0001|-0001| */
+	if (list->prec > len)
 		fill_space_or_zero(&i, list->size - len, out, '0');
-	if (list->width > len && list->width > list->prec)/*|  001| +001| -001|*/
+	if (list->width > len && list->width > list->prec)
 		fill_space_or_zero(&i, list->prec - len, out, '0');
 	len = list->if_num[0] == '-' ? 1 : 0;
 	while (list->if_num[len] != 0)
@@ -71,13 +72,13 @@ void	output_di(char *out, t_format *list, int len)
 	list->nums += i;
 }
 
-int	print_di(t_format *list)
+int		print_di(t_format *list)
 {
 	t_llint	num;
-	int	len;
+	int		len;
 	char	*out;
 
-	if (list->flag[5] == 1)/*#*/
+	if (list->flag[5] == 1)
 		return (-1);
 	num = check_llint(list);
 	len = ft_llint_to_s(num, list);
@@ -86,19 +87,19 @@ int	print_di(t_format *list)
 	list->size = list->width > list->prec ? list->width : list->prec;
 	list->size = len > list->size ? len : list->size;
 	if (list->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1)
-		&& (len == list->size || list->prec == list->size))/* +' ' |+0002/ 1234 */
+		&& (len == list->size || list->prec == list->size))
 		list->size++;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
 	out[list->size] = 0;
-	if (list->flag[1] == 1)/* -flag */
+	if (list->flag[1] == 1)
 		output_di_ngf(out, list, len);
 	else
 		output_di(out, list, len);
 	return (1);
 }
 
-int	output_spec(t_format *list)
+int		output_spec(t_format *list)
 {
 	if (list->spec == 'd' || list->spec == 'i')
 		return (print_di(list));
