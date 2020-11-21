@@ -41,30 +41,29 @@ int		count_lsw_size(t_format *list, wchar_t ls, t_uchar *new)
 	return (len);
 }
 
-int		input_lstous(t_format *list, wchar_t ls, t_uchar *out)
+int		input_ls_to_us(t_format *list, wchar_t ls, t_uchar *out)
 {
-	int		bytes;
-	int		len;
+	int		bytes[2];
 	t_uchar new[5];
 	t_uchar *temp;
 	int		i;
 	int		j;
 
 	ft_bzero((void*)new, 5);
-	if ((bytes = count_lsw_size(list, ls, new)) < 0)
+	if ((bytes[0] = count_lsw_size(list, ls, new)) < 0)
 		return (-1);
-	len = (int)ft_ustrlen(out) + bytes;
-	if ((temp = (t_uchar*)malloc(sizeof(t_uchar) * (len + 1))) == 0)
+	bytes[1] = (int)ft_ustrlen(out) + bytes[0];
+	if ((temp = (t_uchar*)malloc(sizeof(t_uchar) * (bytes[1] + 1))) == 0)
 		return (-1);
 	i = -1;
 	while (out[++i] != 0)
 		temp[i] = out[i];
 	j = 0;
-	while (j < bytes)
+	while (j < bytes[0])
 		temp[i++] = new[j++];
 	free(out);
 	out = temp;
-	return (bytes);
+	return (bytes[0]);
 }
 
 int		count_out_num(t_format *list, wchar_t *ls, t_uchar *out, int *bytes)
@@ -79,7 +78,7 @@ int		count_out_num(t_format *list, wchar_t *ls, t_uchar *out, int *bytes)
 	{
 		while (i < list->prec)
 		{
-			if (temp = input_lstous(list, ls[i++], out) < 0)
+			if (temp = input_ls_to_us(list, ls[i++], out) < 0)
 				return (-1);
 			*bytes += temp;
 		}
@@ -88,7 +87,7 @@ int		count_out_num(t_format *list, wchar_t *ls, t_uchar *out, int *bytes)
 	{
 		while (ls[i] != 0)
 		{
-			if (temp = input_lstous(list, ls[i++], out) < 0)
+			if (temp = input_ls_to_us(list, ls[i++], out) < 0)
 				return (-1);
 			*bytes += temp;
 		}
