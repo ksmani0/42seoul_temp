@@ -43,14 +43,13 @@ void	output_di_ngf(char *out, t_format *list, int len)
 	list->nums += i;
 }
 
-void	output_di(char *out, t_format *list, int len)
+void	output_di(char *out, t_format *list, int len, int i)
 {
-	int i;
+	int longer;
 
-	i = 0;
 	if (list->width > len && list->width > list->prec)
 	{
-		int longer = len > list->prec ? len : list->prec;
+		longer = len > list->prec ? len : list->prec;
 		if (list->if_num[0] != '-' && (list->flag[0] == 1 ||
 		list->flag[3] == 1))
 			longer++;
@@ -95,7 +94,7 @@ int		print_di(t_format *list)
 	if (list->flag[1] == 1)
 		output_di_ngf(out, list, len);
 	else
-		output_di(out, list, len);
+		output_di(out, list, len, 0);
 	return (1);
 }
 

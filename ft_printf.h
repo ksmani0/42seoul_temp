@@ -127,7 +127,7 @@ void							fill_space_or_zero(int *i, int limit, char *out,
 		char s_or_z);
 void							output_di_ngf(char *out, t_format *list,
 		int len);
-void							output_di(char *out, t_format *list, int len);
+void							output_di(char *out, t_format *list, int len, int i);
 int								print_di(t_format *list);
 int								output_spec(t_format *list);
 
