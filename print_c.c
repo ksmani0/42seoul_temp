@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_c.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungmki </var/mail/seungmki>              +#+  +:+       +#+        */
+/*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 22:51:00 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/20 22:51:03 by seungmki         ###   ########.fr       */
+/*   Created: 2020/11/21 17:56:10 by seungmki          #+#    #+#             */
+/*   Updated: 2020/11/21 17:58:41 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ void	output_lc(t_format *list, t_uchar *out, t_uchar *lc_s, int len)
 	free(out);
 }
 
-int	input_lc_s(t_format *list, wint_t lc, t_uchar *lc_s)
+int		input_lc_s(t_format *list, wint_t lc, t_uchar *lc_s)
 {
 	int len;
 
 	len = 1;
-	if (lc < 128 && !(lc_s[0] = 0))/* utf-8 0??????? */
+	if (lc < 128 && !(lc_s[0] = 0))
 		lc_s[0] = (t_uchar)lc;
-	else if (lc < 2048 && (len = 2) && !(lc_s[2] = 0))/* 110????? 10?????? */
+	else if (lc < 2048 && (len = 2) && !(lc_s[2] = 0))
 		lc_s[0] = (lc >> 6) + 192;
-	else if (lc < 65536 && (len = 3) && !(lc_s[3] = 0))/*1110???? 10?????? 10??????*/
+	else if (lc < 65536 && (len = 3) && !(lc_s[3] = 0))
 		lc_s[0] = (lc >> 12) + 224;
 	else if (lc < 2097152 && (len = 4) && !(lc_s[4] = 0))
-	{/*11110??? 10?????? 10?????? 10??????*/
+	{
 		lc_s[0] = (lc >> 18) + 240;
 		lc_s[1] = ((lc >> 12) & 63) + 128;
 	}
@@ -52,12 +52,12 @@ int	input_lc_s(t_format *list, wint_t lc, t_uchar *lc_s)
 	return (len);
 }
 
-int	print_lc(t_format *list)
+int		print_lc(t_format *list)
 {
 	wint_t	lc;
 	t_uchar	*lc_s;
 	t_uchar *out;
-	int	len;
+	int		len;
 
 	lc = va_arg(list->ap, wint_t);
 	if ((lc_s = (t_uchar*)malloc(sizeof(t_uchar) * 5)) == 0)
@@ -89,17 +89,17 @@ void	output_c(t_format *list, t_uchar *out, t_uchar c)
 	free(out);
 }
 
-int	print_c(t_format *list)
+int		print_c(t_format *list)
 {
 	t_uchar c;
 	t_uchar	*out;
 
 	if (list->flag[6] == 1 || list->flag[0] == 1 || list->flag[2] == 1
 		|| list->flag[3] == 1 || list->flag[5] == 1)
-		return (-1);/*최너/-만 가능*/
+		return (-1);
 	if (list->len == 'l')
 		return (print_lc(list));
-	c = check_ullint(list);/*unsigned int로 승격된 걸 받음*/
+	c = check_ullint(list);
 	list->size = list->width > 1 ? list->width : 1;
 	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
 		return (-1);

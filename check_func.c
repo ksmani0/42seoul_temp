@@ -6,13 +6,13 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/19 13:04:19 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:53:24 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		if_flag_check(t_format *list)
+void	if_flag_check(t_format *list)
 {
 	while (1)
 	{
@@ -103,7 +103,7 @@ void	check_length(t_format *list)
 	list->str = lp->str;
 }
 
-int	check_spec(t_format *list)
+int		check_spec(t_format *list)
 {
 	char c;
 

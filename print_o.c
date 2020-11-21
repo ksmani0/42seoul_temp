@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:38:03 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 17:40:59 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/11/21 17:46:03 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ int		print_o(t_format *list)
 	list->if_num[0] = o == 0 && list->prec == 0 ? 0 : list->if_num[0];
 	list->size = list->width > list->prec ? list->width : list->prec;
 	list->size = len > list->size ? len : list->size;
-	if (list->flag[5] == 1&& list->width < len + 1 && list->prec < len + 1)
+	if (list->flag[5] == 1 && list->width < len + 1 && list->prec < len + 1)
 		list->size = list->size + 1;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
 	out[list->size] = 0;
 	if (list->flag[5] == 1)
-		output_sharp_o(out, list, len)
+		output_sharp_o(out, list, len);
 	else
 		output_o(out, list, len);
 	return (1);
