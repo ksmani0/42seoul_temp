@@ -43,7 +43,7 @@ void	output_sharp_x(char *out, t_format *list, int len)
 
 	i = 0;
 	longer = len > list->prec ? len : list->prec;
-	if (llist->flag[1] != 1 && list->width > longer + 2)/* | 0xc8| 0x0c8| */
+	if (list->flag[1] != 1 && list->width > longer + 2)/* | 0xc8| 0x0c8| */
 		fill_space_or_zero(&i, list->size - longer - 2, ' ');
 	out[i++] = '0';
 	out[i++] = list->spec == 'x' ? 'x' : 'X';
@@ -86,6 +86,7 @@ int	print_x(t_format *list)
 	t_ullint		x;
 	int		len;
 	int		longer;
+	char		*out;
 
 	if (list->flag[0] == 1 || list->flag[3] == 1)/* +' ' */
 		return (-1);

@@ -35,7 +35,7 @@ int	change_e_num(t_sble *sble)
 		sble->e = tp;
 	}
 	fill_e_num(sble, ++sble->e_int, elen);/*reversal*/
-	sble->e_idx--;
+	sble->d_idx--;
 	return (1);
 }
 
@@ -55,15 +55,17 @@ void	output_feg_sign(t_format *list, t_sble *sble, int *i)
 	else if (list->spec == 'e')
 	{
 		elen = ft_strlen(sble->e);
-		if (list->width > list->size + len)
+		if (list->width > list->size + elen)
 			list->nums += list->width;
-		else if (list->width <= list->size + len)
-			list->nums += (list->size + len);
+		else if (list->width <= list->size + elen)
+			list->nums += (list->size + elen);
 	}
 }
 
 void	output_decimal(t_format *list, t_sble *sble, int i)
 {
+	int len;
+
 	i = sble->out[0] != '0' ? 0 : 1;
 	while (i <= sble->d_idx)
 		write(1, &sble->out[i], 1);
@@ -76,7 +78,7 @@ void	output_decimal(t_format *list, t_sble *sble, int i)
 		write(1, ".", 1);
 	if (list->spec == 'e')
 	{
-		i = ft_strlen(sble->e) - 1;
+		len = ft_strlen(sble->e) - 1;
 		if (list->width > list->size + len)
 			list->nums += list->width;
 		while (i >= 0)
@@ -90,9 +92,9 @@ void	output_feg(t_format *list, t_sble *sble, int i)
 	{
 		if (list->flag[2] == 1)
 			output_feg_sign(list, sble, &i);
-		while (list->flat[2] == 1 && i++ < list->width - list->size)
+		while (list->flag[2] == 1 && i++ < list->width - list->size)
 			write(1, "0", 1);
-		while (list->flat[2] == 0 && i++ < list->width - list->size)
+		while (list->flag[2] == 0 && i++ < list->width - list->size)
 			write(1, " ", 1);
 		if (list->flag[2] == 0)
 			output_feg_sign(list, sble, &i);

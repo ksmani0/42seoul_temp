@@ -21,7 +21,7 @@ void	round_up(t_sble *sble, int prec)
 	i = sble->d_idx + prec;
 	up = 1;
 	sble->m_idx = sble->d_idx + prec;
-	whlie (i > sble->p_idx && up = 1)
+	while (i > sble->d_idx && up == 1)
 	{
 		temp = (sble->out[i] - '0') + up;
 		sble->out[i--] = temp % 10 + '0';
@@ -82,12 +82,13 @@ void	round_feg(t_format *list, t_sble *sble)
 int	make_out_str(t_sble *sble)
 {
 	int i;
+	int j;
 
 	i = 1;
 	j = sble->d_len - 1;
 	sble->d_idx = sble->d_len;
 	if ((sble->out = (char*)malloc(sizeof(char) *
-		(sble->d_len + 1 + m_len + 1))) == 0)
+		(sble->d_len + 1 + sble->m_len + 1))) == 0)
 		return (-1);
 	sble->out[0] = '0';
 	while (i <= sble->d_len)
@@ -98,7 +99,7 @@ int	make_out_str(t_sble *sble)
 	return (1);
 }
 
-int	get_f_str(t_format *list, t_dble *dble, t_sble *sble)
+int	get_f_str(t_format *list, t_sble *sble)
 {
 	if ((make_out_str(sble)) == -1)
 		return (free_sble(-1, sble));

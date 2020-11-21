@@ -223,7 +223,7 @@ void							input_div_sum(char bit, t_deci *pow,
 		t_deci *sum);
 void							fill_mod_bit(t_dble *dble, t_sble *sble,
 		int len);
-int								get_mod_decimal(t_dble *dble, t_sble *sble,
+int								get_mod_decimal(t_sble *sble,
 		int blen);
 int								parse_mod(t_dble *dble, t_sble *sble);
 
@@ -247,8 +247,7 @@ void							round_up(t_sble *sble, int prec);
 void							rounding_meet_five(t_sble *sble, int prec);
 void							round_feg(t_format *list, t_sble *sble);
 int								make_out_str(t_sble *sble);
-int								get_f_str(t_format *list, t_dble *dble,
-		t_sble *sble);
+int								get_f_str(t_format *list, t_sble *sble);
 
 /*
 *****output_feg.c*****

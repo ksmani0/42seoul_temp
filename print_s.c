@@ -55,7 +55,7 @@ int	print_null(t_format *list)
 
 	if ((nul_s = (t_uchar*)malloc(sizeof(t_uchar) * 7)) == 0)
 		return (-1);
-	make_nul_s(list, nul_s);
+	make_nul_s(nul_s);
 	len = 6;
 	if (list->flag[6] == 1 && list->prec < len)
 		len = list->prec < len ? list->prec : len;

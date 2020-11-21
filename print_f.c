@@ -46,38 +46,37 @@ int	parse_div(t_dble *dble, t_sble *sble)
 	int	i;
 	int	j;
 
-	if (dble->e - 1023 <= -1)/*largest dble->e is 2036*/
+	if (dble->s_int.e - 1023 <= -1)/*largest dble->e is 2036*/
 	{/*if integer is zero*/
 		sble->d_bit[0] = '0';
 		blen = 1;
 	}
 	else
 	{//52개 가수부 비트와 1.~의 1자리보다 지수 크면 정수 비트만 53개
-		blen = dble->e - 1023 + 1 > 53 ? 53 : dble->e - 1023 + 1;
+		blen = dble->s_int.e - 1023 + 1 > 53 ? 53 : dble->s_int.e - 1023 + 1;
 		sble->d_bit[0] = 1;//부동소수점을 2진수로 표현하면 1.~니까
 		i = 0;
 		j = 51;
 		while (j >= 0 && j > 52 - blen)
-			sble->d_bit[++i] = (dble->m & 1 >> j--) + '0';//52번째 비트부터 기록
+			sble->d_bit[++i] = (dble->s_int.m & 1 >> j--) + '0';//52번째 비트부터 기록
 	}
-	sble->sign = dble->s == 1 ? '-' : '+';
+	sble->sign = dble->s_int.s == 1 ? '-' : '+';
 	return (get_div_decimal(dble, sble, blen));
 }
 
-int	check_inf_nan(t_dble dble, t_format *list)
+int	check_inf_nan(t_dble *dble, t_format *list, int i)
 {
 	char	*s;
-	int	i;
 	int	len;
 
-	i = 0;
 	len = 3;
-	if (dble.e != 2047)
+	if (dble->s_int.e != 2047)
 		return ;
-	if ((dble.s == 0 && dble.e == 2047 && dble.m == 0) ||
-		(dble.e == 2047 && dble.m >= 1))
-		s = dble.m >= 1 ? "nan" : "inf";
-	else if (dble.e == 1 && dble.e == 2047 && dble.m == 0 && (len = 4))
+	if ((dble->s_int.s == 0 && dble->s_int.e == 2047 && dble->s_int.m == 0)	
+	|| (dble->s_int.e == 2047 && dble->s_int.m >= 1))
+		s = dble->s_int.m >= 1 ? "nan" : "inf";
+	else if (dble->s_int.e == 1 && dble->s_int.e == 2047 &&
+	dble->s_int.m == 0 && (len = 4))
 		s = "-inf";
 	if (list->flag[1] != 0 && list->width > len)
 	{
@@ -110,7 +109,7 @@ int	print_feg(t_format *list)
 	if (list->len == 'h' || list->len == 'H' || list->len == 'L')
 		return (-1);
 	dble.value = va_arg(list->ap, double);
-	if ((check_inf_nan(dble, list)) == 1)
+	if ((check_inf_nan(&dble, list, 0)) == 1)
 		return (1);
 	ft_bzero((void*)&dble, sizeof(dble));
 	ft_bzero((void*)&sble, sizeof(sble));
@@ -120,5 +119,5 @@ int	print_feg(t_format *list)
 		return (get_e_str(list, &dble, &sble));
 	else if (list->spec == 'g')
 		return (get_g_str(list, &dble, &sble));
-	return (get_f_str(list, &dble, &sble));
+	return (get_f_str(list, &sble));
 }

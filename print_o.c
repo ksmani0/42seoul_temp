@@ -90,6 +90,7 @@ int	print_o(t_format *list)
 {
 	t_ullint		o;
 	int		len;
+	char		*out;
 
 	if (list->flag[0] == 1 || list->flag[3] == 1)/* +' ' */
 		return (-1);
@@ -99,7 +100,7 @@ int	print_o(t_format *list)
 	list->if_num[0] = o == 0 && list->prec == 0 ? 0 : list->if_num[0];
 	list->size = list->width > list->prec ? list->width : list->prec;
 	list->size = len > list->size ? len : list->size;
-	if (list->flag[5] == 1&& list->width < len + 1 && ist->prec < len + 1)
+	if (list->flag[5] == 1&& list->width < len + 1 && list->prec < len + 1)
 		list->size = list->size + 1;/* |0x00aa|0xaaa|0x0000aa| */
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);

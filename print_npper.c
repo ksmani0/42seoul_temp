@@ -14,7 +14,6 @@
 
 int	print_percent(t_format *list)
 {
-	int	len;
 	char	*out;
 	int	i;
 
@@ -65,6 +64,7 @@ int	ft_arr_to_s(t_ulint adrr, t_format *list)
 	int	len;
 	int	ret;
 
+	len = 0;
 	temp = adrr;
 	while (adrr != 0)
 	{
@@ -105,7 +105,7 @@ int	print_p(t_format *list)
 {
 	t_ulint	adrr;
 	int	len;
-	char	*out
+	char	*out;
 
 	if (list->prec > 0 || list->flag[0] == 1 || list->flag[2] == 1	
 	|| list->flag[3] == 1 || list->flag[4] == 1 || list->flag[5] == 1)

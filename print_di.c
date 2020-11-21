@@ -51,7 +51,7 @@ void	output_di(char *out, t_format *list, int len)
 	if (list->width > len && list->width > list->prec)
 	{/*|  001| +001| -001| |  12|  +12|  -12|*/
 		int longer = len > list->prec ? len : list->prec;
-		if (ist->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1))
+		if (list->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1))
 			longer++;
 		fill_space_or_zero(&i, list->size - longer, out, ' ');
 	}
@@ -78,7 +78,7 @@ int	print_di(t_format *list)
 	char	*out;
 
 	if (list->flag[5] == 1)/*#*/
-		(-1);
+		return (-1);
 	num = check_llint(list);
 	len = ft_llint_to_s(num, list);
 	len = num == 0 && list->prec == 0 ? 0 : len;
@@ -115,7 +115,7 @@ int	output_spec(t_format *list)
 	else if (list->spec == 'o')
 		return (print_o(list));
 	else if (list->spec == 'e' || list->spec == 'f' || list->spec == 'g')
-		return = (print_feg(list));
+		return (print_feg(list));
 	else if (list->spec == 'p')
 		return (print_p(list));
 	else if (list->spec == 'n')

@@ -14,10 +14,21 @@
 
 t_format		*initial_malloc(t_format **list)
 {
-	if((*list = (t_format*)malloc(sizeof(t_format) * 1)) == 0)
+	t_format *temp;
+
+	temp = *list;
+	if((temp = (t_format*)malloc(sizeof(t_format) * 1)) == 0)
 		return ((void*)0);
-	*(*list) = { 0, };
-	return (*list);
+	temp = str = 0;
+	ft_bzero(temp->flag, (sizeof(char) * 7));
+	temp->spec = 0;
+	ft_bzero(temp->if_num, (sizeof(char) * 21));
+	temp->len = 0;
+	temp->width = 0;
+	temp->prec = 0;
+	temp->size = 0;
+	temp->nums = 0;
+	return (temp);
 }
 
 void		print_char(t_format *list)

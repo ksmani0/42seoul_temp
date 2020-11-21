@@ -67,27 +67,27 @@ void	fill_mod_bit(t_dble *dble, t_sble *sble, int len)
 	int i;
 
 	i = 0;
-	if (dble->e - 1023 <= -1)//이때 len은 53 이상일 것
+	if (dble->s_int.e - 1023 <= -1)//이때 len은 53 이상일 것
 	{
 		while (len-- >= 53)
-			sble->s[i++] = '0';
+			sble->s_mod[i++] = '0';
 	}
 	sble->m_bit[i++] = '1';
 	while (len-- >= 0)
-		sble->m_bit[i++] = ((dble->m >> len) & 1) + '0';
+		sble->m_bit[i++] = ((dble->s_int.m >> len) & 1) + '0';
 }
 
-int	get_mod_decimal(t_dble *dble, t_sble *sble, int blen)
+int	get_mod_decimal(t_sble *sble, int blen)
 {
 	int	i;
 	t_deci	pow;
 	t_deci	sum;
 
 	i = 0;
-	ft_bzero(pow, sizeof(pow));
+	ft_bzero(&pow, sizeof(pow));
 	pow.s[0] = 5;
 	pow.len = 1;
-	ft_bzero(sum, sizeof(sum));
+	ft_bzero(&sum, sizeof(sum));
 	while (i < blen)
 	{
 		input_mod_pow(&pow);
@@ -106,19 +106,17 @@ int	get_mod_decimal(t_dble *dble, t_sble *sble, int blen)
 int	parse_mod(t_dble *dble, t_sble *sble)
 {
 	size_t	blen;
-	int	i;
-	int	j;
 
-	if (dble->e - 1023 >= 52)//가수부 전부 정수 차지
+	if (dble->s_int.e - 1023 >= 52)//가수부 전부 정수 차지
 	{
 		sble->m_bit[0] = '0';
 		blen = 1;
 	}
 	else
 	{/*largest len is 52+1+1022=1075*/
-		len = dble->e - 1023 <= -1 ? 52 - (dble->e - 1023) :
-			52 - (dble->e - 1023);//-1 이하면 0이 앞에 붙어야 함
+		blen = dble->s_int.e - 1023 <= -1 ?
+		52 - (dble->s_int.e - 1023) : 52 - (dble->s_int.e - 1023);//-1 이하면 0이 앞에 붙어야 함
 		fill_mod_bit(dble, sble, blen);
 	}
-	return (get_mod_decimal(dble, sble, blen));
+	return (get_mod_decimal(sble, blen));
 }

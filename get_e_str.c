@@ -75,8 +75,8 @@ int	move_point(t_dble *dble, t_sble *sble)
 
 	i = 0;
 	sble->esign = '+';
-	if ((sble->out[1] == '0') && (esign = sble->m_idx > 2 ||
-	sble->m_idx == 2 && sble->out[2] != '0'))
+	if ((sble->out[1] == '0') && ((sble->m_idx > 2) ||
+	(sble->m_idx == 2 && sble->out[2] != '0')))
 		sble->esign = '-';
 	if (sble->esign != '+')
 		sble->e_int = sble->d_idx - 1;
@@ -109,7 +109,7 @@ int	get_e_str(t_format *list, t_dble *dble, t_sble *sble)
 		list->size++;
 	if (list->flag[5] == 1 && list->flag[6] == 1 && list->prec == 0)
 		list->size++;
-	output_feg(list, &ret, 0);
+	output_feg(list, sble, 0);
 	list->nums = list->nums + (list->size > list->width ?
 		list->size : list->width);
 	return (free_sble(1, sble));

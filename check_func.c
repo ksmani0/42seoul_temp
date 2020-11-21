@@ -42,7 +42,7 @@ void	check_width_star(t_format *list)
 	if (*list->str != '.' && (*list->str >= '0' && *list->str <= '9'))
 		return ;
 	list->flag[6] = *list->str == '.' ? 1 : 0;
-	if (list->flag[4] == 1 && *list->str == '.')/* *./*d */
+	if (list->flag[4] == 1 && *list->str == '.')
 	{
 		w = va_arg(list->ap, int);
 		list->flag[1] = w < 0 ? 1 : list->flag[1];
@@ -50,15 +50,15 @@ void	check_width_star(t_format *list)
 		list->str = *list->str == '.' ? list->str + 1 : list->str;
 		return ;
 	}
-	else if (list->flag[4] == 0 && *list->str == '.')/* n. */
+	else if (list->flag[4] == 0 && *list->str == '.')
 	{
 		list->str++;
 		return ;
 	}
-	while (*list->str >= '0' && *list->str <= '9')/* 수./d/수d/수* */
+	while (*list->str >= '0' && *list->str <= '9')
 		w = w * 10 + (*list->str++ - '0');
 	list->width = w;
-	list->str = *list->str == '.' ? list->str + 1 : list->str
+	list->str = *list->str == '.' ? list->str + 1 : list->str;
 }
 
 void	check_prec_star(t_format *list)
@@ -66,16 +66,16 @@ void	check_prec_star(t_format *list)
 	int p;
 
 	p = 0;
-	if (*list->str != '*' && (*list->str >= '0' && *list->str <= '9'))
-		return ;/* . 뒤에 +' '#- 안 오니 신경 안 써도 됨 */
-	if (*list->str == '*')/* (.)수d/*/*d */
+	if (*list->str != '*' && *list->str >= '0' && *list->str <= '9')
+		return ;
+	if (*list->str == '*')
 	{
 		list->flag[4] = 1;
 		p = va_arg(list->ap, int);
 		list->prec = p < 0 ? 0 : p;
 		return ;
 	}
-	while (*list->str >= '0' && *list->str <= '9')/* 1d */
+	while (*list->str >= '0' && *list->str <= '9')
 		p = p * 10 + (*list->str++ - '0');
 	list->prec = p;
 }
@@ -85,10 +85,10 @@ void	check_length(t_format *list)
 	t_format *lp;
 
 	lp = list;
-	if (lp->flag[1] == 1)/*-*/
-		lp->flag[2] = 0;/*0*/
-	if (lp->flag[0] == 1)/*+*/
-		lp->flag[3] = 0;/*' '*/
+	if (lp->flag[1] == 1)
+		lp->flag[2] = 0;
+	if (lp->flag[0] == 1)
+		lp->flag[3] = 0;
 	if (*lp->str == 'h' && *(lp->str + 1) == 'h')
 		lp->len = 'H';
 	else if (*lp->str == 'h' && *(lp->str + 1) != 'h')

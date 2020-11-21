@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	count_lsw_size(wchar_t ls, t_uchar *new)
+int	count_lsw_size(t_format *list, wchar_t ls, t_uchar *new)
 {
 	int len;
 
@@ -51,7 +51,7 @@ int	input_ls_to_us(t_format *list, wchar_t ls, t_uchar *out)
 	int	j;
 
 	ft_bzero((void*)new, 5);
-	if ((bytes = count_lsw_size(ls, new)) < 0)
+	if ((bytes = count_lsw_size(list, ls, new)) < 0)
 		return (-1);
 	len = (int)ft_ustrlen(out) + bytes;/*ls의 바이트수만큼 추가해서 out 늘림*/
 	if ((temp = (t_uchar*)malloc(sizeof(t_uchar) * (len + 1))) == 0)

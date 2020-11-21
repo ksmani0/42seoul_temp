@@ -100,7 +100,7 @@ int	print_c(t_format *list)
 	if (list->len == 'l')
 		return (print_lc(list));
 	c = check_ullint(list);/*unsigned int로 승격된 걸 받음*/
-	list->size = lisr->width > 1 ? list->width : 1;
+	list->size = list->width > 1 ? list->width : 1;
 	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
 		return (-1);
 	out[list->size] = 0;
