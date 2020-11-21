@@ -195,7 +195,7 @@ int								print_s(t_format *list);
 */
 
 int								count_lsw_size(wchar_t ls, t_uchar *new);
-int								input_ls_to_us(t_format *list, wchar_t ls,
+int								input_lstous(t_format *list, wchar_t ls,
 		t_uchar *out);
 int								count_out_num(t_format *list, wchar_t *ls,
 		t_uchar *out, int *bytes);

@@ -36,11 +36,11 @@ int		input_lc_s(t_format *list, wint_t lc, t_uchar *lc_s)
 	len = 1;
 	if (lc < 128 && !(lc_s[0] = 0))
 		lc_s[0] = (t_uchar)lc;
-	else if (lc < 2048 && (len = 2) && !(lc_s[2] = 0))
+	else if (lc < 2048 && (len = 2))
 		lc_s[0] = (lc >> 6) + 192;
-	else if (lc < 65536 && (len = 3) && !(lc_s[3] = 0))
+	else if (lc < 65536 && (len = 3))
 		lc_s[0] = (lc >> 12) + 224;
-	else if (lc < 2097152 && (len = 4) && !(lc_s[4] = 0))
+	else if (lc < 2097152 && (len = 4))
 	{
 		lc_s[0] = (lc >> 18) + 240;
 		lc_s[1] = ((lc >> 12) & 63) + 128;
@@ -62,7 +62,7 @@ int		print_lc(t_format *list)
 	lc = va_arg(list->ap, wint_t);
 	if ((lc_s = (t_uchar*)malloc(sizeof(t_uchar) * 5)) == 0)
 		return (-1);
-	lc_s[4] = 0;
+	ft_bzero((void*)lc_s, 5);
 	len = input_lc_s(list, lc, lc_s);
 	list->size = list->width > len ? list->width : len;
 	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
