@@ -12,17 +12,17 @@
 
 #include "ft_printf.h"
 
-int		get_div_decimal(t_dble *dble, t_sble *sble, int blen)
+int		get_div_decimal(t_sble *sble, int blen)
 {
 	int		i;
 	t_deci	pow;
 	t_deci	sum;
 
 	i = blen;
-	ft_bzero(pow, sizeof(pow));
+	ft_bzero((void*)&pow, sizeof(pow));
 	pow.s[0] = 1;
 	pow.len = 1;
-	ft_bzero(sum, sizeof(sum));
+	ft_bzero((void*)&sum, sizeof(sum));
 	while (i >= 0)
 	{
 		input_div_pow(&pow);
@@ -42,9 +42,9 @@ int		get_div_decimal(t_dble *dble, t_sble *sble, int blen)
 
 int		parse_div(t_dble *dble, t_sble *sble)
 {
-	size_t	blen;
-	int		i;
-	int		j;
+	int blen;
+	int i;
+	int j;
 
 	if (dble->s_int.e - 1023 <= -1)
 	{
@@ -61,7 +61,7 @@ int		parse_div(t_dble *dble, t_sble *sble)
 			sble->d_bit[++i] = (dble->s_int.m & 1 >> j--) + '0';
 	}
 	sble->sign = dble->s_int.s == 1 ? '-' : '+';
-	return (get_div_decimal(dble, sble, blen));
+	return (get_div_decimal(sble, blen));
 }
 
 int		check_inf_nan(t_dble *dble, t_format *list, int i)
@@ -71,7 +71,7 @@ int		check_inf_nan(t_dble *dble, t_format *list, int i)
 
 	len = 3;
 	if (dble->s_int.e != 2047)
-		return ;
+		return (0);
 	if ((dble->s_int.s == 0 && dble->s_int.e == 2047 && dble->s_int.m == 0)
 	|| (dble->s_int.e == 2047 && dble->s_int.m >= 1))
 		s = dble->s_int.m >= 1 ? "nan" : "inf";
@@ -116,8 +116,8 @@ int		print_feg(t_format *list)
 	if (!(parse_div(&dble, &sble)) || !(parse_mod(&dble, &sble)))
 		return (free_sble(-1, &sble));
 	if (list->spec == 'e')
-		return (get_e_str(list, &dble, &sble));
+		return (get_e_str(list, &sble));
 	else if (list->spec == 'g')
-		return (get_g_str(list, &dble, &sble));
+		return (get_g_str(list, &sble));
 	return (get_f_str(list, &sble));
 }

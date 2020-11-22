@@ -73,8 +73,8 @@ typedef struct					s_dble
 	char						d_bit[1024];
 	char						*s_mod;
 	char						m_bit[1076];
-	size_t						d_len;
-	size_t						m_len;
+	int						d_len;
+	int						m_len;
 	char						*out;
 	int							d_idx;
 	int							m_idx;
@@ -87,7 +87,7 @@ typedef struct					s_dble
 typedef struct					s_deci
 {
 	char						s[1076];
-	size_t						len;
+	int						len;
 }								t_deci;
 
 /*
@@ -116,8 +116,8 @@ int								check_spec(t_format *list);
 
 t_llint							check_llint(t_format *list);
 t_ullint						check_ullint(t_format *list);
-void							ft_llint_to_s(t_llint num, t_format *list);
-void							ft_ullint_to_s(t_llint num, t_format *list);
+size_t							ft_llint_to_s(t_llint num, t_format *list);
+size_t							ft_ullint_to_s(t_llint num, t_format *list);
 
 /*
 *****print_di.c*****
@@ -166,8 +166,8 @@ int								print_o(t_format *list);
 int								print_percent(t_format *list);
 int								print_n(t_format *list);
 size_t							ft_arr_to_s(t_ulint adrr, t_format *list);
-int								output_p(char *out, t_format *list, int len);
-void							print_p(t_format *list);
+void								output_p(char *out, t_format *list, int len);
+int							print_p(t_format *list);
 
 /*
 *****print_c.c*****
@@ -175,8 +175,7 @@ void							print_p(t_format *list);
 
 void							output_lc(t_format *list, t_uchar *out,
 		t_uchar *lc_s, int len);
-int								input_lc_s(t_format *list, wint_t lc,
-		t_uchar *lc_s);
+int								input_lc_s(wint_t lc, t_uchar *lc_s);
 int								print_lc(t_format *list);
 void							output_c(t_format *list, t_uchar *out,
 		t_uchar c);
@@ -195,9 +194,9 @@ int								print_s(t_format *list);
 *****print_ls.c*****
 */
 
-int								count_lsw_size(wchar_t ls, t_uchar *new);
-int								input_ls_to_us(t_format *list, wchar_t ls,
-		t_uchar *out);
+int								count_lsw_size(t_format *list, wchar_t ls, t_uchar *new);
+int								input_ls_to_us(t_format *list,
+		wchar_t ls, t_uchar *out);
 int								count_out_num(t_format *list, wchar_t *ls,
 		t_uchar *out, int *bytes);
 void							output_ls(t_format *list, t_uchar *out,
@@ -208,10 +207,9 @@ int								print_ls(t_format *list);
 *****print_f.c*****
 */
 
-int								get_div_decimal(t_dble *dble, t_sble *sble,
-		int blen);
+int								get_div_decimal(t_sble *sble, int blen);
 int								parse_div(t_dble *dble, t_sble *sble);
-int								check_inf_nan(t_dble dble, t_format *list);
+int								check_inf_nan(t_dble *dble, t_format *list, int i);
 int								free_sble(int error_or_not, t_sble *sble);
 int								print_feg(t_format *list);
 
@@ -236,9 +234,8 @@ void							input_mod_pow(t_deci *pow);
 void							input_mod_sum(char bit, t_deci *pow,
 		t_deci *sum);
 void							fill_e_num(t_sble *sble, int e, int elen);
-int								move_point(t_dble *dble, t_sble *sble);
-int								get_e_str(t_format *list, t_dble *dble,
-		t_sble *sble);
+int								move_point(t_sble *sble);
+int								get_e_str(t_format *list, t_sble *sble);
 
 /*
 *****get_f_str.c*****
@@ -260,7 +257,6 @@ void							output_feg_sign(t_format *list,
 void							output_decimal(t_format *list,
 		t_sble *sble, int i);
 void							output_feg(t_format *list, t_sble *sble, int i);
-int								get_g_str(t_format *list, t_dble *dble,
-		t_sble *sble);
+int								get_g_str(t_format *list, t_sble *sble);
 
 #endif

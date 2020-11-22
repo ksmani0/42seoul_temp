@@ -68,7 +68,7 @@ void	fill_e_num(t_sble *sble, int e, int elen)
 	sble->e[i] = i == 1 ? '0' : sble->e[i];
 }
 
-int		move_point(t_dble *dble, t_sble *sble)
+int		move_point(t_sble *sble)
 {
 	int i;
 	int elen;
@@ -89,19 +89,19 @@ int		move_point(t_dble *dble, t_sble *sble)
 	}
 	elen = ft_intlen(sble->e_int);
 	elen = elen == 1 ? 2 : elen;
-	if ((sble->e = (char*)melloc(sizeof(char) * (elen + 3))) == 0)
+	if ((sble->e = (char*)malloc(sizeof(char) * (elen + 3))) == 0)
 		return (-1);
-	fill_e_num(sble, sble->e, elen);
+	fill_e_num(sble, sble->e_int, elen);
 	sble->d_idx = sble->out[1] != '0' ? 1 : sble->e_int * -1;
 	return (1);
 }
 
-int		get_e_str(t_format *list, t_dble *dble, t_sble *sble)
+int		get_e_str(t_format *list, t_sble *sble)
 {
-	if ((make_out_str(sble)) == -1 || (move_point(dble, sble)) == -1)
+	if ((make_out_str(sble)) == -1 || (move_point(sble)) == -1)
 		return (free_sble(-1, sble));
 	round_feg(list, sble);
-	if ((chage_e_num(sble)) == -1)
+	if ((change_e_num(sble)) == -1)
 		return (free_sble(-1, sble));
 	list->size = sble->out[0] == '0' ? sble->m_idx + 1 : sble->m_idx + 2;
 	list->size = sble->sign == '-' ? list->size++ : list->size;

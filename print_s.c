@@ -75,7 +75,7 @@ int		print_s(t_format *list)
 		return (print_ls(list));
 	if ((s = (t_uchar*)va_arg(list->ap, char*)) == 0)
 		return (print_null(list));
-	len = ft_strlen(s);
+	len = ft_strlen((const char*)s);
 	if (list->flag[6] == 1 && list->prec < len)
 		len = list->prec;
 	output_s(list, s, len);

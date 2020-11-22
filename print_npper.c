@@ -58,7 +58,7 @@ int		print_n(t_format *list)
 	return (1);
 }
 
-int		ft_arr_to_s(t_ulint adrr, t_format *list)
+size_t		ft_arr_to_s(t_ulint adrr, t_format *list)
 {
 	t_ulint temp;
 	int		len;
@@ -114,7 +114,7 @@ int		print_p(t_format *list)
 	len = ft_arr_to_s(adrr, list);
 	list->size = len == 0 ? 3 : len + 2;
 	list->size = list->size > list->width ? list->size : list->width;
-	if ((out == (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
+	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
 	out[list->size] = 0;
 	output_p(out, list, len);

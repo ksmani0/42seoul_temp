@@ -20,6 +20,7 @@ int		hex_to_str(t_ullint x, t_format *list)
 	int			ret;
 
 	temp = x;
+	len = 0;
 	while (x != 0)
 	{
 		x /= 16;
@@ -44,16 +45,16 @@ void	output_sharp_x(char *out, t_format *list, int len)
 	i = 0;
 	longer = len > list->prec ? len : list->prec;
 	if (list->flag[1] != 1 && list->width > longer + 2)
-		fill_space_or_zero(&i, list->size - longer - 2, ' ');
+		fill_space_or_zero(&i, list->size - longer - 2, out, ' ');
 	out[i++] = '0';
 	out[i++] = list->spec == 'x' ? 'x' : 'X';
 	if (list->prec > len)
-		fill_space_or_zero(&i, list->prec - len, '0');
+		fill_space_or_zero(&i, list->prec - len, out, '0');
 	len = 0;
 	while (list->if_num[len] != 0)
 		out[i++] = list->if_num[len++];
 	if (list->width > longer + 2)
-		fill_space_or_zero(&i, list->size, ' ');
+		fill_space_or_zero(&i, list->size, out, ' ');
 	write(1, out, i);
 	free(out);
 }

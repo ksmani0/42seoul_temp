@@ -46,19 +46,19 @@ void	output_sharp_o(char *out, t_format *list, int len)
 	i = 0;
 	longer = len > list->prec ? len : list->prec;
 	if (list->flag[1] == 0 && list->width > len + 1 && len >= list->prec)
-		fill_space_or_zero(&i, list->size - (len + 1), ' ');
+		fill_space_or_zero(&i, list->size - (len + 1), out, ' ');
 	else if (list->flag[1] == 0 && list->width > longer)
-		fill_space_or_zero(&i, list->size - longer, ' ');
+		fill_space_or_zero(&i, list->size - longer, out, ' ');
 	out[i++] = '0';
 	if (list->prec > len + 1)
-		fill_space_or_zero(&i, list->prec - (len + 1), '0');
+		fill_space_or_zero(&i, list->prec - (len + 1), out, '0');
 	len = 0;
 	while (list->if_num[len] != 0)
 		out[i++] = list->if_num[len++];
 	if (len + 1 >= list->prec && list->width > len + 1)
-		fill_space_or_zero(&i, list->size, ' ');
+		fill_space_or_zero(&i, list->size, out, ' ');
 	else if (list->width > longer)
-		fill_space_or_zero(&i, list->size - longer, ' ');
+		fill_space_or_zero(&i, list->size - longer, out, ' ');
 	write(1, out, i);
 	free(out);
 }

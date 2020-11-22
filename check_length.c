@@ -50,7 +50,7 @@ t_ullint	check_ullint(t_format *list)
 	return (arg);
 }
 
-void		ft_llint_to_s(t_llint num, t_format *list)
+size_t		ft_llint_to_s(t_llint num, t_format *list)
 {
 	t_llint	temp;
 	int		sign;
@@ -77,7 +77,7 @@ void		ft_llint_to_s(t_llint num, t_format *list)
 	return (ret);
 }
 
-void		ft_ullint_to_s(t_llint num, t_format *list)
+size_t		ft_ullint_to_s(t_llint num, t_format *list)
 {
 	t_ullint	temp;
 	int			len;

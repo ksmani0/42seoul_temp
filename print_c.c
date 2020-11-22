@@ -18,18 +18,18 @@ void	output_lc(t_format *list, t_uchar *out, t_uchar *lc_s, int len)
 
 	i = 0;
 	if (list->flag[1] == 0 && list->width > len)
-		fill_space_or_zero(&i, list->size - len, out, ' ');
+		fill_space_or_zero(&i, list->size - len, (char*)out, ' ');
 	len = 0;
 	while (lc_s[len] != 0)
 		out[i++] = lc_s[len++];
 	if (list->flag[1] == 1 && list->width > 1)
-		fill_space_or_zero(&i, list->size, out, ' ');
+		fill_space_or_zero(&i, list->size, (char*)out, ' ');
 	write(1, out, i);
 	free(lc_s);
 	free(out);
 }
 
-int		input_lc_s(t_format *list, wint_t lc, t_uchar *lc_s)
+int		input_lc_s(wint_t lc, t_uchar *lc_s)
 {
 	int len;
 
@@ -63,7 +63,7 @@ int		print_lc(t_format *list)
 	if ((lc_s = (t_uchar*)malloc(sizeof(t_uchar) * 5)) == 0)
 		return (-1);
 	ft_bzero((void*)lc_s, 5);
-	len = input_lc_s(list, lc, lc_s);
+	len = input_lc_s(lc, lc_s);
 	list->size = list->width > len ? list->width : len;
 	if ((out = (t_uchar*)malloc(sizeof(t_uchar) * (list->size + 1))) == 0)
 	{
@@ -81,10 +81,10 @@ void	output_c(t_format *list, t_uchar *out, t_uchar c)
 
 	i = 0;
 	if (list->flag[1] == 0 && list->width > 1)
-		fill_space_or_zero(&i, list->size - 1, out, ' ');
+		fill_space_or_zero(&i, list->size - 1, (char*)out, ' ');
 	out[i++] = c;
 	if (list->flag[1] == 1 && list->width > 1)
-		fill_space_or_zero(&i, list->size, out, ' ');
+		fill_space_or_zero(&i, list->size, (char*)out, ' ');
 	write(1, out, i);
 	free(out);
 }

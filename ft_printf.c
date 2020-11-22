@@ -82,8 +82,8 @@ int			ft_printf(const char *format, ...)
 
 	if (format == 0 || (initial_malloc(&list)) == 0)
 		return (-1);
-	list->str = format;
-	va_start(list->ap, list->str);
+	list->str = (char*)format;
+	va_start(list->ap, format);
 	if ((str_or_format(list)) == -1)
 		list->nums = -1;
 	va_end(list->ap);

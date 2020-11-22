@@ -78,7 +78,7 @@ int		count_out_num(t_format *list, wchar_t *ls, t_uchar *out, int *bytes)
 	{
 		while (i < list->prec)
 		{
-			if (temp = input_ls_to_us(list, ls[i++], out) < 0)
+			if ((temp = input_ls_to_us(list, ls[i++], out)) < 0)
 				return (-1);
 			*bytes += temp;
 		}
@@ -87,7 +87,7 @@ int		count_out_num(t_format *list, wchar_t *ls, t_uchar *out, int *bytes)
 	{
 		while (ls[i] != 0)
 		{
-			if (temp = input_ls_to_us(list, ls[i++], out) < 0)
+			if ((temp = input_ls_to_us(list, ls[i++], out)) < 0)
 				return (-1);
 			*bytes += temp;
 		}

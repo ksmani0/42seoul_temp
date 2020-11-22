@@ -17,8 +17,9 @@ int		change_e_num(t_sble *sble)
 	int		elen;
 	char	*tp;
 
+	elen = 0;
 	if (sble->out[sble->d_idx] != '0')
-		return ;
+		return (1);
 	if (sble->esign == '-' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')
 	{
@@ -28,7 +29,7 @@ int		change_e_num(t_sble *sble)
 	else if (sble->esign == '+' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')
 	{
-		elen = ft_numlen(sble->e_int + 1);
+		elen = ft_intlen(sble->e_int + 1);
 		if ((tp = (char*)malloc(sizeof(char) * (elen + 3))) == 0)
 			return (-1);
 		free(sble->e);
@@ -108,10 +109,11 @@ void	output_feg(t_format *list, t_sble *sble, int i)
 	free_sble(1, sble);
 }
 
-int		get_g_str(t_format *list, t_dble *dble, t_sble *sble)
+int		get_g_str(t_format *list, t_sble *sble)
 {
 	int p;
 
+	p = 0;
 	if (list->flag[6] == 0)
 		p = 6;
 	else if (list->flag[6] == 1)
@@ -120,9 +122,9 @@ int		get_g_str(t_format *list, t_dble *dble, t_sble *sble)
 	{
 		list->prec = p - 1 - sble->e_int;
 		list->spec = 'f';
-		return (get_f_str(list, dble, sble));
+		return (get_f_str(list, sble));
 	}
 	list->prec = p - 1;
 	list->spec = 'e';
-	return (get_e_str(list, dble, sble));
+	return (get_e_str(list, sble));
 }
