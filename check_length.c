@@ -66,18 +66,18 @@ size_t		ft_llint_to_s(t_llint num, t_format *list)
 		len++;
 	}
 	ret = len;
-	list->if_num[len] = 0;
+	list->num[len] = 0;
 	while (temp != 0)
 	{
-		list->if_num[--len] = temp % 10 + '0';
+		list->num[--len] = temp % 10 + '0';
 		temp /= 10;
 	}
-	list->if_num[0] = sign == -1 ? '-' : list->if_num[0];
-	list->if_num[0] = sign == 1 && len == 1 ? '0' : list->if_num[0];
+	list->num[0] = sign == -1 ? '-' : list->num[0];
+	list->num[0] = sign == 1 && len == 1 ? '0' : list->num[0];
 	return (ret);
 }
 
-size_t		ft_ullint_to_s(t_llint num, t_format *list)
+size_t		ft_ullint_to_s(t_ullint num, t_format *list)
 {
 	t_ullint	temp;
 	int			len;
@@ -91,13 +91,13 @@ size_t		ft_ullint_to_s(t_llint num, t_format *list)
 		len++;
 	}
 	ret = len;
-	list->if_num[len] = 0;
+	list->num[len] = 0;
 	num = temp;
 	while (num != 0)
 	{
-		list->if_num[--len] = num % 10 + '0';
+		list->num[--len] = num % 10 + '0';
 		num /= 10;
 	}
-	list->if_num[0] = temp == 0 ? '0' : list->if_num[0];
+	list->num[0] = temp == 0 ? '0' : list->num[0];
 	return (ret);
 }

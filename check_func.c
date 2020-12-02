@@ -34,30 +34,30 @@ void	if_flag_check(t_format *list)
 	}
 }
 
-void	check_width_star(t_format *list)
+void	check_width_star(t_format *list, char c)
 {
-	int w;
-
-	w = 0;
-	if (*list->str != '.' && (*list->str >= '0' && *list->str <= '9'))
+	c = *list->str;
+	if (c != '.' && !(c >= '0' && c <= '9') && !(c >= 'c' && c <= 'g')
+	&& c != '%' && c != 'i' && c != 'n' && c != 'o' && c != 'p' &&
+	c != 's' && c != 'u' && c != 'x' && c != 'X' && c != 'l' && c != 'h')
 		return ;
-	list->flag[6] = *list->str == '.' ? 1 : 0;
-	if (list->flag[4] == 1 && *list->str == '.')
-	{
-		w = va_arg(list->ap, int);
-		list->flag[1] = w < 0 ? 1 : list->flag[1];
-		list->width = w < 0 ? w * -1 : w;
-		list->str = *list->str == '.' ? list->str + 1 : list->str;
-		return ;
-	}
-	else if (list->flag[4] == 0 && *list->str == '.')
+	list->flag[6] = c == '.' ? 1 : 0;
+	if (list->flag[4] == 0 && c == '.')
 	{
 		list->str++;
 		return ;
 	}
+	else if (list->flag[4] == 1)
+	{
+		list->wid = va_arg(list->ap, int);
+		list->flag[1] = list->wid < 0 ? 1 : list->flag[1];
+		list->wid = list->wid < 0 ? list->wid * -1 : list->wid;
+		list->str = *list->str == '.' ? list->str + 1 : list->str;
+		return ;
+	}
 	while (*list->str >= '0' && *list->str <= '9')
-		w = w * 10 + (*list->str++ - '0');
-	list->width = w;
+		list->wid = list->wid * 10 + (*list->str++ - '0');
+	list->flag[6] = *list->str == '.' ? 1 : 0;
 	list->str = *list->str == '.' ? list->str + 1 : list->str;
 }
 
@@ -66,13 +66,16 @@ void	check_prec_star(t_format *list)
 	int p;
 
 	p = 0;
-	if (*list->str != '*' && *list->str >= '0' && *list->str <= '9')
+	if (*list->str != '*' && !(*list->str >= '0' && *list->str <= '9'))
 		return ;
 	if (*list->str == '*')
 	{
 		list->flag[4] = 1;
 		p = va_arg(list->ap, int);
 		list->prec = p < 0 ? 0 : p;
+		list->flag[6] = p < 0 ? 0 : list->flag[6];
+		list->num[0] = p < 0 ? '-' : list->num[0];
+		list->str++;
 		return ;
 	}
 	while (*list->str >= '0' && *list->str <= '9')
@@ -93,14 +96,13 @@ void	check_length(t_format *list)
 		lp->len = 'H';
 	else if (*lp->str == 'h' && *(lp->str + 1) != 'h')
 		lp->len = 'h';
-	else if (*lp->str == 'l' && *(lp->str + 1) == 'l')
-		lp->len = 'l';
 	else if (*lp->str == 'l' && *(lp->str + 1) != 'l')
+		lp->len = 'l';
+	else if (*lp->str == 'l' && *(lp->str + 1) == 'l')
 		lp->len = 'L';
 	else
 		return ;
 	lp->str = (lp->len == 'h' || lp->len == 'l') ? lp->str + 1 : lp->str + 2;
-	list->str = lp->str;
 }
 
 int		check_spec(t_format *list)
@@ -108,10 +110,10 @@ int		check_spec(t_format *list)
 	char c;
 
 	c = *list->str;
-	if ((c >= 'd' && c <= 'g') || c == '%')
+	if ((c >= 'c' && c <= 'g') || c == '%')
 		list->spec = c;
-	else if (c == 'i' || c == 'n' || c == 'p' ||
-		c == 's' || c == 'u' || c == 'x' || c == 'X')
+	else if (c == 'i' || c == 'n' || c == 'o' || c == 'p'
+	|| c == 's' || c == 'u' || c == 'x' || c == 'X')
 		list->spec = c;
 	else
 		return (-1);

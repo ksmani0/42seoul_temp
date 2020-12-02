@@ -18,7 +18,7 @@ int		change_e_num(t_sble *sble)
 	char	*tp;
 
 	elen = 0;
-	if (sble->out[sble->d_idx] != '0')
+	if (sble->out[sble->d_idx] != '0' || sble->dv == 0 || sble->dv -0.0)
 		return (1);
 	if (sble->esign == '-' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')
@@ -42,89 +42,77 @@ int		change_e_num(t_sble *sble)
 
 void	output_feg_sign(t_format *list, t_sble *sble, int *i)
 {
-	int elen;
-
-	*i = *i + 1;
-	if (list->flag[0] == 1)
-		sble->sign == 1 ? write(1, "+", 1) : write(1, "-", 1);
-	else if (list->flag[3] == 1)
-		sble->sign == 1 ? write(1, " ", 1) : write(1, "-", 1);
-	if (list->width > list->size && list->spec != 'e')
-		list->nums += list->width;
-	else if (list->width <= list->size && list->spec != 'e')
-		list->nums += list->size;
-	else if (list->spec == 'e')
-	{
-		elen = ft_strlen(sble->e);
-		if (list->width > list->size + elen)
-			list->nums += list->width;
-		else if (list->width <= list->size + elen)
-			list->nums += (list->size + elen);
-	}
+	if ((sble->sign == '-' || list->flag[0] == 1) && (*i = *i + 1))
+		sble->sign == '+' ? write(1, "+", 1) : write(1, "-", 1);
+	else if ((sble->sign == '-' || list->flag[3] == 1) && (*i = *i + 1))
+		sble->sign == '+' ? write(1, " ", 1) : write(1, "-", 1);
 }
 
-void	output_decimal(t_format *list, t_sble *sble, int i)
+void	output_decimal(t_format *list, t_sble *sble, int *i, int j)
 {
-	int len;
-
-	i = sble->out[0] != '0' ? 0 : 1;
-	while (i <= sble->d_idx)
-		write(1, &sble->out[i], 1);
-	write(1, ".", 1);
-	while (i <= sble->m_idx)
-		write(1, &sble->out[i], 1);
-	if (list->flag[5] == 1 && list->flag[6] == 1 && list->prec == 0)
-		write(1, ".", 1);
-	if (list->flag[5] == 1 && list->flag[6] == 1 && list->prec == 0)
-		write(1, ".", 1);
+	j = sble->out[0] == '0' ? 1 : 0;
+	j = list->spec == 'e' ? sble->d_idx : j;
+	while (j <= sble->d_idx)
+		*i += write(1, &sble->out[j++], 1);
+	if (list->prec > 0 || (list->flag[5] == 1 && list->flag[6] == 1))
+		*i += write(1, ".", 1);
+	while (j <= sble->m_idx)
+		*i += write(1, &sble->out[j++], 1);
 	if (list->spec == 'e')
 	{
-		len = ft_strlen(sble->e) - 1;
-		if (list->width > list->size + len)
-			list->nums += list->width;
-		while (i >= 0)
-			write(1, &sble->e[i--], 1);
+		j = ft_strlen(sble->e) - 1;
+		while (j >= 0)
+			*i += write(1, &sble->e[j--], 1);
 	}
 }
 
-void	output_feg(t_format *list, t_sble *sble, int i)
+void	output_feg(t_format *list, t_sble *sble, int i, int temp)
 {
-	if (list->width > list->size && list->flag[1] == 0)
-	{
-		if (list->flag[2] == 1)
-			output_feg_sign(list, sble, &i);
-		while (list->flag[2] == 1 && i++ < list->width - list->size)
-			write(1, "0", 1);
-		while (list->flag[2] == 0 && i++ < list->width - list->size)
-			write(1, " ", 1);
-		if (list->flag[2] == 0)
-			output_feg_sign(list, sble, &i);
-	}
-	if (list->flag[1] == 1)
+	if (list->flag[1] == 1 || ((sble->sign == '-' || list->flag[0] == 1
+	|| list->flag[3] == 1) && list->size >= list->wid)
+	|| (list->wid > list->size && list->flag[2] == 1))
 		output_feg_sign(list, sble, &i);
-	output_decimal(list, sble, 0);
-	i = 0;
-	while (list->flag[1] == 1 && i++ < list->width - list->size)
-		write(1, " ", 1);
-	free_sble(1, sble);
+	if (list->wid > list->size && list->flag[1] == 0 &&
+	list->flag[2] == 0)
+	{
+		while (i++ < list->wid - list->size)
+			write(1, " ", 1);
+		output_feg_sign(list, sble, &i);
+	}
+	else if (list->wid > list->size && list->flag[2] == 1)
+	{
+		temp = sble->sign == '-' || list->flag[0] == 1
+		|| list->flag[3] == 1 ? list->size - 1 : list->size;
+		while (i++ < list->wid - temp)
+			write(1, "0", 1);
+	}
+	output_decimal(list, sble, &i, 0);
+	if (list->wid > list->size && list->flag[1] == 1)
+	{
+		while (i++ < list->wid)
+			write(1, " ", 1);
+	}
 }
 
-int		get_g_str(t_format *list, t_sble *sble)
+int		get_g_str(t_format *list, t_sble *sble, int p, char *is_f)
 {
-	int p;
-
-	p = 0;
-	if (list->flag[6] == 0)
-		p = 6;
-	else if (list->flag[6] == 1)
+	if ((get_e_str(list, sble, 0)) == -1)
+		return (-1);
+	if (list->flag[6] == 1)
 		p = list->prec == 0 ? 1 : list->prec;
+	list->num[1] = 'g';
 	if (p > sble->e_int && sble->e_int >= -4)
 	{
 		list->prec = p - 1 - sble->e_int;
+		list->flag[6] = list->prec >= 0 ? 1 : 0;
+		list->prec = list->prec >= 0 ? list->prec : 0;
 		list->spec = 'f';
-		return (get_f_str(list, sble));
+		*is_f = 1;
+		return (1);
 	}
 	list->prec = p - 1;
+	list->flag[6] = list->prec >= 0 ? 1 : 0;
+	list->prec = list->prec >= 0 ? list->prec : 0;
 	list->spec = 'e';
-	return (get_e_str(list, sble));
+	return (1);
 }

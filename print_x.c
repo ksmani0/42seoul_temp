@@ -12,6 +12,9 @@
 
 #include "ft_printf.h"
 
+char		g_hex_b[17] = "0123456789ABCDEF";
+char		g_hex_s[17] = "0123456789abcdef";
+
 int		hex_to_str(t_ullint x, t_format *list)
 {
 	t_ullint	temp;
@@ -30,82 +33,92 @@ int		hex_to_str(t_ullint x, t_format *list)
 	hex = list->spec == 'X' ? g_hex_b : g_hex_s;
 	while (temp != 0)
 	{
-		list->if_num[--len] = hex[temp % 16];
+		list->num[--len] = hex[temp % 16];
 		temp /= 16;
 	}
-	list->if_num[0] = ret == 0 ? '0' : list->if_num[0];
+	list->num[0] = ret == 0 ? '0' : list->num[0];
 	return (ret != 0 ? ret : 1);
 }
 
-void	output_sharp_x(char *out, t_format *list, int len)
+void	x_big_width_not_ngf(char *out, t_format *list, int len, int *i)
 {
-	int i;
 	int longer;
 
-	i = 0;
-	longer = len > list->prec ? len : list->prec;
-	if (list->flag[1] != 1 && list->width > longer + 2)
-		fill_space_or_zero(&i, list->size - longer - 2, out, ' ');
-	out[i++] = '0';
-	out[i++] = list->spec == 'x' ? 'x' : 'X';
-	if (list->prec > len)
-		fill_space_or_zero(&i, list->prec - len, out, '0');
-	len = 0;
-	while (list->if_num[len] != 0)
-		out[i++] = list->if_num[len++];
-	if (list->width > longer + 2)
-		fill_space_or_zero(&i, list->size, out, ' ');
-	write(1, out, i);
-	free(out);
-}
-
-void	output_x(char *out, t_format *list, int len)
-{
-	int i;
-	int longer;
-
-	i = 0;
-	if (list->flag[1] == 0 && list->width > len && list->width > list->prec)
+	if (list->flag[1] == 1 || (list->flag[2] == 1 && list->flag[6] == 0))
+		return ;
+	if (list->flag[5] == 0 || (list->flag[5] == 1 &&
+	(list->num[0] == '0' || list->num[0] == 0)))
+	{
+		if (list->wid > len && len >= list->prec)
+			fill_space_or_zero(i, list->wid - len, out, ' ');
+		else if (list->wid > list->prec && list->prec > len)
+			fill_space_or_zero(i, list->wid - list->prec, out, ' ');
+	}
+	else
 	{
 		longer = len > list->prec ? len : list->prec;
-		fill_space_or_zero(&i, list->size - longer, out, ' ');
+		if (list->wid > longer + 2)
+			fill_space_or_zero(i, list->wid - longer - 2, out, ' ');
 	}
-	if (list->prec > len)
+}
+
+int	print_sharp_x(char *out, t_format *list, int len, int i)
+{
+	list->size = len > list->prec ? len : list->prec;
+	list->size = list->size + 2 > list->wid ? list->size + 2 : list->wid;
+	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
+		return (-1);
+	out[list->size] = 0;
+	x_big_width_not_ngf(out, list, len, &i);
+	out[i++] = '0';
+	out[i++] = list->spec == 'x' ? 'x' : 'X';
+	if (list->prec > len || (list->wid > len && list->flag[2] == 1))
 		fill_space_or_zero(&i, list->size - len, out, '0');
 	len = 0;
-	while (list->if_num[len] != 0)
-		out[i++] = list->if_num[len++];
-	if (list->flag[1] == 1 && list->width > len && list->width > list->prec)
+	while (list->num[len] != 0)
+		out[i++] = list->num[len++];
+	if (i < list->size)
 		fill_space_or_zero(&i, list->size, out, ' ');
-	write(1, out, i);
+	list->nums += write(1, out, i);
 	free(out);
-	list->nums += i;
+	return (1);
+}
+
+void	output_x(char *out, t_format *list, int len, int i)
+{
+	x_big_width_not_ngf(out, list, len, &i);
+	if (list->flag[1] == 1 && list->prec > len)
+		fill_space_or_zero(&i, list->prec - len, out, '0');
+	else if (list->prec > len || (list->wid > len && list->flag[2] == 1))
+		fill_space_or_zero(&i, list->size - len, out, '0');
+	len = 0;
+	while (list->num[len] != 0)
+		out[i++] = list->num[len++];
+	if (list->flag[1] == 1 && i < list->size)
+		fill_space_or_zero(&i, list->size, out, ' ');
+	list->nums += write(1, out, i);
+	free(out);
 }
 
 int		print_x(t_format *list)
 {
 	t_ullint	x;
-	int			len;
-	int			longer;
-	char		*out;
+	int	len;
+	char	*out;
 
 	if (list->flag[0] == 1 || list->flag[3] == 1)
 		return (-1);
 	x = check_ullint(list);
 	len = hex_to_str(x, list);
-	len = x == 0 && list->prec == 0 ? 0 : len;
-	list->if_num[0] = x == 0 && list->prec == 0 ? 0 : list->if_num[0];
-	list->size = len > list->prec ? len : list->prec;
-	longer = len > list->prec ? len : list->prec;
-	list->size = len > list->width ? len : list->width;
-	if (list->width < longer + 2)
-		list->size = list->size + (longer + 2 - list->width);
+	if (list->flag[5] == 1 && x != 0)
+		return (print_sharp_x(0, list, len, 0));
+	len = x == 0 && list->flag[6] == 1 && list->prec == 0 ? 0 : len;
+	list->num[0] = x == 0 && len == 0 ? 0 : list->num[0];
+	list->size = list->wid > list->prec ? list->wid : list->prec;
+	list->size = len > list->size ? len : list->size;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
-	out[list->size] = 0;
-	if (list->flag[5] == 1)
-		output_sharp_x(out, list, len);
-	else
-		output_x(out, list, len);
+	out[list->size] = 0;		
+	output_x(out, list, len, 0);
 	return (1);
 }

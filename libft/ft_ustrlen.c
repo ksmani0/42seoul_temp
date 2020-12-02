@@ -16,6 +16,8 @@ size_t	ft_ustrlen(const t_uchar *s)
 {
 	size_t len;
 
+	if (s == 0)
+		return (0);
 	len = 0;
 	while (*s != 0)
 	{

@@ -31,59 +31,70 @@ int		octal_to_str(t_ullint o, t_format *list)
 	o = temp;
 	while (o != 0)
 	{
-		list->if_num[--len] = octal[o % 8];
-		temp /= 8;
+		list->num[--len] = octal[o % 8];
+		o /= 8;
 	}
-	list->if_num[0] = ret == 0 ? '0' : list->if_num[0];
+	list->num[0] = ret == 0 ? '0' : list->num[0];
 	return (ret != 0 ? ret : 1);
 }
 
-void	output_sharp_o(char *out, t_format *list, int len)
+void	o_big_width_not_ngf(char *out, t_format *list, int len, int *i)
 {
-	int i;
-	int longer;
-
-	i = 0;
-	longer = len > list->prec ? len : list->prec;
-	if (list->flag[1] == 0 && list->width > len + 1 && len >= list->prec)
-		fill_space_or_zero(&i, list->size - (len + 1), out, ' ');
-	else if (list->flag[1] == 0 && list->width > longer)
-		fill_space_or_zero(&i, list->size - longer, out, ' ');
-	out[i++] = '0';
-	if (list->prec > len + 1)
-		fill_space_or_zero(&i, list->prec - (len + 1), out, '0');
-	len = 0;
-	while (list->if_num[len] != 0)
-		out[i++] = list->if_num[len++];
-	if (len + 1 >= list->prec && list->width > len + 1)
-		fill_space_or_zero(&i, list->size, out, ' ');
-	else if (list->width > longer)
-		fill_space_or_zero(&i, list->size - longer, out, ' ');
-	write(1, out, i);
-	free(out);
+	if (list->flag[1] == 1 || (list->flag[2] == 1 && list->flag[6] == 0))
+		return ;
+	if (list->flag[5] == 0 || (list->flag[5] == 1 &&
+	(list->num[0] == '0' || list->num[0] == 0)))
+	{
+		if (list->wid > len && len >= list->prec)
+			fill_space_or_zero(i, list->wid - len, out, ' ');
+		else if (list->wid > list->prec && list->prec > len)
+			fill_space_or_zero(i, list->wid - list->prec, out, ' ');
+	}
+	else
+	{
+		if (list->wid > len && len >= list->prec)
+			fill_space_or_zero(i, list->wid - len - 1, out, ' ');
+		else if (list->wid > list->prec && list->prec > len)
+			fill_space_or_zero(i, list->wid - list->prec, out, ' ');
+	}
 }
 
-void	output_o(char *out, t_format *list, int len)
+int	print_sharp_o(char *out, t_format *list, int len, int i)
 {
-	int i;
-	int longer;
-
-	i = 0;
-	if (list->flag[1] == 0 && list->width > len && list->width > list->prec)
-	{
-		longer = len > list->prec ? len : list->prec;
-		fill_space_or_zero(&i, list->size - longer, out, ' ');
-	}
-	if (list->prec > len)
+	list->size = len > list->prec ? len + 1 : list->prec;
+	list->size = list->size > list->wid ? list->size : list->wid;
+	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
+		return (-1);
+	out[list->size] = 0;
+	o_big_width_not_ngf(out, list, len, &i);
+	if (len > list->prec)
+		out[i++] = '0';
+	if (list->prec > len || (list->wid > len && list->flag[2] == 1))
 		fill_space_or_zero(&i, list->size - len, out, '0');
 	len = 0;
-	while (list->if_num[len] != 0)
-		out[i++] = list->if_num[len++];
-	if (list->flag[1] == 1 && list->width > len && list->width > list->prec)
+	while (list->num[len] != 0)
+		out[i++] = list->num[len++];
+	if (i < list->size)
 		fill_space_or_zero(&i, list->size, out, ' ');
-	write(1, out, i);
+	list->nums += write(1, out, i);
 	free(out);
-	list->nums += i;
+	return (1);
+}
+
+void	output_o(char *out, t_format *list, int len, int i)
+{
+	o_big_width_not_ngf(out, list, len, &i);
+	if (list->flag[1] == 1 && list->prec > len)
+		fill_space_or_zero(&i, list->prec - len, out, '0');
+	else if (list->prec > len || (list->wid > len && list->flag[2] == 1))
+		fill_space_or_zero(&i, list->size - len, out, '0');
+	len = 0;
+	while (list->num[len] != 0)
+		out[i++] = list->num[len++];
+	if (list->flag[1] == 1 && i < list->size)
+		fill_space_or_zero(&i, list->size, out, ' ');
+	list->nums += write(1, out, i);
+	free(out);
 }
 
 int		print_o(t_format *list)
@@ -96,18 +107,15 @@ int		print_o(t_format *list)
 		return (-1);
 	o = check_ullint(list);
 	len = octal_to_str(o, list);
-	len = o == 0 && list->prec == 0 ? 0 : len;
-	list->if_num[0] = o == 0 && list->prec == 0 ? 0 : list->if_num[0];
-	list->size = list->width > list->prec ? list->width : list->prec;
+	if (list->flag[5] == 1 && o != 0)
+		return (print_sharp_o(0, list, len, 0));
+	len = o == 0 && list->flag[6] == 1 && list->prec == 0 ? 0 : len;
+	list->num[0] = o == 0 && len == 0 ? 0 : list->num[0];
+	list->size = list->wid > list->prec ? list->wid : list->prec;
 	list->size = len > list->size ? len : list->size;
-	if (list->flag[5] == 1 && list->width < len + 1 && list->prec < len + 1)
-		list->size = list->size + 1;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
-	out[list->size] = 0;
-	if (list->flag[5] == 1)
-		output_sharp_o(out, list, len);
-	else
-		output_o(out, list, len);
+	out[list->size] = 0;		
+	output_o(out, list, len, 0);
 	return (1);
 }

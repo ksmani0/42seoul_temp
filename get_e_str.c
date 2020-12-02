@@ -12,17 +12,29 @@
 
 #include "ft_printf.h"
 
-void	input_mod_pow(t_deci *pow)
+void	input_mod_pow(t_deci *pow, char *is_one)
 {
 	int i;
+	int up;
+	int temp;
 
+	if (*is_one == 1)
+	{
+		*is_one = 0;
+		return ;
+	}
 	i = 0;
+	up = 0;
 	while (i < pow->len)
 	{
-		if (((pow->s[i] - '0') % 2) != 0)
+		if ((temp = pow->s[i] - '0') % 2 != 0 &&
+		up == 0 && i == pow->len - 1)
 			pow->s[i + 1] = '5';
-		pow->s[i] = (pow->s[i] - '0') / 2 + '0';
-		i++;
+		else if (up == 1 && (temp = temp + 10))
+			up = 0;
+		if (temp % 2 != 0)
+			up = 1;
+		pow->s[i++] = temp / 2 + '0';
 	}
 	pow->len++;
 }
@@ -41,6 +53,7 @@ void	input_mod_sum(char bit, t_deci *pow, t_deci *sum)
 	i = longer - 1;
 	while (i >= 0)
 	{
+		sum->s[i] = sum->s[i] == 0 ? '0' : sum->s[i];
 		if ((temp = (pow->s[i] - '0') + (sum->s[i] - '0') + up) > 9)
 			up = temp / 10;
 		else
@@ -62,6 +75,7 @@ void	fill_e_num(t_sble *sble, int e, int elen)
 	sble->e[1] = e == 0 ? '0' : 0;
 	while (e != 0)
 	{
+		e = e < 0 ? e * -1 : e;
 		sble->e[i++] = (e % 10) + '0';
 		e /= 10;
 	}
@@ -75,13 +89,12 @@ int		move_point(t_sble *sble)
 
 	i = 0;
 	sble->esign = '+';
-	if ((sble->out[1] == '0') && ((sble->m_idx > 2) ||
-	(sble->m_idx == 2 && sble->out[2] != '0')))
+	if (sble->out[1] == '0' && sble->m_len >= 1 && sble->dv != 0
+	&& sble->dv != -0.0)
 		sble->esign = '-';
-	if (sble->esign != '+')
-		sble->e_int = sble->d_idx - 1;
-	else if (sble->esign == '-')
+	if (sble->esign == '-')
 	{
+		sble->e_int = sble->d_idx - 1;
 		i = sble->d_idx + 1;
 		while (sble->out[i++] == '0')
 			sble->e_int--;
@@ -92,25 +105,31 @@ int		move_point(t_sble *sble)
 	if ((sble->e = (char*)malloc(sizeof(char) * (elen + 3))) == 0)
 		return (-1);
 	fill_e_num(sble, sble->e_int, elen);
-	sble->d_idx = sble->out[1] != '0' ? 1 : sble->e_int * -1;
+	sble->d_idx = sble->e_int < 0 ? sble->e_int * -1 + sble->d_idx : 1;
+	sble->m_len = sble->m_len + sble->e_int;
 	return (1);
 }
 
-int		get_e_str(t_format *list, t_sble *sble)
+int		get_e_str(t_format *list, t_sble *sble, int elen)
 {
 	if ((make_out_str(sble)) == -1 || (move_point(sble)) == -1)
 		return (free_sble(-1, sble));
-	round_feg(list, sble);
+	if ((round_feg(list, sble)) == -1)
+		return (free_sble(-1, sble));
 	if ((change_e_num(sble)) == -1)
 		return (free_sble(-1, sble));
-	list->size = sble->out[0] == '0' ? sble->m_idx + 1 : sble->m_idx + 2;
-	list->size = sble->sign == '-' ? list->size++ : list->size;
+	if (list->spec == 'g')
+		return (1);
+	g_meet_sharp(list, sble);
+	list->size = sble->m_idx - sble->d_idx + 1;
+	list->size = sble->sign == '-' ? list->size + 1 : list->size;
 	if ((sble->sign == '+') && (list->flag[0] == 1 || list->flag[3] == 1))
 		list->size++;
-	if (list->flag[5] == 1 && list->flag[6] == 1 && list->prec == 0)
+	if (list->prec > 0 || (list->flag[5] == 1 && list->flag[6] == 1))
 		list->size++;
-	output_feg(list, sble, 0);
-	list->nums = list->nums + (list->size > list->width ?
-		list->size : list->width);
+	list->size += ft_strlen(sble->e);
+	output_feg(list, sble, 0, 0);
+	elen = ft_strlen(sble->e);
+	list->nums += (list->wid > list->size ? list->wid : list->size);
 	return (free_sble(1, sble));
 }

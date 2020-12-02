@@ -14,26 +14,26 @@
 
 void	output_s(t_format *list, t_uchar *s, int len)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
+	char	c;
 
 	i = 0;
-	size = 0;
-	if (list->flag[1] == 0 && list->width > len)
+	c = list->flag[2] == 1 ? '0' : ' ';
+	if (list->flag[1] == 0 && list->wid > len)
 	{
-		while (i++ < list->width - len)
-			write(1, " ", 1);
-		size += i;
+		while (i++ < list->wid - len)
+			write(1, &c, 1);
 	}
+	size = i > 0 ? i - 1 : 0;
 	size += write(1, s, len);
 	i = 0;
-	if (list->flag[1] == 1 && list->width > len)
+	if (list->flag[1] == 1 && list->wid > len)
 	{
-		while (i++ < list->width - len)
+		while (i++ < list->wid - len)
 			write(1, " ", 1);
-		size += i;
 	}
-	free(s);
+	size = i > 0 ? size + (i - 1) : size;
 	list->nums += size;
 }
 
@@ -50,11 +50,9 @@ void	make_nul_s(t_uchar *nul_s)
 
 int		print_null(t_format *list)
 {
-	t_uchar *nul_s;
+	t_uchar nul_s[7];
 	int		len;
 
-	if ((nul_s = (t_uchar*)malloc(sizeof(t_uchar) * 7)) == 0)
-		return (-1);
 	make_nul_s(nul_s);
 	len = 6;
 	if (list->flag[6] == 1 && list->prec < len)
@@ -68,10 +66,9 @@ int		print_s(t_format *list)
 	t_uchar	*s;
 	int		len;
 
-	if (list->flag[0] == 1 || list->flag[2] == 1
-		|| list->flag[3] == 1 || list->flag[5] == 1)
+	if (list->flag[0] == 1 || list->flag[3] == 1 || list->flag[5] == 1)
 		return (-1);
-	if (list->len == 'l')
+	if (list->len == 'l' || list->len == 'L')
 		return (print_ls(list));
 	if ((s = (t_uchar*)va_arg(list->ap, char*)) == 0)
 		return (print_null(list));

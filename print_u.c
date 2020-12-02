@@ -12,27 +12,27 @@
 
 #include "ft_printf.h"
 
-void	output_u(char *out, t_format *list, int len)
+void	output_u(char *out, t_format *list, int len, int i)
 {
-	int i;
-	int longer;
-
-	i = 0;
-	if (list->width > len && list->width > list->prec)
+	if (list->flag[1] == 0 && list->wid > list->prec && list->wid > len)
 	{
-		longer = len > list->prec ? len : list->prec;
-		fill_space_or_zero(&i, list->size - longer, out, ' ');
+		if (list->prec > len)
+			fill_space_or_zero(&i, list->wid - list->prec, out, ' ');
+		else if ((list->flag[6] == 1 && len >= list->prec) ||
+		(list->flag[2] == 0 && list->flag[6] == 0))
+			fill_space_or_zero(&i, list->wid - len, out, ' ');
 	}
-	if (list->prec > len)
+	if (list->flag[1] == 1 && list->prec > len)
+		fill_space_or_zero(&i, list->prec - len, out, '0');
+	else if (list->prec > len || (list->wid > len && list->flag[2] == 1))
 		fill_space_or_zero(&i, list->size - len, out, '0');
 	len = 0;
-	while (list->if_num[len] != 0)
-		out[i++] = list->if_num[len++];
-	if (list->flag[1] == 1 && list->width > len && list->width > list->prec)
+	while (list->num[len] != 0)
+		out[i++] = list->num[len++];
+	if (list->flag[1] == 1 && i < list->size)
 		fill_space_or_zero(&i, list->size, out, ' ');
-	write(1, out, i);
+	list->nums += write(1, out, i);
 	free(out);
-	list->nums += i;
 }
 
 int		print_u(t_format *list)
@@ -45,11 +45,29 @@ int		print_u(t_format *list)
 		return (-1);
 	num = check_ullint(list);
 	len = ft_ullint_to_s(num, list);
-	list->size = list->width > list->prec ? list->width : list->prec;
+	len = num == 0 && list->flag[6] == 1 && list->prec == 0 ? 0 : len;
+	list->num[0] = num == 0 && len == 0 ? 0 : list->num[0];
+	list->size = list->wid > list->prec ? list->wid : list->prec;
 	list->size = len > list->size ? len : list->size;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
 	out[list->size] = 0;
-	output_u(out, list, len);
+	output_u(out, list, len, 0);
 	return (1);
+}
+
+void	g_meet_sharp(t_format *list, t_sble *sble)
+{
+	int i;
+
+	if (!(list->flag[5] == 0 && list->num[1] == 'g'))
+		return ;
+	i = sble->m_idx;
+	while (i != sble->d_idx && sble->out[i] == '0')
+	{
+		sble->m_idx--;
+		i--;
+	}
+	if (sble->d_idx == sble->m_idx)
+		list->prec = 0;
 }

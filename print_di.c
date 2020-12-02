@@ -22,53 +22,48 @@ void	fill_space_or_zero(int *i, int limit, char *out, char s_or_z)
 	*i = j;
 }
 
-void	output_di_ngf(char *out, t_format *list, int len)
+void	big_width_not_ngf(char *out, t_format *list, int len, int *i)
 {
-	int i;
-
-	i = 0;
-	if (list->if_num[0] == '-')
-		out[i++] = '-';
-	else if (list->flag[0] == 1 || list->flag[3] == 1)
-		out[i++] = list->flag[0] == 1 ? '+' : ' ';
-	if (list->prec > len)
-		fill_space_or_zero(&i, list->size - len, out, '0');
-	len = list->if_num[0] == '-' ? 1 : 0;
-	while (list->if_num[len] != 0)
-		out[i++] = list->if_num[len++];
-	if (i < list->size)
-		fill_space_or_zero(&i, list->size, out, ' ');
-	write(1, out, i);
-	free(out);
-	list->nums += i;
+	if (list->flag[1] == 1 || (list->flag[2] == 1 && list->flag[6] == 0))
+		return ;
+	if ((list->num[0] == '-' && len > list->prec) || (list->num[0] != '-'
+	&& list->flag[0] == 0 && list->flag[3] == 0 && len >= list->prec))
+		fill_space_or_zero(i, list->wid - len, out, ' ');
+	else if (list->num[0] != '-' && (list->flag[0] == 0 ||
+	list->flag[3] == 0) && len > list->prec)
+		fill_space_or_zero(i, list->wid - len - 1, out, ' ');
+	else if (list->num[0] != '-' && len < list->prec &&
+	list->flag[0] == 0 && list->flag[3] == 0)
+		fill_space_or_zero(i, list->wid - list->prec, out, ' ');
+	else if (list->num[0] == '-' && len <= list->prec)
+		fill_space_or_zero(i, list->wid - list->prec - 1, out, ' ');
+	else if (list->num[0] != '-' && (list->flag[0] == 1 ||
+	list->flag[3] == 1) && len <= list->prec)
+		fill_space_or_zero(i, list->wid - list->prec - 1, out, ' ');
 }
 
 void	output_di(char *out, t_format *list, int len, int i)
 {
-	int longer;
-
-	if (list->width > len && list->width > list->prec)
-	{
-		longer = len > list->prec ? len : list->prec;
-		if (list->if_num[0] != '-' && (list->flag[0] == 1 ||
-		list->flag[3] == 1))
-			longer++;
-		fill_space_or_zero(&i, list->size - longer, out, ' ');
-	}
-	if (list->if_num[0] == '-')
+	big_width_not_ngf(out, list, len, &i);
+	if (list->num[0] == '-')
 		out[i++] = '-';
-	else if (list->flag[0] == 1 || list->flag[3] == 1)
+	else if (list->num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1))
 		out[i++] = list->flag[0] == 1 ? '+' : ' ';
-	if (list->prec > len)
-		fill_space_or_zero(&i, list->size - len, out, '0');
-	if (list->width > len && list->width > list->prec)
+	len = list->num[0] == '-' ? len - 1 : len;
+	if (list->flag[1] == 1 && list->prec > len &&
+	(list->num[0] == '-' || list->flag[0] == 1 || list->flag[3] == 1))
+		fill_space_or_zero(&i, list->prec - len + 1, out, '0');
+	else if (list->flag[1] == 1 && list->prec > len)
 		fill_space_or_zero(&i, list->prec - len, out, '0');
-	len = list->if_num[0] == '-' ? 1 : 0;
-	while (list->if_num[len] != 0)
-		out[i++] = list->if_num[len++];
-	write(1, out, i);
+	else if (list->prec > len || (list->wid > len && list->flag[2] == 1))
+		fill_space_or_zero(&i, list->size - len, out, '0');
+	len = list->num[0] == '-' ? 1 : 0;
+	while (list->num[len] != 0)
+		out[i++] = list->num[len++];
+	if (list->flag[1] == 1 && i < list->size)
+		fill_space_or_zero(&i, list->size, out, ' ');
+	list->nums += write(1, out, i);
 	free(out);
-	list->nums += i;
 }
 
 int		print_di(t_format *list)
@@ -81,20 +76,21 @@ int		print_di(t_format *list)
 		return (-1);
 	num = check_llint(list);
 	len = ft_llint_to_s(num, list);
-	len = num == 0 && list->prec == 0 ? 0 : len;
-	list->if_num[0] = num == 0 && list->prec == 0 ? 0 : list->if_num[0];
-	list->size = list->width > list->prec ? list->width : list->prec;
+	len = num == 0 && list->flag[6] == 1 && list->prec == 0 ? 0 : len;
+	list->num[0] = num == 0 && len == 0 ? 0 : list->num[0];
+	list->size = list->wid > list->prec ? list->wid : list->prec;
 	list->size = len > list->size ? len : list->size;
-	if (list->if_num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1)
-		&& (len == list->size || list->prec == list->size))
+	if ((list->size == list->prec && list->prec >= len) &&
+	((list->num[0] != '-' && (list->flag[0] == 1 || list->flag[3] == 1))
+	|| (list->num[0] == '-')))
 		list->size++;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
 	out[list->size] = 0;
-	if (list->flag[1] == 1)
-		output_di_ngf(out, list, len);
-	else
-		output_di(out, list, len, 0);
+	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
+		return (-1);
+	out[list->size] = 0;
+	output_di(out, list, len, 0);
 	return (1);
 }
 
@@ -119,6 +115,6 @@ int		output_spec(t_format *list)
 	else if (list->spec == 'p')
 		return (print_p(list));
 	else if (list->spec == 'n')
-		return (print_n(list));
+		return (print_n(list, 0, 0, 0));
 	return (-1);
 }
