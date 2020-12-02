@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 20:24:22 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 20:24:27 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/12/02 16:43:14 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	output_s(t_format *list, t_uchar *s, int len)
 {
-	int	i;
-	int	size;
+	int		i;
+	int		size;
 	char	c;
 
 	i = 0;

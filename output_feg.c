@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:03:41 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 20:35:16 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/12/02 16:32:41 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		change_e_num(t_sble *sble)
 	char	*tp;
 
 	elen = 0;
-	if (sble->out[sble->d_idx] != '0' || sble->dv == 0 || sble->dv -0.0)
+	if (sble->out[sble->d_idx] != '0' || sble->dv == 0 || sble->dv == -0.0)
 		return (1);
 	if (sble->esign == '-' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')

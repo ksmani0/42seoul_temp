@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 17:49:46 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 17:51:29 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/12/02 16:47:48 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	x_big_width_not_ngf(char *out, t_format *list, int len, int *i)
 	}
 }
 
-int	print_sharp_x(char *out, t_format *list, int len, int i)
+int		print_sharp_x(char *out, t_format *list, int len, int i)
 {
 	list->size = len > list->prec ? len : list->prec;
 	list->size = list->size + 2 > list->wid ? list->size + 2 : list->wid;
@@ -103,8 +103,8 @@ void	output_x(char *out, t_format *list, int len, int i)
 int		print_x(t_format *list)
 {
 	t_ullint	x;
-	int	len;
-	char	*out;
+	int			len;
+	char		*out;
 
 	if (list->flag[0] == 1 || list->flag[3] == 1)
 		return (-1);
@@ -118,7 +118,7 @@ int		print_x(t_format *list)
 	list->size = len > list->size ? len : list->size;
 	if ((out = (char*)malloc(sizeof(char) * (list->size + 1))) == 0)
 		return (-1);
-	out[list->size] = 0;		
+	out[list->size] = 0;
 	output_x(out, list, len, 0);
 	return (1);
 }

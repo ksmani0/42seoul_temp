@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 18:04:00 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 18:45:28 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/12/02 16:50:37 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		input_ls_to_us(t_format *list, wchar_t ls, t_uchar **out, int total)
 		return (-1);
 	i = -1;
 	while (*out == 0 && ++i <= bytes)
-			temp[i] = new[i];
+		temp[i] = new[i];
 	if (*out != 0)
 	{
 		while ((*out)[++i] != 0)

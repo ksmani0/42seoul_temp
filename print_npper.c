@@ -6,7 +6,7 @@
 /*   By: seungmki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 11:35:46 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 21:39:54 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/12/02 16:51:58 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		print_n(t_format *list, t_lint *lint, int *o_int, t_sint *sint)
 	return (1);
 }
 
-size_t		ft_arr_to_s(t_ulint adrr, t_format *list)
+size_t	ft_arr_to_s(t_ulint adrr, t_format *list)
 {
 	t_ulint temp;
 	int		len;

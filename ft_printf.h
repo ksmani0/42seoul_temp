@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 13:06:17 by seungmki          #+#    #+#             */
-/*   Updated: 2020/11/21 21:46:25 by seungmki         ###   ########.fr       */
+/*   Updated: 2020/12/02 16:41:38 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ typedef struct					s_dble
 	char						d_bit[1024];
 	char						*s_mod;
 	char						m_bit[1076];
-	int						d_len;
-	int						m_len;
+	int							d_len;
+	int							m_len;
 	char						*out;
 	int							d_idx;
 	int							m_idx;
@@ -83,7 +83,7 @@ typedef struct					s_dble
 typedef struct					s_deci
 {
 	char						s[1076];
-	int						len;
+	int							len;
 }								t_deci;
 
 /*
@@ -132,7 +132,8 @@ int								output_spec(t_format *list);
 *****print_u.c*****
 */
 
-void							output_u(char *out, t_format *list, int len, int i);
+void							output_u(char *out, t_format *list, int len,
+		int i);
 int								print_u(t_format *list);
 void							g_meet_sharp(t_format *list, t_sble *sble);
 
@@ -145,7 +146,8 @@ void							x_big_width_not_ngf(char *out, t_format *list,
 		int len, int *i);
 int								print_sharp_x(char *out, t_format *list,
 		int len, int i);
-void							output_x(char *out, t_format *list, int len, int i);
+void							output_x(char *out, t_format *list, int len,
+		int i);
 int								print_x(t_format *list);
 
 /*
@@ -157,7 +159,8 @@ void							o_big_width_not_ngf(char *out, t_format *list,
 		int len, int *i);
 int								print_sharp_o(char *out, t_format *list,
 		int len, int i);
-void							output_o(char *out, t_format *list, int len, int i);
+void							output_o(char *out, t_format *list, int len,
+		int i);
 int								print_o(t_format *list);
 
 /*
@@ -168,8 +171,9 @@ int								print_percent(t_format *list);
 int								print_n(t_format *list, t_lint *lint,
 		int *o_int, t_sint *sint);
 size_t							ft_arr_to_s(t_ulint adrr, t_format *list);
-void								output_p(char *out, t_format *list, int len, int i);
-int							print_p(t_format *list);
+void							output_p(char *out, t_format *list,
+		int len, int i);
+int								print_p(t_format *list);
 
 /*
 *****print_c.c*****
@@ -241,7 +245,8 @@ void							input_mod_sum(char bit, t_deci *pow,
 		t_deci *sum);
 void							fill_e_num(t_sble *sble, int e, int elen);
 int								move_point(t_sble *sble);
-int								get_e_str(t_format *list, t_sble *sble, int elen);
+int								get_e_str(t_format *list, t_sble *sble,
+		int elen);
 
 /*
 *****get_f_str.c*****
