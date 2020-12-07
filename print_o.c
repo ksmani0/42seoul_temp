@@ -67,10 +67,11 @@ int		print_sharp_o(char *out, t_format *list, int len, int i)
 		return (-1);
 	out[list->size] = 0;
 	o_big_width_not_ngf(out, list, len, &i);
-	if (len > list->prec)
-		out[i++] = '0';
-	if (list->prec > len || (list->wid > len && list->flag[2] == 1))
-		fill_space_or_zero(&i, list->size - len, out, '0');
+	out[i++] = '0';
+	if (list->prec > len + 1 && list->flag[1] == 1)
+		fill_space_or_zero(&i, list->prec - len, out, '0');
+	else if (list->prec > len + 1)
+		fill_space_or_zero(&i, list->prec - len + i, out, '0');
 	len = 0;
 	while (list->num[len] != 0)
 		out[i++] = list->num[len++];

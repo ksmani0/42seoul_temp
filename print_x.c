@@ -72,7 +72,13 @@ int		print_sharp_x(char *out, t_format *list, int len, int i)
 	x_big_width_not_ngf(out, list, len, &i);
 	out[i++] = '0';
 	out[i++] = list->spec == 'x' ? 'x' : 'X';
-	if (list->prec > len || (list->wid > len && list->flag[2] == 1))
+	if (list->flag[1] == 1 && list->wid > len &&
+	list->wid > list->prec && list->prec > len)
+	{
+		fill_space_or_zero(&i, list->size -
+		(list->size - list->prec - 2 + len), out, '0');
+	}
+	else if (list->prec > len || (list->wid > len && list->flag[2] == 1))
 		fill_space_or_zero(&i, list->size - len, out, '0');
 	len = 0;
 	while (list->num[len] != 0)

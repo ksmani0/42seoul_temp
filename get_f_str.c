@@ -55,25 +55,20 @@ int		round_feg(t_format *list, t_sble *sble)
 	int prec;
 
 	prec = list->flag[6] == 0 ? 6 : list->prec;
-	prec = list->prec >= 1075 ? 1075 : prec;
+	if ((prec >= 1076 || prec > sble->m_len) &&
+	(add_zero_to_prec(sble, prec, -1)) == 0)
+		return (-1);
 	if ((list->flag[6] == 0 && sble->m_len < 6) || (sble->m_len < prec))
 	{
 		sble->m_idx = list->flag[6] == 0 ?
 		sble->d_idx + 6 : sble->d_idx + prec;
 	}
-	else if (prec == 1075 && sble->m_len == 1075)
-		sble->m_idx = 1076;
-	if (prec < 1075)
-	{
-		if ((add_zero_to_prec(sble, prec, -1)) == -1)
-			return (-1);
-		if (sble->out[sble->d_idx + prec + 1] < '5')
-			sble->m_idx = sble->d_idx + prec;
-		else if (sble->out[sble->d_idx + prec + 1] > '5')
-			round_up(sble, prec);
-		else
-			rounding_meet_five(sble, prec);
-	}
+	if (sble->out[sble->d_idx + prec + 1] < '5')
+		sble->m_idx = sble->d_idx + prec;
+	else if (sble->out[sble->d_idx + prec + 1] > '5')
+		round_up(sble, prec);
+	else
+		rounding_meet_five(sble, prec);
 	list->prec = prec;
 	return (1);
 }

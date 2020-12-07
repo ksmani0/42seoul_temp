@@ -47,6 +47,7 @@ void	input_div_pow(t_deci *pow, char *is_one)
 	up = 0;
 	while (i < pow->len)
 	{
+		pow->s[i] = pow->s[i] == 0 ? '0' : pow->s[i];
 		if ((temp = (pow->s[i] - '0') * 2 + up) > 9)
 		{
 			up = temp / 10;
@@ -58,28 +59,24 @@ void	input_div_pow(t_deci *pow, char *is_one)
 	}
 }
 
-void	input_div_sum(char bit, t_deci *pow, t_deci *sum)
+void	input_div_sum(char bit, t_deci *pow, t_deci *sum, int i)
 {
-	int i;
 	int up;
 	int temp;
-	int longer;
 
 	if (bit == 0)
 		return ;
-	i = 0;
 	up = 0;
-	longer = pow->len > sum->len ? pow->len : sum->len;
-	while (i < longer)
+	sum->len = pow->len > sum->len ? pow->len : sum->len;
+	while (i < sum->len)
 	{
+		sum->s[i] = sum->s[i] == 0 ? '0' : sum->s[i];
+		pow->s[i] = pow->s[i] == 0 ? '0' : pow->s[i];
 		if ((temp = (pow->s[i] - '0') + (sum->s[i] - '0') + up) > 9)
 		{
 			up = temp / 10;
-			if (i == longer - 1)
-			{
+			if (i == sum->len - 1)
 				sum->len++;
-				longer++;
-			}
 		}
 		else
 			up = 0;

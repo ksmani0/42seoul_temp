@@ -12,24 +12,18 @@
 
 #include "ft_printf.h"
 
-int		change_e_num(t_sble *sble)
+int		change_e_num(t_sble *sble, int elen, char *tp)
 {
-	int		elen;
-	char	*tp;
-
-	elen = 0;
 	if (sble->out[sble->d_idx] != '0' || sble->dv == 0 || sble->dv == -0.0)
 		return (1);
 	if (sble->esign == '-' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')
-	{
-		sble->esign = '+';
-		elen = 2;
-	}
+		sble->esign = sble->e_int + 1 == 0 ? '+' : '-';
 	else if (sble->esign == '+' && sble->out[sble->d_idx] == '0' &&
 	sble->out[sble->d_idx - 1] == '1')
 	{
 		elen = ft_intlen(sble->e_int + 1);
+		elen = elen == 1 ? 2 : elen;
 		if ((tp = (char*)malloc(sizeof(char) * (elen + 3))) == 0)
 			return (-1);
 		free(sble->e);
@@ -37,6 +31,7 @@ int		change_e_num(t_sble *sble)
 	}
 	fill_e_num(sble, ++sble->e_int, elen);
 	sble->d_idx--;
+	sble->m_idx--;
 	return (1);
 }
 
@@ -96,18 +91,21 @@ void	output_feg(t_format *list, t_sble *sble, int i, int temp)
 
 int		get_g_str(t_format *list, t_sble *sble, int p, char *is_f)
 {
-	if ((get_e_str(list, sble, 0)) == -1)
-		return (-1);
+	int x;
+
 	if (list->flag[6] == 1)
 		p = list->prec == 0 ? 1 : list->prec;
+	x = p < 1 ? 0 : p - 1;
+	if ((p == 0 && (find_e_x(list, *sble, &x)) == -1) ||
+	(p >= 1 && (find_e_x(list, *sble, &x)) == -1))
+		return (-1);
 	list->num[1] = 'g';
-	if (p > sble->e_int && sble->e_int >= -4)
+	if (p > x && x >= -4 && (*is_f = 1))
 	{
-		list->prec = p - 1 - sble->e_int;
+		list->prec = p - 1 - x;
 		list->flag[6] = list->prec >= 0 ? 1 : 0;
 		list->prec = list->prec >= 0 ? list->prec : 0;
 		list->spec = 'f';
-		*is_f = 1;
 		return (1);
 	}
 	list->prec = p - 1;

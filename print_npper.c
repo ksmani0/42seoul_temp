@@ -37,13 +37,9 @@ int		print_percent(t_format *list)
 
 int		print_n(t_format *list, t_lint *lint, int *o_int, t_sint *sint)
 {
-	if (list->wid > 0 || list->flag[0] == 1 || list->flag[1] == 1 ||
-	list->flag[2] == 1 || list->flag[3] == 1 || list->flag[4] == 1 ||
-	list->flag[5] == 1 || list->flag[6] == 1)
-		return (-1);
 	if (list->len == 'L' || list->len == 'l')
 	{
-		lint = va_arg(list->ap, long int*);
+		lint = va_arg(list->ap, t_lint*);
 		if (lint != 0)
 			*lint = list->nums;
 	}
@@ -55,7 +51,7 @@ int		print_n(t_format *list, t_lint *lint, int *o_int, t_sint *sint)
 	}
 	else if (list->len == 'h')
 	{
-		sint = va_arg(list->ap, short int*);
+		sint = va_arg(list->ap, t_sint*);
 		if (sint != 0)
 			*sint = list->nums;
 	}

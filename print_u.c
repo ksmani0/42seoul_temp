@@ -71,3 +71,56 @@ void	g_meet_sharp(t_format *list, t_sble *sble)
 	if (sble->d_idx == sble->m_idx)
 		list->prec = 0;
 }
+
+int		get_e_int(t_format *list, t_sble *tp, int i)
+{
+	if (tp->out[1] == '0' && tp->m_len >= 1 && tp->dv != 0 && tp->dv != -0.0)
+		tp->esign = '-';
+	if (tp->esign == '+')
+		tp->e_int = tp->d_len > 1 ? tp->d_len - 1 : 0;
+	else if (tp->esign == '-' && (i = tp->d_idx + 1))
+	{
+		tp->e_int = tp->d_idx - 1;
+		while (tp->out[i++] == '0')
+			tp->e_int--;
+		tp->e_int--;
+	}
+	tp->d_idx = tp->e_int < 0 ? tp->e_int * -1 + tp->d_idx : 1;
+	tp->m_len = tp->m_len + tp->e_int;
+	if ((round_feg(list, tp)) == -1)
+		return (-1);
+	if (tp->out[tp->d_idx] != '0' || tp->dv == 0 || tp->dv == -0.0)
+		return (1);
+	if (tp->esign == '-' && tp->out[tp->d_idx] == '0' &&
+	tp->out[tp->d_idx - 1] == '1')
+		tp->esign = tp->e_int + 1 == 0 ? '+' : '-';
+	++tp->e_int;
+	return (1);
+}
+
+int		find_e_x(t_format *list, t_sble tp, int *x)
+{
+	int i;
+	int j;
+
+	if ((tp.out = (char*)malloc(sizeof(char) *
+	(tp.d_len + tp.m_len + 2))) == 0)
+		return (-1);
+	tp.out[tp.d_len + tp.m_len + 1] = 0;
+	tp.out[0] = '0';
+	list->prec = *x;
+	tp.esign = '+';
+	tp.d_idx = tp.d_len;
+	i = 1;
+	j = tp.d_len - 1;
+	while (i <= tp.d_len)
+		tp.out[i++] = tp.s_div[j--];
+	j = -1;
+	while (++j < tp.m_len)
+		tp.out[i++] = tp.s_mod[j];
+	if ((get_e_int(list, &tp, 0)) == -1)
+		return (-1);
+	*x = tp.e_int;
+	free(tp.out);
+	return (1);
+}

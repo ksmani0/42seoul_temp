@@ -120,11 +120,11 @@ size_t							ft_ullint_to_s(t_ullint num, t_format *list);
 */
 
 void							fill_space_or_zero(int *i, int limit, char *out,
-		char s_or_z);
+								char s_or_z);
 void							big_width_not_ngf(char *out, t_format *list,
-		int len, int *i);
+								int len, int *i);
 void							output_di(char *out, t_format *list, int len,
-		int i);
+								int i);
 int								print_di(t_format *list);
 int								output_spec(t_format *list);
 
@@ -133,9 +133,14 @@ int								output_spec(t_format *list);
 */
 
 void							output_u(char *out, t_format *list, int len,
-		int i);
+								int i);
 int								print_u(t_format *list);
-void							g_meet_sharp(t_format *list, t_sble *sble);
+void							g_meet_sharp(t_format *list,
+								t_sble *sble);
+int								get_e_int(t_format *list, t_sble *tp,
+								int i);
+int								find_e_x(t_format *list, t_sble tp,
+								int *x);
 
 /*
 *****print_x.c*****
@@ -143,11 +148,11 @@ void							g_meet_sharp(t_format *list, t_sble *sble);
 
 int								hex_to_str(t_ullint x, t_format *list);
 void							x_big_width_not_ngf(char *out, t_format *list,
-		int len, int *i);
+								int len, int *i);
 int								print_sharp_x(char *out, t_format *list,
-		int len, int i);
+								int len, int i);
 void							output_x(char *out, t_format *list, int len,
-		int i);
+								int i);
 int								print_x(t_format *list);
 
 /*
@@ -156,11 +161,11 @@ int								print_x(t_format *list);
 
 int								octal_to_str(t_ullint o, t_format *list);
 void							o_big_width_not_ngf(char *out, t_format *list,
-		int len, int *i);
+								int len, int *i);
 int								print_sharp_o(char *out, t_format *list,
-		int len, int i);
+								int len, int i);
 void							output_o(char *out, t_format *list, int len,
-		int i);
+								int i);
 int								print_o(t_format *list);
 
 /*
@@ -169,10 +174,10 @@ int								print_o(t_format *list);
 
 int								print_percent(t_format *list);
 int								print_n(t_format *list, t_lint *lint,
-		int *o_int, t_sint *sint);
+								int *o_int, t_sint *sint);
 size_t							ft_arr_to_s(t_ulint adrr, t_format *list);
 void							output_p(char *out, t_format *list,
-		int len, int i);
+								int len, int i);
 int								print_p(t_format *list);
 
 /*
@@ -180,11 +185,11 @@ int								print_p(t_format *list);
 */
 
 void							output_lc(t_format *list, t_uchar *out,
-		t_uchar *lc_s, int len);
+								t_uchar *lc_s, int len);
 int								input_lc_s(wint_t lc, t_uchar *lc_s);
 int								print_lc(t_format *list);
 void							output_c(t_format *list, t_uchar *out,
-		t_uchar c);
+								t_uchar c);
 int								print_c(t_format *list);
 
 /*
@@ -201,13 +206,13 @@ int								print_s(t_format *list);
 */
 
 int								count_lsw_size(t_format *list, wchar_t ls,
-		t_uchar *new);
+								t_uchar *new);
 int								input_ls_to_us(t_format *list, wchar_t ls,
-		t_uchar **out, int total);
+								t_uchar **out, int total);
 int								count_out_num(t_format *list, wchar_t *ls,
-		t_uchar **out, int *bytes);
+								t_uchar **out, int *bytes);
 void							output_ls(t_format *list, t_uchar *out,
-		int bytes);
+								int bytes);
 int								print_ls(t_format *list);
 
 /*
@@ -215,10 +220,10 @@ int								print_ls(t_format *list);
 */
 
 int								get_div_decimal(t_sble *sble, int i,
-		char is_one);
+								char is_one);
 int								parse_div(t_dble *dble, t_sble *sble);
-int								check_inf_nan(t_dble *dble, t_format *list,
-		int i);
+int								check_inf_nan(t_dble *db, t_format *list,
+								int i, int len);
 int								free_sble(int error_or_not, t_sble *sble);
 int								print_feg(t_format *list);
 
@@ -227,14 +232,14 @@ int								print_feg(t_format *list);
 */
 
 int								add_zero_to_prec(t_sble *sble, int prec,
-		int i);
+								int i);
 void							input_div_pow(t_deci *pow, char *is_one);
 void							input_div_sum(char bit, t_deci *pow,
-		t_deci *sum);
+								t_deci *sum, int i);
 int								get_mod_decimal(t_sble *sble, int blen,
-		int i, char is_one);
+								int i, char is_one);
 int								parse_mod(t_dble *dble, t_sble *sble,
-		int i, int j);
+								int i, int j);
 
 /*
 *****get_e_str.c*****
@@ -242,11 +247,11 @@ int								parse_mod(t_dble *dble, t_sble *sble,
 
 void							input_mod_pow(t_deci *pow, char *is_one);
 void							input_mod_sum(char bit, t_deci *pow,
-		t_deci *sum);
+								t_deci *sum);
 void							fill_e_num(t_sble *sble, int e, int elen);
-int								move_point(t_sble *sble);
+int								move_point(t_sble *sble, int i, int elen);
 int								get_e_str(t_format *list, t_sble *sble,
-		int elen);
+								int elen);
 
 /*
 *****get_f_str.c*****
@@ -262,14 +267,15 @@ int								get_f_str(t_format *list, t_sble *sble);
 *****output_feg.c*****
 */
 
-int								change_e_num(t_sble *sble);
+int								change_e_num(t_sble *sble, int elen,
+								char *tp);
 void							output_feg_sign(t_format *list,
-		t_sble *sble, int *i);
+								t_sble *sble, int *i);
 void							output_decimal(t_format *list, t_sble *sble,
-		int *i, int j);
+								int *i, int j);
 void							output_feg(t_format *list, t_sble *sble,
-		int i, int temp);
+								int i, int temp);
 int								get_g_str(t_format *list, t_sble *sble,
-		int p, char *is_f);
+								int p, char *is_f);
 
 #endif

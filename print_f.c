@@ -26,7 +26,7 @@ int		get_div_decimal(t_sble *sble, int i, char is_one)
 	while (i >= 0)
 	{
 		input_div_pow(&pow, &is_one);
-		input_div_sum(sble->d_bit[i--], &pow, &sum);
+		input_div_sum(sble->d_bit[i--], &pow, &sum, 0);
 	}
 	if ((sble->s_div = (char*)malloc(sizeof(char) * (sum.len + 1))) == 0)
 		return (-1);
@@ -54,7 +54,7 @@ int		parse_div(t_dble *dble, t_sble *sble)
 		sble->d_bit[0] = 1;
 		i = 0;
 		j = 0;
-		while (j < blen)
+		while (j < blen && j < 52)
 			sble->d_bit[++i] = (dble->s_int.m >> (51 - j++) & 1) + 0;
 		if (blen > 52)
 		{
@@ -68,30 +68,31 @@ int		parse_div(t_dble *dble, t_sble *sble)
 	return (get_div_decimal(sble, blen - 1, 1));
 }
 
-int		check_inf_nan(t_dble *dble, t_format *list, int i)
+int		check_inf_nan(t_dble *db, t_format *list, int i, int len)
 {
 	char	*s;
-	int		len;
 
-	len = 3;
-	if (dble->s_int.e != 2047)
+	if (db->s_int.e != 2047)
 		return (0);
-	if ((dble->s_int.s == 0 && dble->s_int.e == 2047 && dble->s_int.m == 0)
-	|| (dble->s_int.e == 2047 && dble->s_int.m >= 1))
-		s = dble->s_int.m >= 1 ? "nan" : "inf";
-	else if (dble->s_int.e == 1 && dble->s_int.e == 2047 &&
-	dble->s_int.m == 0 && (len = 4))
+	if (db->s_int.s == 0 && db->s_int.e == 2047 && db->s_int.m == 0
+	&& (list->flag[0] == 1 || list->flag[3] == 1) && (len = 4))
+		s = list->flag[0] == 1 ? "+inf" : " inf";
+	else if ((db->s_int.s == 0 && db->s_int.e == 2047 && db->s_int.m == 0)
+	|| (db->s_int.e == 2047 && db->s_int.m >= 1))
+		s = db->s_int.m >= 1 ? "nan" : "inf";
+	else if (db->s_int.s == 1 && db->s_int.e == 2047 &&
+	db->s_int.m == 0 && (len = 4))
 		s = "-inf";
-	if (list->flag[1] != 0 && list->wid > len)
+	if (list->flag[1] == 0 && list->wid > len)
 	{
 		while (i++ < list->wid - len)
-			write(1, " ", 1);
+			list->nums += write(1, " ", 1);
 	}
-	write(1, s, len);
+	list->nums += write(1, s, len);
 	if (list->flag[1] == 1 && list->wid > len)
 	{
 		while (i++ < list->wid - len)
-			write(1, " ", 1);
+			list->nums += write(1, " ", 1);
 	}
 	return (1);
 }
@@ -115,7 +116,7 @@ int		print_feg(t_format *list)
 		return (-1);
 	ft_bzero((void*)&dble, sizeof(dble));
 	dble.value = va_arg(list->ap, double);
-	if ((check_inf_nan(&dble, list, 0)) == 1)
+	if ((check_inf_nan(&dble, list, 0, 3)) == 1)
 		return (1);
 	ft_bzero((void*)&sble, sizeof(sble));
 	sble.dv = dble.value;

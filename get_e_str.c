@@ -82,17 +82,15 @@ void	fill_e_num(t_sble *sble, int e, int elen)
 	sble->e[i] = i == 1 ? '0' : sble->e[i];
 }
 
-int		move_point(t_sble *sble)
+int		move_point(t_sble *sble, int i, int elen)
 {
-	int i;
-	int elen;
-
-	i = 0;
 	sble->esign = '+';
 	if (sble->out[1] == '0' && sble->m_len >= 1 && sble->dv != 0
 	&& sble->dv != -0.0)
 		sble->esign = '-';
-	if (sble->esign == '-')
+	if (sble->esign == '+')
+		sble->e_int = sble->d_len > 1 ? sble->d_len - 1 : 0;
+	else if (sble->esign == '-')
 	{
 		sble->e_int = sble->d_idx - 1;
 		i = sble->d_idx + 1;
@@ -112,14 +110,10 @@ int		move_point(t_sble *sble)
 
 int		get_e_str(t_format *list, t_sble *sble, int elen)
 {
-	if ((make_out_str(sble)) == -1 || (move_point(sble)) == -1)
+	if ((make_out_str(sble)) == -1 || (move_point(sble, 0, 0)) == -1)
 		return (free_sble(-1, sble));
-	if ((round_feg(list, sble)) == -1)
+	if ((round_feg(list, sble)) == -1 || (change_e_num(sble, 2, 0)) == -1)
 		return (free_sble(-1, sble));
-	if ((change_e_num(sble)) == -1)
-		return (free_sble(-1, sble));
-	if (list->spec == 'g')
-		return (1);
 	g_meet_sharp(list, sble);
 	list->size = sble->m_idx - sble->d_idx + 1;
 	list->size = sble->sign == '-' ? list->size + 1 : list->size;
