@@ -24,7 +24,7 @@ void	output_lc(t_format *list, t_uchar *out, t_uchar *lc_s, int len)
 		out[i++] = lc_s[len++];
 	if (list->flag[1] == 1 && list->wid > 1)
 		fill_space_or_zero(&i, list->size, (char*)out, ' ');
-	write(1, out, i);
+	list->nums += write(1, out, i);
 	free(lc_s);
 	free(out);
 }
