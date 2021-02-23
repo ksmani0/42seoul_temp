@@ -1,0 +1,8 @@
+Hello, user!
+I'm seungmki, a cadet in 42seoul.
+This program is mini ray-tracer I made.
+
+##### from here, somethings you can check #####
+
+@ completed bonus items @
+1) Parallel light following a precise direction
