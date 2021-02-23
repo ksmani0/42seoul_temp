@@ -25,13 +25,13 @@ void    normalize_vec3(t_vec3 *v)
     v->z = v->z / denominator;
 }
 
-t_vec3  matrix_multiply_vec3(t_vec3 v, t_matrix m)
+t_vec3  matrix_multiply_vec3(t_matrix m, t_vec3 v)
 {
     t_vec3 result;
 
-    result.x = m.vx.x * v.x + m.vx.x * v.y + m.vx.x * v.z;
-    result.y = v.x * m.vx.y + v.y * m.vy.y + v.z * m.vz.y;
-    result.z = v.x * m.vx.z + v.y * m.vy.z + v.z * m.vz.z;
+    result.x = m.vx.x * v.x + m.vy.x * v.y + m.vz.x * v.z;
+    result.y = m.vx.y * v.x + m.vy.y * v.y + m.vz.y * v.z;
+    result.z = m.vx.z * v.x + m.vy.z * v.y + m.vz.z * v.z;
     return (result);
 }
 

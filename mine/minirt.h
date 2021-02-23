@@ -140,7 +140,7 @@ typedef struct		s_scene
 	t_triangle		**triangle;
 } t_scene;
 
-/***src - mian.c***/
+/***src - main.c***/
 void				free_each_obj(t_scene *s, int i);
 void				free_scene(t_scene *s);
 void				check_error_exit(t_scene *scene, int error);
@@ -200,43 +200,5 @@ t_rgb				get_mix_color(t_rgb c0, t_rgb c1);
 t_rgb				get_spot_light(t_scene *s, t_obj_clr *obj, int i);
 t_rgb				get_ambient_color(t_scene *s, t_obj_clr *obj);
 int					obj_color_to_canvas(t_scene s, t_obj_clr obj);
-
-/***src - shpere.c***/
-int					is_ray_intersect_sphere(t_scene *s, t_ray *r, int i);
-int					is_shadow_in_sphere(t_scene s, t_ray *r, int i);
-void				draw_sphere_on_canvas(t_scene s, t_ray *r, int i);
-
-/***src - plane.c***/
-void				draw_plane_on_canvas(t_scene s, t_ray *r, int i);
-int					get_intersection_of_plane(t_scene *s, t_ray *r, t_sub_plane *pl);
-int					is_shadow_in_plane(t_scene s, t_ray *r, int i);
-int					is_ray_intersect_plane(t_scene *s, t_ray *r, t_sub_plane *pl);
-
-/***src - square.c***/
-int					is_intersect_inside_square(t_scene s, t_sub_plane *pl, int i);
-int					is_shadow_in_square(t_scene s, t_ray *r, int i);
-void				draw_square_on_canvas(t_scene s, t_ray *r, int i);
-
-/***src - triangle.c***/
-double				get_p_parameter(t_triangle *trngl, t_vec3 p0, int i);
-double				get_q_parameter(t_triangle *trngl, t_vec3 p0, int i);
-int					is_intersect_inside_triangle(t_scene s, int i, t_sub_plane *pl);
-int					is_ray_intersect_triagle(t_scene *s, t_ray *r, int i, t_sub_plane *pl);
-int					is_shadow_in_triangle(t_scene s, t_ray *r, int i);
-void				draw_triangle_on_canvas(t_scene s, t_ray *r, int i);
-
-/***src - cylinder.c***/
-void				get_cylinder_surface(t_scene *s, t_ray *r, int i);
-int					is_ray_intersect_cylinder(t_scene *s, t_ray *r, int i);
-void				get_cylinder_color(t_scene s, t_ray *r, int i);
-void				draw_cylinder_on_canvas(t_scene s, t_ray *r, int i);
-
-/***src - cylinder2.c***/
-int					is_shadow_in_cap(t_scene s, t_ray *shad_r, int i);
-int					is_shadow_in_cylinder(t_scene s, t_ray *shad_r, int i);
-t_vec3				get_nearest_cap(t_scene s, int i);
-int					is_ray_intersect_cap(t_scene *s, t_ray *r, int i, t_sub_plane *pl);
-void				draw_cylinder_cap(t_scene s, t_ray *r, int i);
-
 
 #endif

@@ -2,12 +2,12 @@
 
 void    scene_to_minirt_window(t_scene *s)
 {
-    //
+    render_scene(s);
 }
 
 int     exit_minirt(t_window *win)
 {
-    printf("Exit seungmki's miniRT!");
+    printf("Exit seungmki's miniRT!\n");
     mlx_destroy_window(win->mlx_p, win->win_p);
     exit(0);
 }
@@ -27,9 +27,13 @@ int     rotate_camera_with_mouse(int click, int x, int y, t_scene *s)
 {
     t_vec3 new_n;
 
-    (void)click;
+    (void)click;//이거 안 하면 컴파일러에 걸리니 그냥 해줌
     new_n = get_local_camera_coord(s, (double)x, (double)y);//마우스 좌표값 기준으로 카메라 중심 좌표 얻음
-    new_n = matrix_multiply_vec3();
+    new_n = matrix_multiply_vec3(s->camera[s->i_cam]->base, new_n);//카메라 좌표를, 카메라 공간 좌표를 세계 공간 좌표로 바꾸는 행렬(base)과 곱해 세계 좌표로 바꿈
+    normalize_vec3(&new_n);
+    s->camera[s->i_cam]->n = new_n;//카메라 방향이므로 정규화
+    scene_to_minirt_window(s);
+    return (0);
 }
 
 void    run_minirt(t_scene s)
@@ -44,7 +48,7 @@ void    run_minirt(t_scene s)
     mlx_hook(s.win.win_p, KEY_PRESS, 1L << 0, key_control, &s);//KEY_PRESS == 2(KeyPress), 1L<<0(KeyPressMask) 누른 키에 따라 작동
     mlx_hook(s.win.win_p, MOUSE_PRESS, 1L << 0,
     rotate_camera_with_mouse, &s);//MOUSE_PRESS == 4(ButtonPress), 1L<<2(ButtonPressMask) 누른 마우스 버튼에 따라 작동
-    mlx_hook(s.win.win_p, KEY_T, 0L, exit_minirt, &s.win);//KET_T == 17(DestroyNotify), 0L(NoEventMask), 창을 끄는 순간 minirt 프로그램도 종료하는 이벤트 처리
+    mlx_hook(s.win.win_p, EXIT_EVENT, 0L, exit_minirt, &s.win);//EXIT_EVENT == 17(DestroyNotify), 0L(NoEventMask), 창을 끄는 순간 minirt 프로그램도 종료하는 이벤트 처리
     scene_to_minirt_window(&s);
     mlx_loop(s.win.mlx_p);
 }

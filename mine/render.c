@@ -24,8 +24,7 @@ void    draw_obj_on_canvas(t_scene s, t_ray *r)
 void    render_pixel(t_scene *s, t_ray *r, double x, double y)
 {
     r->local = get_local_camera_coord(s, x, y);//현재 카메라 광선이 중심을 뚫은 픽셀의 스크린에서의 최종 좌표 P@
-    r->global = matrix_multiply_vec3(r->local,
-            s->camera[s->i_cam]->base);//캔버스 좌표 P를 카메라-세계 행렬을 곱해 세계 좌표 P'로 바꿈
+    r->global = matrix_multiply_vec3(s->camera[s->i_cam]->base, r->local);//캔버스 좌표 P를 카메라-세계 행렬을 곱해 세계 좌표 P'로 바꿈
     r->t = DBL_MAX;//카메라와 물체 사이 거리를 일단 최대로 초기화
     r->color = 0;
     r->origin = (t_vec3){ 0, 0, 0 };//세계 좌표 원점으로 초기화
