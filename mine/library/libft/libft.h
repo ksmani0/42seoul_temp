@@ -30,6 +30,10 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 256
+# endif
+
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -82,18 +86,22 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 
-/*
-*****circle_1 ft_printf*****
-*/
+/*****circle_1 get_next_line*****/
+int					line_str_nline(char **line, char **store, int w_num);
+int					line_just_str(char **line, char **store);
+int					get_next_line(int fd, char **line);
 
+int					find_nline(char *store);
+int					free_store(int rbytes, char **store, char **line);
+int					paste_malloc(char **store, char *buf, char **line,
+								int rbytes);
+
+/*****circle_1 ft_printf*****/
 size_t				ft_wcharlen(const wchar_t *s);
 size_t				ft_ustrlen(const t_uchar *s);
 size_t				ft_intlen(int n);
 
-/*
-*****circle_2 miniRT*****
-*/
-
+/*****circle_2 miniRT*****/
 char				*ft_strstr(char *s1, char * s2);
 int					ft_strcmp(char *s1, char *s2);
 char				*ft_strrev(char *str);
