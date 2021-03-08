@@ -132,16 +132,18 @@ typedef struct	s_plane
 /*
 **den:denominator obtained by dot product of the plane direction vector
 **and the direction of the ray passing through each pixel
+**po:The direction vector po by subtracting the coordinates
+**from the light source coordinates
 */
 typedef struct	s_sub_palne
 {
 	t_vec3		point;
 	t_vec3		n;
-	double		den;//평면 방향 벡터와 픽셀마다 관통(P')하는 광선 방향을 내적해 얻는 분모
+	double		den;
 	double		num;
 	t_vec3		l;
 	t_vec3		p;
-	t_vec3		po;//광원 좌표에서 평면 좌표 빼서 방향 벡터 po
+	t_vec3		po;
 }				t_sub_plane;
 
 typedef struct	s_square
@@ -155,7 +157,7 @@ typedef struct	s_square
 }				t_square;
 
 /*
-**delta:in other words discriminant(판별식)
+**delta:in other words discriminant
 **filter:for rainbow
 */
 typedef struct	s_cylinder

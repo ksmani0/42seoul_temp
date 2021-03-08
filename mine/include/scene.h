@@ -44,8 +44,7 @@ typedef union	u_dble
 	}			s_int;
 }				t_dble;
 
-/*
-**addr:해상도 크기만한 이미지 정보(버퍼로 봐도 될 듯) 주소 받음. 여기에 색상 입힘 
+/* 
 **id:image instance address | b_pix:bit_pixel
 */
 typedef struct	s_image
