@@ -104,7 +104,7 @@ void	parse_light(t_scene *s, char **line, char **buf)
 		check_error_exit(s, 6);
 	}
 	tmp->parallel = buf[4] == 0 ? (t_vec3){ 0, 0, 0 } :
-	parse_parallel(s, buf, 4, line);//bonus 'Parallel light following a precise direction' check
+	parse_parallel(s, buf, 4, line);
 	s->light[(int)s->idx[3]] = tmp;
 	free_parsing_buf(buf, line);
 }

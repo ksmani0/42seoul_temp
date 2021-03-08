@@ -1,7 +1,12 @@
 #include "minirt.h"
 
+/*
+**Finally, according to the equation extracted by the triangular determinant,
+**the intersection point p (a parameter that determines
+**whether it is inside or outside the triangle) is secured.
+*/
 double	get_p_parameter(t_triangle *trngl, t_vec3 p0)
-{//드디어 삼각형 행렬식 뽑아낸 방정식에 따라 교차점 p(삼각형 내외부에 있는지 판단하는 매개변수) 확보
+{
 	double p;
 
 	if (trngl->equa == 0)
@@ -13,8 +18,13 @@ double	get_p_parameter(t_triangle *trngl, t_vec3 p0)
 	return (p);
 }
 
+/*
+**Obtaining the intersection point q (a parameter that determines
+**whether it is inside or outside the triangle)
+**according to the equation extracted from the triangle determinant
+*/
 double	get_q_parameter(t_triangle *trngl, t_vec3 p0)
-{//삼각형 행렬식(determinant) 뽑아낸 방정식 따라 교차점 q(삼각형 내외부에 있는지 판단하는 매개변수) 확보
+{
 	double q;
 
 	if (trngl->equa == 0)

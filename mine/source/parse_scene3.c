@@ -128,7 +128,7 @@ void	parse_triangle(t_scene *s, char **line, char **buf)
 		free_parsing_buf(buf, line);
 		check_error_exit(s, 6);
 	}
-	get_triangle_edges(tmp);//모서리와 외적한 벡터=법선의 방향 구함
+	get_triangle_edges(tmp);
 	s->triangle[(int)s->idx[8]] = tmp;
 	free_parsing_buf(buf, line);
 }

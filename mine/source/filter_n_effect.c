@@ -72,8 +72,12 @@ int		check_antialising(char *effect, char *buf)
 	return (0);
 }
 
+/*
+**It has to be slow because it is a quadruple loop structure.
+**Multi-threading is the key effect
+*/
 void	render_with_antialiasing(t_scene *s, t_ray *r, double x, double y)
-{//4중 반복문 구조라서 느릴 수밖에 없다. 멀티스레딩이 핵심인 효과
+{
 	int		i;
 	int		j;
 	t_rgb	color;
@@ -81,15 +85,15 @@ void	render_with_antialiasing(t_scene *s, t_ray *r, double x, double y)
 	i = -1;
 	color = (t_rgb){0, 0, 0};
 	while (++i < 2)
-	{//반복문 돌 때마다 현재 x,y 지점에서 x+0.5,y+0.5 | x+1.5,y+0.5
+	{
 		j = -1;
 		while (++j < 2)
-		{//x+0.5,y+1.5 | x+1.5,y+1.5 지점으로 각각 접근하게 됨
+		{
 			render_pixel(s, r, x + (j + 0.5) / 2, y + (i + 0.5) / 2);
 			color.r += (r->color & 0x00ff0000) >> 16;
 			color.g += (r->color & 0x0000ff00) >> 8;
 			color.b += (r->color & 0x000000ff);
-		}//값을 누적으로 저장한 후 아래서 4로 나눔. 평균 색상을 구하는 것
+		}
 	}
 	r->color = ((int)(color.r / 4) << 16) + ((int)(color.g / 4) << 8)
 		+ (int)(color.b / 4);

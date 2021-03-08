@@ -54,7 +54,7 @@ void	fill_each_obj(t_scene *scene, char **line)
 	char *tmp;
 
 	tmp = *line;
-	if (tmp[0] == 'R' && tmp[1] == ' ')//???scene->idx[0] == 0 없어도 됨
+	if (tmp[0] == 'R' && tmp[1] == ' ')
 		parse_resolution(scene, line);
 	else if (tmp[0] == 'A' && tmp[1] == ' ')
 		parse_ambient(scene, line);
@@ -74,6 +74,9 @@ void	fill_each_obj(t_scene *scene, char **line)
 		parse_triangle(scene, line, 0);
 }
 
+/*
+**fill_each_obj() > parse_*() > free_parsing_buf() do free(line)
+*/
 void	fill_scene(char *file, t_scene *scene)
 {
 	int		fd;
@@ -90,7 +93,7 @@ void	fill_scene(char *file, t_scene *scene)
 	scene->cylinder[(int)scene->idx[7]] = 0;
 	scene->triangle[(int)scene->idx[8]] = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
-		fill_each_obj(scene, &line);//free(line);//fill_each_obj() > parse_*() > free_parsing_buf() do free(line)
+		fill_each_obj(scene, &line);
 	close(fd);
 	if (ret == -1)
 	{

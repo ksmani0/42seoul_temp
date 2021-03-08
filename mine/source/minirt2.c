@@ -30,33 +30,35 @@ void	obj_axis_translation(int key, t_scene *s, int i)
 	t_vec3 new_pos;
 
 	new_pos = (t_vec3){ 0, 0, 0 };
-	if (key == KEY_Z)//move left
+	if (key == KEY_Z)
 		new_pos = (t_vec3){ -1, 0, 0 };
-	else if (key == KEY_X)//move right
+	else if (key == KEY_X)
 		new_pos = (t_vec3){ 1, 0, 0 };
-	else if (key == KEY_C)//move up
+	else if (key == KEY_C)
 		new_pos = (t_vec3){ 0, 1, 0 };
-	else if (key == KEY_V)//move down
+	else if (key == KEY_V)
 		new_pos = (t_vec3){ 0, -1, 0 };
 	while (s->idx_rec[i] == 0 && i < 8)
-		i++;//도형 구, 평면, 정사각형, 원통, 삼각형
+		i++;
 	update_obj_position(s, i, new_pos);
-	render_scene(s);//여기서 이벤트 내용 적용해서 다시 이미지 렌더링
-	mlx_put_image_to_window(s->win.mlx_p, s->win.win_p, s->img.inst, 0, 0);//이미지 정보를 모았다가 한번에 그림. 새로운 mlx 호환 이미지를 생성
+	render_scene(s);
+	mlx_put_image_to_window(s->win.mlx_p, s->win.win_p, s->img.inst,
+							0, 0);
 }
 
 void	change_camera_with_key(int key, t_scene *s)
 {
 	if (key == ARROW_LEFT)
-	{//후반에 파싱한 카메라로 이동
+	{
 		if (s->i_cam > 0)
 			s->i_cam--;
 	}
 	else if (key == ARROW_RIGHT)
-	{//초반에 파싱한 카메라로 이동
+	{
 		if (s->i_cam < s->idx_rec[2] - 1)
 			s->i_cam++;
 	}
-	render_scene(s);//여기서 이벤트 내용 적용해서 다시 이미지 렌더링
-	mlx_put_image_to_window(s->win.mlx_p, s->win.win_p, s->img.inst, 0, 0);//이미지 정보를 모았다가 한번에 그림. 새로운 mlx 호환 이미지를 생성
+	render_scene(s);
+	mlx_put_image_to_window(s->win.mlx_p, s->win.win_p, s->img.inst,
+							0, 0);
 }
