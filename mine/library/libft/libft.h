@@ -25,6 +25,28 @@ typedef short int		t_sint;
 typedef long int			t_lint;
 typedef long long int		t_llint;
 
+typedef struct	s_flt
+{
+	char		d_bit[129];
+	int			d_len;
+	char		m_bit[179];
+	int			m_len;
+	char		m_num[11];
+	int			i_mod;
+	char		sign;
+}				t_sflt;
+
+typedef union	u_flt
+{
+	float		value;
+	struct
+	{
+		t_uint	m : 23;
+		t_uint	e : 8;
+		t_uint	s : 1;
+	}			s_uint;
+}				t_uflt;
+
 typedef struct			s_list
 {
 	void			*content;
