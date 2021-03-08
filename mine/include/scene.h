@@ -45,7 +45,7 @@ typedef union	u_dble
 }				t_dble;
 
 /*
-**id:image instance address | b_pix:bit_pixel**
+**id:image instance address | b_pix:bit_pixel
 */
 typedef struct	s_image
 {

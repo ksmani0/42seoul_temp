@@ -13,7 +13,7 @@
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
 
-extern char		s_now_obj;
+extern char		g_now_obj;
 
 typedef struct	s_vec3
 {
