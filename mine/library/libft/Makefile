@@ -47,7 +47,8 @@ bonus : $(BON_O)
 	@ar cr $(NAME) $(BON_O)
 
 clean :
-	@$(RFLAGS) $(OBJS) $(BON_O)
+	@$(RFLAGS) $(OBJ_DIR)/*.o
+	#@$(RFLAGS) $(OBJS) $(BON_O)
 
 fclean : clean
 	@$(RFLAGS) $(NAME)
