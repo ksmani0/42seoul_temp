@@ -8,11 +8,11 @@
             "name": "(lldb) 시작",
             "type": "cppdbg",
             "request": "launch",
-            "targetArchitecture": "x86_64",
+            //"targetArchitecture": "x86_64",
             //"program": "프로그램 이름 입력(예: ${workspaceFolder}/a.out)",
             "program": "${workspaceFolder}/minirt",
-            //"args": [],
-            "args": ["./rt_file/basic_sphere.rt"],
+            //"args": ["./rt_file/multi_42.rt", "--save"],
+            "args": ["./rt_file/multi_42.rt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -21,3 +21,8 @@
         }
     ]
 }
+
+/*
+single_sphere.rt
+multi_antialiasing.rt
+*/

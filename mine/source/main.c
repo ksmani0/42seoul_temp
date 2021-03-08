@@ -1,5 +1,7 @@
 #include "minirt.h"
 
+char	s_now_obj = 0;//구나 원통 함수를 거칠 땐 's' 또는 'c' 대입
+
 void	free_each_obj(t_scene *s, int i)
 {
 	while (i <= s->idx_rec[2])
@@ -82,7 +84,7 @@ void	guide_output(t_scene *scene)
 
 int		main(int ac, char **av)
 {
-	t_scene scene;
+	t_scene	scene;
 	char	*tmp;
 
 	ft_bzero(&scene, sizeof(t_scene));
@@ -96,7 +98,7 @@ int		main(int ac, char **av)
 		scene.win.mlx_p = mlx_init();//그래픽 시스템에 연결시키고 mlx 인스턴스 주소 반환
 		read_rt(av[1], &scene);//.rt 파일 읽어 scene에 저장
 		resize_resolution(&scene);//너무 큰 해상도 x, y 들어오면 여기서 안전한 범위로 수정
-		ac == 3 ? save_bmp(&scene, 0) : run_minirt(scene);//ing
+		ac == 3 ? save_bmp(scene, 0) : run_minirt(scene);//ing
 		//화면에 출력, 이벤트 hook 하는 mlx 함수 등 필요
 	}
 	else

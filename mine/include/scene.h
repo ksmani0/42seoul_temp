@@ -1,70 +1,49 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-typedef union		u_dble
+# define ESC 53
+# define KEY_PRESS 2
+# define MOUSE_PRESS 4
+# define EXIT_EVENT 17
+
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_Q 12
+# define KEY_W 13
+# define KEY_E 14
+
+# define KEY_Z 6
+# define KEY_X 7
+# define KEY_C 8
+# define KEY_V 9
+
+# define ARROW_LEFT 123
+# define ARROW_RIGHT 124
+
+typedef union	u_dble
 {
-	double			value;
+	double		value;
 	struct
 	{
-		size_t		m : 52;
-		size_t		e : 11;
-		size_t		s : 1;
-	}				s_int;
-}					t_dble;
-
-/*
-**size:54 + 4 * x * y | reserved_1 ~_2:0 | offset:54
-*/
-typedef struct		s_bmp_fh
-{
-	t_uchar			type_1;//'B'
-	t_uchar			type_2;//'M'
-	t_uint			size;
-	t_usint			reserved_1;
-	t_usint			reserved_2;
-	t_uint			offset;
-}					t_bmp_fh;
-
-/*
-**size:40 | y:image is reversed when negative | plane:1
-**bit_cnt:bit per pixel, 32 | compr:compression, 0
-**img_size:4 * x * y | meter_x:x | meter_y:y
-**clr_used:color used, 0xffffff | clr_imprt:0
-*/
-typedef struct		s_bmp_ih
-{
-	t_uint			size;
-	int				x;
-	int				y;
-	t_usint			plane;
-	t_usint			bit_cnt;
-	t_uint			compr;
-	t_uint			img_size;
-	t_uint			meter_x;
-	t_uint			meter_y;
-	t_uint			clr_used;
-	t_uint			clr_imprt;
-}					t_bmp_ih;
-
-typedef struct		s_bmp_h
-{
-	t_bmp_fh		file;
-	t_bmp_ih		info;
-}					t_bmp_h;
+		size_t	m : 52;
+		size_t	e : 11;
+		size_t	s : 1;
+	}			s_int;
+}				t_dble;
 
 /*
 **addr:해상도 크기만한 이미지 정보(버퍼로 봐도 될 듯) 주소 받음. 여기에 색상 입힘 
-**id:image instance address | b_pix:bit_pixel | alias:aliasing
+**id:image instance address | b_pix:bit_pixel
 */
-typedef struct		s_image
+typedef struct	s_image
 {
-	void			*inst;
-	int				*addr;
-	char			*alias;
-	int				len;
-	int				b_pix;
-	int				end;
-}					t_image;
+	void		*inst;
+	char		*addr;
+	int			len;
+	int			b_pix;
+	int			end;
+}				t_image;
 
 /*
 **idx:scene index == idx_rec(records)
@@ -74,27 +53,41 @@ typedef struct		s_image
 **
 **x:width | y:height
 **filter:0 or 's' or 'r' of 'g' or 'b' when A has 'sepia, red, green, blue'
+**effect:0 or 'a' when anti-aliasing
 */
-typedef struct		s_scene
+typedef struct	s_scene
 {
-	char			idx[9];
-	char			idx_rec[9];
-	int				x;
-	int				y;
-	char			filter;
-	short			i_cam;
-	short			i_light;
-	t_axis			axis;
-	t_window		win;
-	t_image			img;
-	t_ambient		ambient;
-	t_camera		**camera;
-	t_light			**light;
-	t_sphere		**sphere;
-	t_plane			**plane;
-	t_square		**square;
-	t_cylinder		**cylinder;
-	t_triangle		**triangle;
-} t_scene;
+	char		idx[9];
+	char		idx_rec[9];
+	int			x;
+	int			y;
+	char		filter;
+	char		effect;
+	short		i_cam;
+	short		i_light;
+	t_axis		axis;
+	t_window	win;
+	t_image		img;
+	t_ambient	ambient;
+	t_camera	**camera;
+	t_light		**light;
+	t_sphere	**sphere;
+	t_plane		**plane;
+	t_square	**square;
+	t_cylinder	**cylinder;
+	t_triangle	**triangle;
+}				t_scene;
+
+/***source - minirt.c***/
+int				exit_minirt(t_window *win);
+void			camera_axis_translation(int key, t_scene *s);
+int				key_control(int key, t_scene *s);
+int				rotate_camera_with_mouse(int click, int x, int y, t_scene *s);
+void			run_minirt(t_scene s);
+
+/***source - minirt2.c***/
+void			update_obj_position(t_scene *s, int i, t_vec3 new);
+void			obj_axis_translation(int key, t_scene *s, int i);
+void			change_camera_with_key(int key, t_scene *s);
 
 #endif

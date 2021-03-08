@@ -1,26 +1,28 @@
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
 
+extern char		s_now_obj;
+
 typedef struct	s_vec3
 {
-	double x;
-	double y;
-	double z;
+	double		x;
+	double		y;
+	double		z;
 }				t_vec3;
 
 typedef struct	s_rgb
 {
-	int		r;
-	int		g;
-	int		b;
+	double		r;
+	double		g;
+	double		b;
 }				t_rgb;
 
 /*
-**mlx_p:mlx_ptr | win_p:win_ptr
+**mlx_p:mlx_ptr, mlx instance address | win_p:win_ptr
 */
 typedef struct	s_window
 {
-	void		*mlx_p;//mlx instance address
+	void		*mlx_p;
 	void		*win_p;
 	int			key;
 }				t_window;
@@ -36,9 +38,9 @@ typedef struct	s_ambient
 
 typedef struct	s_matrix
 {
-	t_vec3	vx;
-	t_vec3	vy;
-	t_vec3	vz;
+	t_vec3		vx;
+	t_vec3		vy;
+	t_vec3		vz;
 }				t_matrix;
 
 /*
@@ -86,20 +88,10 @@ typedef struct	s_axis
 	t_vec3		z;
 }				t_axis;
 
-typedef struct	s_axis_ref
-{
-	int			x;
-	int			y;
-	int			l_x;
-	int			l_y;
-	int			px;
-	int			py;
-	int			color;
-}				t_ax_ref;
-
 /*
 **p_oc:Intersection of ray and sphere
-**oc:vector that sphere center minus origin
+**oc:vector that sphere center - origin
+**filter:for rainbow
 */
 typedef struct	s_sphere
 {
@@ -111,15 +103,24 @@ typedef struct	s_sphere
 	t_vec3		p;
 	t_vec3		oc;
 	t_vec3		n;
+	char		filter;
 }				t_sphere;
 
+/*
+**effect:for checkerboard
+*/
 typedef struct	s_plane
 {
 	t_vec3		point;
 	t_vec3		n;
 	t_rgb		rgb;
+	char		effect;
 }				t_plane;
 
+/*
+**den:denominator obtained by dot product of the plane direction vector
+**and the direction of the ray passing through each pixel
+*/
 typedef struct	s_sub_palne
 {
 	t_vec3		point;
@@ -131,19 +132,19 @@ typedef struct	s_sub_palne
 	t_vec3		po;//광원 좌표에서 평면 좌표 빼서 방향 벡터 po
 }				t_sub_plane;
 
-
 typedef struct	s_square
 {
-	t_vec3	center;
-	t_vec3	n;
-	double	side;
-	t_rgb	rgb;
-	t_vec3	dx;
-	t_vec3	dy;
+	t_vec3		center;
+	t_vec3		n;
+	double		side;
+	t_rgb		rgb;
+	t_vec3		dx;
+	t_vec3		dy;
 }				t_square;
 
 /*
-**delta:in other words discriminant
+**delta:in other words discriminant(판별식)
+**filter:for rainbow
 */
 typedef struct	s_cylinder
 {
@@ -163,6 +164,7 @@ typedef struct	s_cylinder
 	t_vec3		p;
 	t_vec3		center;
 	t_vec3		n_surface;
+	char		filter;
 }				t_cylinder;
 
 /*
@@ -186,14 +188,14 @@ typedef struct	s_triangle
 /*
 **p:intersection point
 */
-typedef struct		s_obj_clr
+typedef struct	s_obj_clr
 {
-	t_vec3			p;
-	t_vec3			center;
-	t_vec3			normal;
-	t_vec3			light;
-	t_vec3			ray;
-	t_rgb			rgb;
-}					t_obj_clr;
+	t_vec3		p;
+	t_vec3		center;
+	t_vec3		normal;
+	t_vec3		light;
+	t_vec3		ray;
+	t_rgb		rgb;
+}				t_obj_clr;
 
 #endif

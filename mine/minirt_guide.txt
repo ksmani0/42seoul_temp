@@ -5,18 +5,23 @@ This program is mini ray-tracer I made.
 ##### from here, somethings you can check #####
 
 @ completed bonus items @
-1) Parallel light following a precise direction
-2) Putting caps on size-limited cylinders
-3) One color filter: Sepia, R/G/B filters
-4) Keyboard interactivity (translation/rotation) with camera
-5) Keyboard interactivity (translation/rotation) with objects
-6) Changing the camera rotation with the mouse
+1) Color disruption: rainbow effect using object’s normal       (O)
+2) Parallel light following a precise direction                 (O)
+3) Putting caps on size-limited cylinders                       (O)
+4) One color filter: Sepia, R/G/B filters                       (O)
+5) Keyboard interactivity (translation/rotation) with camera    (O)
+6) Keyboard interactivity (translation/rotation) with objects   (O)
+7) Changing the camera rotation with the mouse                  (O)
+8) Anti-aliasing                                                (O)
+9) Color disruption: checkerboard                               (O)
 
 @ The way control objects and cameras with the keyboard @
 KEY_A : move left camera position
 KEY_D : move right camera position
 KEY_W : move up camera position
 KEY_S : move down camera position
+KEY_Q : camera zoom in
+KEY_E : camera zoom out
 
 ARROW_LEFT : move towards 0th camera
 ARROW_RIGHT : move towards Nth camera

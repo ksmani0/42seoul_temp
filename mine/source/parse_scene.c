@@ -1,4 +1,4 @@
-#include "../include/minirt.h"
+#include "minirt.h"
 
 void	count_scene_obj(t_scene *scene, char *line)
 {
@@ -51,24 +51,27 @@ void	malloc_scene_obj(t_scene *s)
 
 void	fill_each_obj(t_scene *scene, char **line)
 {
-	if (line[0] == 'R' && line[1] == ' ' && scene->idx[0] == 0)
+	char *tmp;
+
+	tmp = *line;
+	if (tmp[0] == 'R' && tmp[1] == ' ')//???scene->idx[0] == 0 없어도 됨
 		parse_resolution(scene, line);
-	else if (line[0] == 'A' && line[1] == ' ' && scene->idx[1] == 0)
+	else if (tmp[0] == 'A' && tmp[1] == ' ')
 		parse_ambient(scene, line);
-	else if (line[0] == 'c' && line[1] == ' ')
-		parse_camera(scene, line);
-	else if (line[0] == 'l' && line[1] == ' ')
-		parse_light(scene, line);
-	else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
-		parse_sphere(scene, line);
-	else if (line[0] == 'p' && line[1] == 'l' && line[2] == ' ')
-		parse_plane(scene, line);
-	else if (line[0] == 's' && line[1] == 'q' && line[2] == ' ')
-		parse_square(scene, line);
-	else if (line[0] == 'c' && line[1] == 'y' && line[2] == ' ')
-		parse_cylinder(scene, line);
-	else if (line[0] == 't' && line[1] == 'r' && line[2] == ' ')
-		parse_triangle(scene, line);
+	else if (tmp[0] == 'c' && tmp[1] == ' ')
+		parse_camera(scene, line, 0);
+	else if (tmp[0] == 'l' && tmp[1] == ' ')
+		parse_light(scene, line, 0);
+	else if (tmp[0] == 's' && tmp[1] == 'p' && tmp[2] == ' ')
+		parse_sphere(scene, line, 0);
+	else if (tmp[0] == 'p' && tmp[1] == 'l' && tmp[2] == ' ')
+		parse_plane(scene, line, 0);
+	else if (tmp[0] == 's' && tmp[1] == 'q' && tmp[2] == ' ')
+		parse_square(scene, line, 0);
+	else if (tmp[0] == 'c' && tmp[1] == 'y' && tmp[2] == ' ')
+		parse_cylinder(scene, line, 0);
+	else if (tmp[0] == 't' && tmp[1] == 'r' && tmp[2] == ' ')
+		parse_triangle(scene, line, 0);
 }
 
 void	fill_scene(char *file, t_scene *scene)
@@ -79,13 +82,13 @@ void	fill_scene(char *file, t_scene *scene)
 
 	line = 0;
 	fd = open(file, O_RDONLY);
-	scene->camera[scene->idx[2]] = 0;
-	scene->light[scene->idx[3]] = 0;
-	scene->sphere[scene->idx[4]] = 0;
-	scene->plane[scene->idx[5]] = 0;
-	scene->square[scene->idx[6]] = 0;
-	scene->cylinder[scene->idx[7]] = 0;
-	scene->triangle[scene->idx[8]] = 0;
+	scene->camera[(int)scene->idx[2]] = 0;
+	scene->light[(int)scene->idx[3]] = 0;
+	scene->sphere[(int)scene->idx[4]] = 0;
+	scene->plane[(int)scene->idx[5]] = 0;
+	scene->square[(int)scene->idx[6]] = 0;
+	scene->cylinder[(int)scene->idx[7]] = 0;
+	scene->triangle[(int)scene->idx[8]] = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 		fill_each_obj(scene, &line);//free(line);//fill_each_obj() > parse_*() > free_parsing_buf() do free(line)
 	close(fd);

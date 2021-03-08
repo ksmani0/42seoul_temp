@@ -53,7 +53,7 @@ static int	num_size(int n)
 	else if (n == 0)
 		return (1);
 	i = n < 0 ? 1 : 0;
-	n = n < 0 ? n *= -1 : n;
+	n = n < 0 ? n * -1 : n;
 	while (n > 0)
 	{
 		i++;

@@ -27,7 +27,7 @@ int		get_intersection_of_plane(t_scene *s, t_ray *r, t_sub_plane *pl)
 	t = pl->num / pl->den * -1;//교차점까지의 거리 계산
 	if (t > r->t && is_vec3_void(r->origin) == 0)
 		return (0);//이미 앞에 처리할 도형이 있음
-	r->t = t;//굳이 + FLT_EPSILON을 해줘야 할까
+	r->t = t + FLT_EPSILON;//FLT_EPSILON을 더해줘야 복잡한 도형들 그릴 땐 제대로 구현됨
 	if (is_vec3_void(r->origin) != 0)//0, 0, 0이 아니라면
 		pl->p = vec3_add_vec3(r->origin,
 			scalar_multiply_vec3(r->t, r->global));//세계 원점에, P'에서 t만큼 움직인 지점 더해 교차점 P 찾음
@@ -53,15 +53,16 @@ int		is_shadow_in_plane(t_scene s, t_ray *r, int i)
 	return (1);
 }
 
-void    draw_plane_on_canvas(t_scene s, t_ray *r, int i)
+void	draw_plane_on_canvas(t_scene s, t_ray *r, int i)
 {
-    t_sub_plane sub_pl;
-	t_obj_clr   obj;
+	t_sub_plane	sub_pl;
+	t_obj_clr	obj;
 
-    sub_pl.point = s.plane[i]->point;
+	s_now_obj = s.plane[i]->effect == 'k' ? 'p' : 0;
+	sub_pl.point = s.plane[i]->point;
 	sub_pl.n = s.plane[i]->n;
-    if ((is_ray_intersect_plane(&s, r, &sub_pl)) == 0)//교차점 있는지 확인. 현재 P, P'(정규화), 카메라-세계 행렬 있음
-        return ;
+	if ((is_ray_intersect_plane(&s, r, &sub_pl)) == 0)//교차점 있는지 확인. 현재 P, P'(정규화), 카메라-세계 행렬 있음
+		return ;
 	if ((get_intersection_of_plane(&s, r, &sub_pl)) == 0)
 		return ;
 	if (sub_pl.den > 0)//분모가 양수면 -1을 곱해 방향 조정
