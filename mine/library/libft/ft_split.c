@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 16:19:27 by seungmki          #+#    #+#             */
-/*   Updated: 2020/10/05 15:15:09 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:57:49 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,23 @@ static void		split_cpy(char *arr, char *p, char const *s)
 	*arr = 0;
 }
 
-static void     free_arr(char **arr, size_t i)
+static void		free_arr(char **arr, size_t i)
 {
-    size_t j;
+	size_t j;
 
-    j = 0;
-    while (j < i)
-    {
-        free(arr[j]);
-        j++;
-    }
-    free(arr);
-    arr = 0;
+	j = 0;
+	while (j < i)
+	{
+		free(arr[j]);
+		j++;
+	}
+	free(arr);
+	arr = 0;
 }
 
 static void		do_split(char **arr, char const *s, char c, size_t i)
 {
-	char	*p;
+	char *p;
 
 	if (*s == 0)
 		return ;
@@ -67,11 +67,11 @@ static void		do_split(char **arr, char const *s, char c, size_t i)
 			while (*s != c && *s != 0)
 				s++;
 			if (!(arr[i] = (char*)malloc(sizeof(char)
-            * (s - p + 1))))
-            {
-                free_arr(arr, i);
-                return ;
-            }
+			* (s - p + 1))))
+			{
+				free_arr(arr, i);
+				return ;
+			}
 			split_cpy(arr[i], p, s);
 			i++;
 		}
