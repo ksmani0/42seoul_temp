@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 23:07:47 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/08 23:08:24 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/08 23:38:46 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef union	u_dble
 	}			s_int;
 }				t_dble;
 
-/* 
-**id:image instance address | b_pix:bit_pixel
+/*
+**id:image instance address | b_pix:bit_pixel**
 */
 typedef struct	s_image
 {
@@ -58,13 +58,13 @@ typedef struct	s_image
 
 /*
 **idx:scene index == idx_rec(records)
-**0:scene resolution | 1:ambient | 2:camera | 3:light
-**4:sphere | 5:plane | 6:square
-**7:cylinder | 8:triangle
+**0_scene resolution | 1_ambient | 2_camera | 3_light
+**4_sphere | 5_plane | 6_square
+**7_cylinder | 8_triangle
 **
 **x:width | y:height
-**filter:0 or 's' or 'r' of 'g' or 'b' when A has 'sepia, red, green, blue'
-**effect:0 or 'a' when anti-aliasing
+**filter:zero or s or r of g or b when A has 'sepia, red, green, blue'
+**effect:zero or a when anti-aliasing
 */
 typedef struct	s_scene
 {
@@ -89,14 +89,18 @@ typedef struct	s_scene
 	t_triangle	**triangle;
 }				t_scene;
 
-/***source - minirt.c***/
+/*
+****source - minirt.c****
+*/
 int				exit_minirt(t_window *win);
 void			camera_axis_translation(int key, t_scene *s);
 int				key_control(int key, t_scene *s);
 int				rotate_camera_with_mouse(int click, int x, int y, t_scene *s);
 void			run_minirt(t_scene s);
 
-/***source - minirt2.c***/
+/*
+****source - minirt2.c****
+*/
 void			update_obj_position(t_scene *s, int i, t_vec3 new);
 void			obj_axis_translation(int key, t_scene *s, int i);
 void			change_camera_with_key(int key, t_scene *s);
