@@ -12,10 +12,6 @@
 
 #include "minirt.h"
 
-/*
-**r->global is the normalization of converting canvas coordinate P
-**to world coordinate P'
-*/
 int		is_ray_intersect_sphere(t_scene *s, t_ray *r, int i)
 {
 	t_sphere	*tmp;
@@ -39,9 +35,6 @@ int		is_ray_intersect_sphere(t_scene *s, t_ray *r, int i)
 	return (1);
 }
 
-/*
-**r == shadow
-*/
 int		is_shadow_in_sphere(t_scene s, t_ray *r, int i)
 {
 	t_sphere *tmp;

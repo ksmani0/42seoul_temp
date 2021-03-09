@@ -12,14 +12,6 @@
 
 #include "minirt.h"
 
-/*
-**R(t) = o + td  |  x² + z² = r²  |  (ox+tdx)² + (oz+tdz)² = r²
-**(ox)² + 2oxtdx + (tdx)² + (oz)² + 2oztdz + (tdz)² = r²
-**t²(dx + dz) + 2t(oxdx + ozdz) + (ox)² + (oz)² - r² = 0
-**a=(dx + dz); b = 2(oxdx + ozdz); c = (ox)² + (oz)² - r²
-**Use this formula to get a coefficient that tells you
-**how many intersections you have.
-*/
 void	get_cylinder_surface(t_scene *s, t_ray *r, int i)
 {
 	t_cylinder	*tmp;

@@ -12,11 +12,6 @@
 
 #include "minirt.h"
 
-/*
-**light(s.light[s.i_light]->p_shad) is the shading point,
-**point(s.sphere[i]->p) is the origin, and origin(r->origin)
-**is the world origin
-*/
 int		between_light_n_obj(t_vec3 light, t_vec3 point, t_vec3 origin)
 {
 	t_vec3 shad_ray;
@@ -33,9 +28,6 @@ int		between_light_n_obj(t_vec3 light, t_vec3 point, t_vec3 origin)
 	return (0);
 }
 
-/*
-**r == shadow
-*/
 int		is_obj_shaded(t_scene s, t_ray *shad_r)
 {
 	int i;
@@ -63,11 +55,6 @@ int		is_obj_shaded(t_scene s, t_ray *shad_r)
 	return (0);
 }
 
-/*
-**If parallel is present in .rt, the light source position is ignored
-**and all lights come parallel in the parallel direction unconditionally.
-**All s->light goes through this function
-*/
 void	obj_disruption_for_shading(t_light *l, t_obj_clr *obj)
 {
 	t_vec3	light_dir;

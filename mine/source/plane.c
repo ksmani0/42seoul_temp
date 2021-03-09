@@ -12,11 +12,6 @@
 
 #include "minirt.h"
 
-/*
-**Reducing Computational Expense of Ray-Tracing Using Surface Oriented
-**Pre-Computation(1991)
-**r has P, P'(normalized), camera-world matrix
-*/
 int		is_ray_intersect_plane(t_scene *s, t_ray *r, t_sub_plane *pl)
 {
 	if ((is_vec3_void(r->origin)) != 0)
@@ -33,10 +28,6 @@ int		is_ray_intersect_plane(t_scene *s, t_ray *r, t_sub_plane *pl)
 	return (0);
 }
 
-/*
-**r->global is the normalization of converting canvas coordinate P
-**to world coordinate P'
-*/
 int		get_intersection_of_plane(t_scene *s, t_ray *r, t_sub_plane *pl)
 {
 	double t;

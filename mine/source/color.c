@@ -22,20 +22,6 @@ t_rgb   get_mix_color(t_rgb c0, t_rgb c1)
 	return (clr);
 }
 
-/*
-**Adoption of the phong model for color processing with ambient, diffuse,
-**and specular lighting.
-The smaller the angle between the normal vector and
-**the light vector of the object intersection,
-**the closer the dot product value is to 1,
-**and the intersection color is closer to white.
-**If the angle is large, it darkens
-**Ambient lighting is obtained from get_ambient_color()
-**Diffuse illumination finds the dot product between the light source vector
-**and the intersection normal vector (both normalized) and
-**multiplies it by the color.
-**kd:Surface diffuse reflectance
-*/
 t_rgb	get_spot_light(t_scene *s, t_obj_clr *obj, int i)
 {
 	t_rgb	clr;
@@ -53,10 +39,6 @@ t_rgb	get_spot_light(t_scene *s, t_obj_clr *obj, int i)
 	return (clr);
 }
 
-/*
-**Get the ambient color here.
-**Multiplied by ambient color and saturation and object color.
-*/
 t_rgb	get_ambient_color(t_scene *s, t_obj_clr *obj)
 {
 	t_rgb color;

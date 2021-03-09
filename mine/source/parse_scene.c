@@ -86,9 +86,6 @@ void	fill_each_obj(t_scene *scene, char **line)
 		parse_triangle(scene, line, 0);
 }
 
-/*
-**fill_each_obj() > parse_*() > free_parsing_buf() do free(line)
-*/
 void	fill_scene(char *file, t_scene *scene)
 {
 	int		fd;

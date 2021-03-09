@@ -12,11 +12,6 @@
 
 #include "minirt.h"
 
-/*
-**but expressed in world space.
-**The process is raster space(x,y)->NDC(0~1)->screen space(-1~1)->world space
-**(camera-to-world transformation 4*4 matrix applied) transformation.
-*/
 t_vec3    get_local_camera_coord(t_scene *s, double pix_x, double pix_y)
 {
 	t_vec3 local;
@@ -33,19 +28,6 @@ t_vec3    get_local_camera_coord(t_scene *s, double pix_x, double pix_y)
 	return (local);
 }
 
-/*
-**The ray origin(camera origin, O) and ray direction vector(normalized)
-**can be used to calculate the ray for this pixel (P).
-**If it is the camera position and is set to the world origin (0,0,0),
-**P-O in this state to find the ray direction OP.
-**If the camera is at different positions, multiply P and O by
-**the camera-to-world space transformation matrix to get P', O',
-**and P'-O' to get the ray direction O'P'.
-**P', O', O'P' are expressed in all world spaces.
-**Another way is to compute the ray direction while
-**the camera is in its default position (vector OP) and
-**apply the camera-world matrix to this vector (I'm this way)
-*/
 void    make_camera_to_world_matrix(t_scene *s)
 {
 	t_matrix c_to_w;
