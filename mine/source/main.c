@@ -52,21 +52,21 @@ void	free_scene(t_scene *s)
 void	check_error_exit(t_scene *scene, int error)
 {
 	if (error == 1)
-		printf("Error\n:wrong file entered!");
+		printf("Error\n:wrong file entered!\n");
 	else if (error == 2)
-		printf("Error\n:the second argument is wrong!");
+		printf("Error\n:the second argument is wrong!\n");
 	else if (error == 3)
-		printf("Error\n:while reaing 'minirt_guide.txt' file!");
+		printf("Error\n:while reaing 'minirt_guide.txt' file!\n");
 	else if (error == 4)
-		printf("Error\n:while reading '.rt' file!");
+		printf("Error\n:while reading '.rt' file!\n");
 	else if (error == 5 || error == 9)
-		printf("Error\n:the '.rt' file format is incorrect!");
+		printf("Error\n:the '.rt' file format is incorrect!\n");
 	else if (error == 6)
-		printf("Error\n:while allocating memory!");
+		printf("Error\n:while allocating memory!\n");
 	else if (error == 7)
-		printf("Error\n:function in mlx.h has failed!!");
+		printf("Error\n:function in mlx.h has failed!\n");
 	else if (error == 8)
-		printf("Error\n:while openig bmp file!");
+		printf("Error\n:while openig bmp file!\n");
 	if (error == 6 || error == 8 || error == 9)
 	{
 		free_each_obj(scene, 0);
@@ -109,6 +109,10 @@ int		main(int ac, char **av)
 		guide_output(&scene);
 		scene.win.mlx_p = mlx_init();
 		read_rt(av[1], &scene);
+		if (scene.idx_rec[4] == 0 && scene.idx_rec[5] == 0 &&
+		scene.idx_rec[6] == 0 && scene.idx_rec[7] == 0 &&
+		scene.idx_rec[8] == 0)
+			check_error_exit(&scene, 1);
 		resize_resolution(&scene);
 		ac == 3 ? save_bmp(scene, 0) : run_minirt(scene);
 	}
