@@ -1,6 +1,6 @@
 NAME := miniRT
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS := -Wall -Werror -Wextra
 #CFLAGS := -Wall -Werror -Wextra -g -fsanitize=address
 RM := rm -rf
 
