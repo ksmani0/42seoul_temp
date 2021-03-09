@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
+/*   Updated: 2021/03/09 19:06:14 by seungmki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 /*
-**To calculate the location of a point at the center of a pixel in raster space,
-**you need to convert this pixel coordinate to world coordinates.
+**To calculate the location of a point at the center of a pixel in raster
+**space, you need to convert this pixel coordinate to world coordinates.
 **The ray origin and direction must also be in the same space to calculate
 **the ray intersection with the object (expressed in world coordinates).
 **So we need to find the relationship between the pixel coordinates in
