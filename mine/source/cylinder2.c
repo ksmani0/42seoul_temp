@@ -6,17 +6,12 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:06:14 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:46:52 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*
-**If there is no intersection point on the cylinder body or
-**the direction vector between cylinder and light source,
-**this function is entered
-*/
 int		is_shadow_in_cap(t_scene s, t_ray *shad_r, int i)
 {
 	t_sub_plane	sub_pl;

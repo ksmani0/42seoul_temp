@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:06:14 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:33:25 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		is_intersect_inside_square(t_scene s, t_sub_plane *pl, int i)
 {
 	t_square	*tmp;
 	double		x;
-	double 		y;
+	double		y;
 
 	tmp = s.square[i];
 	tmp->dx = get_axis('x');

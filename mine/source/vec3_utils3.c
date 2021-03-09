@@ -6,17 +6,12 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 18:31:34 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 18:45:56 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:43:21 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*
-**The normal indicating the direction of the plane**
-**is that the premise itself is perpendicular to the plane.**
-**So it doesn't make sense unless it's one or minus one**
-*/
 int		is_n_valid(t_vec3 v)
 {
 	if (v.x < -1 || v.x > 1)

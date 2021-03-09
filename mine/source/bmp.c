@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:06:14 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:48:44 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ void	write_bmp_header(t_scene *s, int fd, int file_size)
 	write(fd, bmp_h, 54);
 }
 
-/*
-**in render_scene,
-**s->img.addr + (pix_y * s->img.len + pix_x * (s->img.b_pix / 8));
-*/
 void	write_bmp_image(t_scene *s, int fd)
 {
 	int i;

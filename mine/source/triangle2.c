@@ -6,17 +6,12 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:09:23 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:09:26 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:45:56 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/*
-**Finally, according to the equation extracted by the triangular determinant,
-**the intersection point p (a parameter that determines
-**whether it is inside or outside the triangle) is secured.
-*/
 double	get_p_parameter(t_triangle *trngl, t_vec3 p0)
 {
 	double p;
@@ -30,11 +25,6 @@ double	get_p_parameter(t_triangle *trngl, t_vec3 p0)
 	return (p);
 }
 
-/*
-**Obtaining the intersection point q (a parameter that determines
-**whether it is inside or outside the triangle)
-**according to the equation extracted from the triangle determinant
-*/
 double	get_q_parameter(t_triangle *trngl, t_vec3 p0)
 {
 	double q;
@@ -47,4 +37,3 @@ double	get_q_parameter(t_triangle *trngl, t_vec3 p0)
 		q = (trngl->e0.x * p0.z - trngl->e0.z * p0.x) / trngl->det;
 	return (q);
 }
-

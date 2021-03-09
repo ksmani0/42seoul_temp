@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:06:14 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:37:19 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,6 @@ int		check_antialising(char *effect, char *buf)
 	return (0);
 }
 
-/*
-**It has to be slow because it is a quadruple loop structure.
-**Multi-threading is the key effect
-*/
 void	render_with_antialiasing(t_scene *s, t_ray *r, double x, double y)
 {
 	int		i;

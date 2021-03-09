@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:09:12 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:09:15 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 19:38:01 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		is_ray_intersect_triagle(t_scene *s, t_ray *r, int i,
 	(is_intersect_inside_triangle(*s, i, pl)) != 0)
 	{
 		if (pl->den > 0)
-			pl->n = scalar_multiply_vec3(-1, pl->n);    
+			pl->n = scalar_multiply_vec3(-1, pl->n);
 		return (1);
 	}
 	r->t = t;
