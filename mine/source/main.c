@@ -102,7 +102,5 @@ int		main(int ac, char **av)
 	}
 	else
 		printf("Error\n:no arguments entered!");
-	free_each_obj(&scene, 0);
-	free_scene(&scene);
 	return (0);
 }
