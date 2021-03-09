@@ -76,7 +76,6 @@ typedef struct	s_scene
 	char		effect;
 	short		i_cam;
 	short		i_light;
-	t_axis		axis;
 	t_window	win;
 	t_image		img;
 	t_ambient	ambient;

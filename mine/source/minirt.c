@@ -46,13 +46,20 @@ void	camera_axis_translation(int key, t_scene *s)
 
 int		key_control(int key, t_scene *s)
 {
+	int i;
+
+	i = 4;
 	if (key == ESC)
 		exit_minirt(&s->win);
 	else if (key == KEY_A || key == KEY_D || key == KEY_W ||
 	key == KEY_S || key == KEY_Q || key == KEY_E)
 		camera_axis_translation(key, s);
 	else if (key == KEY_Z || key == KEY_X || key == KEY_C || key == KEY_V)
-		obj_axis_translation(key, s, 4);
+	{
+		while (s->idx_rec[i] == 0 && i < 8)
+			i++;
+		obj_axis_translation(key, s, i);
+	}
 	else if (key == ARROW_LEFT || key == ARROW_RIGHT)
 		change_camera_with_key(key, s);
 	return (0);
@@ -86,7 +93,7 @@ void	run_minirt(t_scene s)
 		check_error_exit(&s, 7);
 	mlx_hook(s.win.win_p, KEY_PRESS, 1L << 0, key_control, &s);
 	mlx_hook(s.win.win_p, MOUSE_PRESS, 1L << 0,
-	rotate_camera_with_mouse, &s);
+			rotate_camera_with_mouse, &s);
 	mlx_hook(s.win.win_p, EXIT_EVENT, 0L, exit_minirt, &s.win);
 	render_scene(&s);
 	mlx_put_image_to_window(s.win.mlx_p, s.win.win_p, s.img.inst, 0, 0);

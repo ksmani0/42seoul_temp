@@ -50,8 +50,6 @@ void	obj_axis_translation(int key, t_scene *s, int i)
 		new_pos = (t_vec3){ 0, 1, 0 };
 	else if (key == KEY_V)
 		new_pos = (t_vec3){ 0, -1, 0 };
-	while (s->idx_rec[i] == 0 && i < 8)
-		i++;
 	update_obj_position(s, i, new_pos);
 	render_scene(s);
 	mlx_put_image_to_window(s->win.mlx_p, s->win.win_p, s->img.inst,

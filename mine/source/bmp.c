@@ -70,5 +70,7 @@ void	save_bmp(t_scene s, int fd)
 	write_bmp_header(&s, fd, 0);
 	write_bmp_image(&s, fd);
 	close(fd);
+	free_each_obj(&s, 0);
+	free_scene(&s);
 	printf("Image saving is complete! Check the output_bmp folder:)\n");
 }
