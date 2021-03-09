@@ -117,6 +117,6 @@ int		main(int ac, char **av)
 		ac == 3 ? save_bmp(scene, 0) : run_minirt(scene);
 	}
 	else
-		printf("Error\n:no arguments entered!");
+		printf("Error\n:no arguments entered!\n");
 	return (0);
 }
