@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:06:14 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 20:14:45 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_vec3	parse_coord(t_scene *s, char **buf, int i, char **line)
 {
 	t_vec3	result;
-	char 	**comma;
+	char	**comma;
 
 	if (!(comma = ft_split(buf[i], ',')))
 	{
@@ -37,7 +37,7 @@ t_rgb	parse_rgb(t_scene *s, char **buf, int i, char **line)
 {
 	t_rgb	result;
 	char	**comma;
-	
+
 	if (!(comma = ft_split(buf[i], ',')))
 	{
 		free_parsing_buf(buf, line);

@@ -6,7 +6,7 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:46:52 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 20:26:40 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		is_shadow_in_cylinder(t_scene s, t_ray *shad_r, int i)
 				vec3_subtraction(tmp->p, tmp->point));
 			if (tmp->m > 0 && tmp->m < tmp->height)
 				return (1);
-		}        
+		}
 	}
 	if ((is_shadow_in_cap(s, shad_r, i)) != 0)
 		return (1);

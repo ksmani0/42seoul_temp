@@ -6,13 +6,13 @@
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:06:10 by seungmki          #+#    #+#             */
-/*   Updated: 2021/03/09 19:51:22 by seungmki         ###   ########.fr       */
+/*   Updated: 2021/03/09 20:23:43 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec3    get_local_camera_coord(t_scene *s, double pix_x, double pix_y)
+t_vec3	get_local_camera_coord(t_scene *s, double pix_x, double pix_y)
 {
 	t_vec3 local;
 	double s_x;
@@ -28,7 +28,7 @@ t_vec3    get_local_camera_coord(t_scene *s, double pix_x, double pix_y)
 	return (local);
 }
 
-void    make_camera_to_world_matrix(t_scene *s)
+void	make_camera_to_world_matrix(t_scene *s)
 {
 	t_matrix c_to_w;
 
@@ -41,7 +41,7 @@ void    make_camera_to_world_matrix(t_scene *s)
 	s->camera[s->i_cam]->base = c_to_w;
 }
 
-void    apply_rgb_filter(char c, t_rgb *color)
+void	apply_rgb_filter(char c, t_rgb *color)
 {
 	if (c == 'r')
 	{
@@ -60,7 +60,7 @@ void    apply_rgb_filter(char c, t_rgb *color)
 	}
 }
 
-void    apply_rainbow_pattern(t_obj_clr *obj)
+void	apply_rainbow_pattern(t_obj_clr *obj)
 {
 	obj->rgb.r = ft_double_abs(obj->normal.x) * 255;
 	obj->rgb.g = ft_double_abs(obj->normal.y) * 255;
@@ -70,7 +70,7 @@ void    apply_rainbow_pattern(t_obj_clr *obj)
 	obj->rgb.b = obj->rgb.b > 255 ? 255 : obj->rgb.b;
 }
 
-void    apply_checkerboard(t_obj_clr *obj)
+void	apply_checkerboard(t_obj_clr *obj)
 {
 	int		colored;
 	int		white;
