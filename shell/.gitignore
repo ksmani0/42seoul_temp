@@ -1,0 +1,5 @@
+TEMP
+TEST
+.vscode
+minishell.dSYM
+*.o
