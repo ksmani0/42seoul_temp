@@ -14,9 +14,9 @@
 
 int		get_mid(t_stack **p, int num)
 {
-	int max;
-	int min;
-	t_stack *t;
+	int		max;
+	int		min;
+	t_stack	*t;
 
 	t = *p;
 	max = t->value;
@@ -28,7 +28,7 @@ int		get_mid(t_stack **p, int num)
 		else if (min > t->value)
 			min = t->value;
 		t = t->next;
-	}	
+	}
 	return (max + min) / 2;
 }
 
@@ -46,7 +46,7 @@ void	arrange_a_digits(t_record *r, t_stack **a)
 	if (r->a_num == 1)
 	{
 		ra(a, 0, 0);
-        r->a_num = 0;
+		r->a_num = 0;
 		return ;
 	}
 	p = *a;
@@ -54,7 +54,7 @@ void	arrange_a_digits(t_record *r, t_stack **a)
 		sa(a, 0, 0);
 	ra(a, 0, 0);
 	ra(a, 0, 0);
-    r->a_num = 0;
+	r->a_num = 0;
 }
 
 void	arrange_b_digits(t_record *r, t_stack **a, t_stack **b)
@@ -62,7 +62,7 @@ void	arrange_b_digits(t_record *r, t_stack **a, t_stack **b)
 	t_stack *p;
 
 	r->pa_num -= r->b_num;
-    r->a_num = r->a_rest->value;
+	r->a_num = r->a_rest->value;
 	p = r->a_rest;
 	r->a_rest = r->a_rest->next;
 	free(p);
@@ -70,7 +70,7 @@ void	arrange_b_digits(t_record *r, t_stack **a, t_stack **b)
 	{
 		pa(a, b, 0);
 		ra(a, 0, 0);
-        r->b_num = 0;
+		r->b_num = 0;
 		return ;
 	}
 	p = *b;
@@ -105,8 +105,8 @@ void	b_to_a(t_record *r, t_stack **a, t_stack **b)
 
 void	a_to_b(t_record *r, t_stack **a, t_stack **b)
 {
-	int mid;
-	t_stack *p;
+	int		mid;
+	t_stack	*p;
 
 	if (r->a_num < 3)
 	{

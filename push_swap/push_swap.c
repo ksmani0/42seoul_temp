@@ -30,9 +30,9 @@ int	is_arranged(t_stack **a)
 	return (1);
 }
 
-void    arrange_three_digits(t_record *r, t_stack **a)
+void	arrange_three_digits(t_record *r, t_stack **a)
 {
-	int     before;
+	int		before;
 	t_stack *p;
 
 	p = *a;
@@ -51,7 +51,7 @@ void    arrange_three_digits(t_record *r, t_stack **a)
 		rra(a, 0, 0);
 }
 
-void    arrage_n_print(t_record *record, t_stack **a, t_stack **b)
+void	arrage_n_print(t_record *record, t_stack **a, t_stack **b)
 {
 	if (record->ac == 1 || ((is_arranged(a)) == 1))
 		return ;
@@ -85,9 +85,9 @@ void	set_record(int ac, t_record *r)
 
 int		main(int ac, char **av)
 {
-	t_stack *a;
-	t_stack *b;
-	t_record record;
+	t_stack		*a;
+	t_stack		*b;
+	t_record	record;
 
 	if (ac >= 2)
 	{

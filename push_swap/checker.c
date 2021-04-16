@@ -70,7 +70,7 @@ void	read_n_arrage(t_stack **a, t_stack **b, char *line)
 void	print_result(t_stack **a, t_stack **b)
 {
 	int		before;
-	t_stack *p;
+	t_stack	*p;
 
 	p = *a;
 	before = p->value;

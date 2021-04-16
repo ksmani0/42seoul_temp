@@ -31,7 +31,7 @@ long	get_integer(char *av, t_stack **a, char **s)
 	}
 	if (*av != 0 || (minus == 1 && num > 2147483647))
 		print_error(a, 0, s);
-	return num * minus;
+	return (num * minus);
 }
 
 int		is_overlap(t_stack **a, t_stack *p, int num)
