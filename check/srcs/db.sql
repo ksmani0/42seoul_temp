@@ -1,3 +1,0 @@
-CREATE DATABASE IF NOT EXISTS wordpress;
-CREATE USER IF NOT EXISTS 'seungmki'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'seungmki'@'localhost' WITH GRANT OPTION;
