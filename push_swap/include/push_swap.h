@@ -64,7 +64,7 @@ void				arrange_b_digits(t_record *r, t_stack **a,
 void				b_to_a(t_record *r, t_stack **a, t_stack **b);
 void				a_to_b(t_record *r, t_stack **a, t_stack **b);
 
-void    			add_front_stack(t_record *r, t_stack **a,
+void				add_front_stack(t_record *r, t_stack **a,
 					t_stack **b, char c);
 void				rotation_in_b(t_record *r, t_stack **a,
 					t_stack **b, int mid);
