@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	is_arranged(t_stack **a)
+int		is_arranged(t_stack **a)
 {
 	int		before;
 	t_stack *p;

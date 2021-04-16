@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void    add_front_stack(t_record *r, t_stack **a, t_stack **b, char c)
+void	add_front_stack(t_record *r, t_stack **a, t_stack **b, char c)
 {
 	t_stack *t;
 
@@ -74,7 +74,7 @@ void	rotation_in_a(t_record *r, t_stack **a, t_stack **b, int mid)
 		{
 			pb(a, b, 0);
 			r->pa_num++;
-            r->b_num++;
+			r->b_num++;
 		}
 		else
 		{
