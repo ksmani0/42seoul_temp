@@ -22,10 +22,11 @@ all : $(NAME)
 $(NAME) : $(ASM_OBJ)
 	$(AR) $(NAME) $(ASM_OBJ)
 
-$(OBJ_DIR) :
-	@mkdir -p $(OBJ_DIR)
+#$(OBJ_DIR) :
+#	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.s
+	@mkdir -p $(OBJ_DIR)
 	@$(ASMC) $(ASMFLAG) $< -o $@
 
 clean : 
