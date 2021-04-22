@@ -1,5 +1,5 @@
 section .text
-	global _ft_strcpy ; char	*ft_strcpy(char *dest, const char *src)
+	global _ft_strcpy ; char *ft_strcpy(char *dest, const char *src)
 
 _ft_strcpy:
 	xor rcx, rcx ; Initialize rcx value to 0 using logical operator xor

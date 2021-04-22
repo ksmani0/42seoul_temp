@@ -36,7 +36,7 @@ void	test_read_n_write_n_strlen(void)
 		ft_write(1, g_str[i], ft_strlen(g_str[i]));
 		printf("\n");
 	}
-	printf("======== ft_read.s, ft_write.s, ft_strlen.s ========\n");
+	printf("\n\n======== ft_read.s, ft_write.s, ft_strlen.s ========\n");
 	num = ft_read(0, buf, 256);
 	buf[num] = 0;
 	ft_write(1, buf, ft_strlen(buf));

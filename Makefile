@@ -38,16 +38,11 @@ re : fclean all
 
 ########## test ##########
 
-#vpath %.c ${SCR_DIR}
-
 test : $(NAME)
 	$(CC) $(CFLAGS) $(NAME) $(INCLUDE) -o test.out $(C_SRC)
 
-#$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
-#	@$(CC) $(CFLAG) $(INCLUDE) $< -o $@
-
 test_fclean : fclean
-	$(RM) $(C_OBJ)
+#	$(RM) $(C_OBJ)
 	@rm test.out
 
 .PHONY : all clean fclean re test test_fclean
