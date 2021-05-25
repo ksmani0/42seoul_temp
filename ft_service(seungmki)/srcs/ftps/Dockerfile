@@ -1,4 +1,4 @@
-#setup.sh: docker build -t ft_services_ftps srcs/ftps >> logs.txt
+#setup.sh: docker build -t ft_services-ftps srcs/ftps >> logs.txt
 FROM alpine:3.12.0
 
 RUN apk update \
@@ -17,10 +17,10 @@ ENV FTP_USER=user \
 #In passive mode, specify an arbitrary range of available ports from 1024 to 65546.
 
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
-COPY vsftpd_setup.sh /usr/sbin/
-RUN chmod +x /usr/sbin/vsftpd_setup.sh
+COPY ftps_setup.sh /usr/sbin/
+RUN chmod +x /usr/sbin/ftps_setup.sh
 
 #20: FTP port
 #21: Port number required by the assignment.
 EXPOSE 20 21 20000-20004
-ENTRYPOINT [ "/usr/sbin/vsftpd_setup.sh" ]
+ENTRYPOINT [ "/usr/sbin/ftps_setup.sh" ]

@@ -10,7 +10,7 @@ RUN apk update && \
 COPY ./index.html /var/www/index.html
 COPY ./nginx_setup.sh /usr/sbin/nginx_setup.sh
 RUN chmod +x /usr/sbin/nginx_setup.sh
-COPY ./default.conf /etc/nginx/conf.d/
+COPY ./nginx.conf /etc/nginx/conf.d/
 #Copying locally installed configuration files into the nginx container folder.
 
 EXPOSE 80 443 22

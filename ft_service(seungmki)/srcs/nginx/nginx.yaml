@@ -5,7 +5,7 @@ metadata:
   name: ssh-secret
 stringData:
   username: seungmki #SSH_USERNAME
-  password: 1234 #SSH_PASSWORD
+  password: "1234" #SSH_PASSWORD
 
 ---
 
