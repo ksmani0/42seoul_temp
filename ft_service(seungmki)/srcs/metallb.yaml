@@ -1,0 +1,16 @@
+#setup.sh: kubectl apply -f ./srcs/metallb/metallb.yaml
+apiVersion: v1
+kind: ConfigMap #Configuration file to apply metallb in idle state
+metadata:
+  namespace: metallb-system #metallb is the only entrance that can be accessed from the outside.
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 192.168.99.100-192.168.99.255
+#Private ip band: 192.168.0.0 ~ 192.168.255.255
+#Setting the ip band that minikube can use.
+#An IP between 192.168.99.124-192.168.99.128 is assigned to metallb.
