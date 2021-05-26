@@ -51,8 +51,9 @@ spec:
         livenessProbe: #Check that the pod is working and restart if it doesn't.
           tcpSocket:
             port: 22 #Only sshd is monitored so that pod restarts even if sshd as well as nginx dies.
-          initialDelaySeconds: 5 #Check after the first 5 seconds.
+          initialDelaySeconds: 5 #Check after the first 5->60 seconds.
           periodSeconds: 3 #Check every 3 seconds.
+#TCP probe to determine whether the container is operating normally.
 
 ---
 

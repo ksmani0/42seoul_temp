@@ -50,9 +50,9 @@ data:
   telegraf.conf: |
     [global_tags]
     [agent]
-	#agent: Defines the basic operation method of the agent.
-	#Set how often the metric is sent to the specified output,
-	#and how many times the jitter is reduced.
+    #agent: Defines the basic operation method of the agent.
+    #Set how often the metric is sent to the specified output,
+    #and how many times the jitter is reduced.
       interval = "10s"
       round_interval = true
       metric_batch_size = 1000
@@ -67,10 +67,10 @@ data:
       hostname = ""
       omit_hostname = true
     [[outputs.influxdb]]
-	#Define where to send the collected metrics using the outputs item.
+    #Define where to send the collected metrics using the outputs item.
       ## Multiple URLs can be specified for a single cluster, only ONE of the
       ## urls will be written to each interval.
-	#urls: influxdb bind address
+    #urls: influxdb bind address
       urls = ["http://influxdb:8086"]
       ## The target database for metrics; will be created as needed.
       database = "telegraf" #What is set as secret in influxdb.
@@ -81,7 +81,7 @@ data:
       username = "admin" #What is set as secret in influxdb.
       password = "1234" #What is set as secret in influxdb.
     [[inputs.docker]]
-	#
+    #
       ## Docker Endpoint
       ##   To use TCP, set endpoint = "tcp://[ip]:[port]"
       ##   To use environment variables (ie, docker-machine), set endpoint = "ENV"

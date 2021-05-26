@@ -9,7 +9,7 @@ Digest: sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
 Status: Downloaded newer image for alpine:3.12.0
  ---> a24bb4013296
 Step 2/8 : RUN apk update && 	apk --update --no-cache add 	nginx openssl openssh-server
- ---> Running in 666d3083947b
+ ---> Running in 356966983ea6
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 v3.12.7-35-g721ca84683 [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
@@ -26,80 +26,36 @@ Executing nginx-1.18.0-r1.pre-install
 (6/6) Installing openssl (1.1.1k-r0)
 Executing busybox-1.31.1-r16.trigger
 OK: 9 MiB in 20 packages
-Removing intermediate container 666d3083947b
- ---> a89f9df684d4
+Removing intermediate container 356966983ea6
+ ---> 4d8610fa5a76
 Step 3/8 : COPY ./index.html /var/www/index.html
- ---> 8fe7d2f48831
+ ---> 35b55d33a88e
 Step 4/8 : COPY ./nginx_setup.sh /usr/sbin/nginx_setup.sh
- ---> c769deacfda7
+ ---> 441f879d7ba6
 Step 5/8 : RUN chmod +x /usr/sbin/nginx_setup.sh
- ---> Running in 69b5638f641d
-Removing intermediate container 69b5638f641d
- ---> fb4bd51954be
-Step 6/8 : COPY ./default.conf /etc/nginx/conf.d/
-Sending build context to Docker daemon  11.26kB
-Step 1/8 : FROM alpine:3.12.0
- ---> a24bb4013296
-Step 2/8 : RUN apk update && 	apk --update --no-cache add 	nginx openssl openssh-server
- ---> Using cache
- ---> a89f9df684d4
-Step 3/8 : COPY ./index.html /var/www/index.html
- ---> Using cache
- ---> 8fe7d2f48831
-Step 4/8 : COPY ./nginx_setup.sh /usr/sbin/nginx_setup.sh
- ---> Using cache
- ---> c769deacfda7
-Step 5/8 : RUN chmod +x /usr/sbin/nginx_setup.sh
- ---> Using cache
- ---> fb4bd51954be
+ ---> Running in b06a114262ba
+Removing intermediate container b06a114262ba
+ ---> d64163f1dcbc
 Step 6/8 : COPY ./nginx.conf /etc/nginx/conf.d/
- ---> 6cad85358bbb
+ ---> 2db02af7cc73
 Step 7/8 : EXPOSE 80 443 22
- ---> Running in d230b3c7eb75
-Removing intermediate container d230b3c7eb75
- ---> f0a913652a45
+ ---> Running in 247babfc5dee
+Removing intermediate container 247babfc5dee
+ ---> 9e9afd818a76
 Step 8/8 : ENTRYPOINT ["/usr/sbin/nginx_setup.sh"]
- ---> Running in d520ea10e235
-Removing intermediate container d520ea10e235
- ---> 3b8c4d5301fb
-Successfully built 3b8c4d5301fb
-Successfully tagged ft_services-nginx:latest
-deployment.apps/nginx created
-service/nginx created
-Sending build context to Docker daemon  11.26kB
-Step 1/8 : FROM alpine:3.12.0
- ---> a24bb4013296
-Step 2/8 : RUN apk update && 	apk --update --no-cache add 	nginx openssl openssh-server
- ---> Using cache
- ---> a89f9df684d4
-Step 3/8 : COPY ./index.html /var/www/index.html
- ---> Using cache
- ---> 8fe7d2f48831
-Step 4/8 : COPY ./nginx_setup.sh /usr/sbin/nginx_setup.sh
- ---> Using cache
- ---> c769deacfda7
-Step 5/8 : RUN chmod +x /usr/sbin/nginx_setup.sh
- ---> Using cache
- ---> fb4bd51954be
-Step 6/8 : COPY ./nginx.conf /etc/nginx/conf.d/
- ---> Using cache
- ---> 6cad85358bbb
-Step 7/8 : EXPOSE 80 443 22
- ---> Using cache
- ---> f0a913652a45
-Step 8/8 : ENTRYPOINT ["/usr/sbin/nginx_setup.sh"]
- ---> Using cache
- ---> 3b8c4d5301fb
-Successfully built 3b8c4d5301fb
+ ---> Running in 97fd378b1818
+Removing intermediate container 97fd378b1818
+ ---> b274c0dd3566
+Successfully built b274c0dd3566
 Successfully tagged ft_services-nginx:latest
 secret/ssh-secret created
-deployment.apps/nginx unchanged
-service/nginx unchanged
+deployment.apps/nginx created
+service/nginx created
 Sending build context to Docker daemon   7.68kB
 Step 1/8 : FROM alpine:3.12.0
  ---> a24bb4013296
 Step 2/8 : RUN apk update && 	apk --update --no-cache add 	mysql mysql-client
- ---> Running in dcf2b1697a87
+ ---> Running in 491324a37fae
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 v3.12.7-35-g721ca84683 [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
@@ -124,29 +80,29 @@ Executing mariadb-10.4.18-r0.pre-install
 (14/14) Installing mysql-client (10.4.18-r0)
 Executing busybox-1.31.1-r16.trigger
 OK: 166 MiB in 28 packages
-Removing intermediate container dcf2b1697a87
- ---> a14564dc0f6e
+Removing intermediate container 491324a37fae
+ ---> b31f3b0e2127
 Step 3/8 : COPY ./mysql_setup.sh /usr/sbin/mysql_setup.sh
- ---> 526b13fa8ed8
+ ---> a1db9f6121a0
 Step 4/8 : RUN chmod +x /usr/sbin/mysql_setup.sh
- ---> Running in 59d6ef5d993c
-Removing intermediate container 59d6ef5d993c
- ---> 86c7f59a59a4
+ ---> Running in 330616ce12bb
+Removing intermediate container 330616ce12bb
+ ---> 19d137560eb8
 Step 5/8 : COPY my.cnf /etc/my.cnf
- ---> 5a864493c697
+ ---> 9e8d92b4fe6e
 Step 6/8 : RUN chmod 644 /etc/my.cnf
- ---> Running in 8d326ceeaab4
-Removing intermediate container 8d326ceeaab4
- ---> 669d61e9d052
+ ---> Running in 719d97709349
+Removing intermediate container 719d97709349
+ ---> 08327d6b5f74
 Step 7/8 : EXPOSE 3306
- ---> Running in 736bff35d73b
-Removing intermediate container 736bff35d73b
- ---> 7c6939c7fe50
+ ---> Running in f56e658f1cbc
+Removing intermediate container f56e658f1cbc
+ ---> 862783226b42
 Step 8/8 : ENTRYPOINT ["/usr/sbin/mysql_setup.sh"]
- ---> Running in c133ca514172
-Removing intermediate container c133ca514172
- ---> cb833f9488e1
-Successfully built cb833f9488e1
+ ---> Running in 3c62818a5b88
+Removing intermediate container 3c62818a5b88
+ ---> 47a5e8aeeb1f
+Successfully built 47a5e8aeeb1f
 Successfully tagged ft_services-mysql:latest
 deployment.apps/mysql created
 service/mysql created
@@ -155,16 +111,16 @@ Sending build context to Docker daemon  12.29kB
 Step 1/14 : FROM alpine:3.12.0
  ---> a24bb4013296
 Step 2/14 : RUN apk update
- ---> Running in 78075585a7ae
+ ---> Running in 70aa6d9fcf90
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 v3.12.7-35-g721ca84683 [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
 v3.12.7-36-g44b0396cc6 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
 OK: 12762 distinct packages available
-Removing intermediate container 78075585a7ae
- ---> 629681a43756
+Removing intermediate container 70aa6d9fcf90
+ ---> 4f245533c552
 Step 3/14 : RUN apk add --no-cache nginx php7 php7-fpm php7-mbstring php7-session php7-common 	php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap 	php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix 	php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom openssl
- ---> Running in 4625f997cc0c
+ ---> Running in 948a9de179d8
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 (1/62) Installing fcgi (2.4.2-r0)
@@ -233,20 +189,19 @@ Executing nginx-1.18.0-r1.pre-install
 Executing busybox-1.31.1-r16.trigger
 Executing ca-certificates-20191127-r4.trigger
 OK: 41 MiB in 76 packages
-Removing intermediate container 4625f997cc0c
- ---> e6d61aade4d2
+Removing intermediate container 948a9de179d8
+ ---> f3d3a42923ce
 Step 4/14 : RUN	wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-all-languages.tar.gz
- ---> Running in 1e884fc9bcb7
-[91mConnecting to files.phpmyadmin.net (89.187.187.19:443)
+ ---> Running in 310bacb8dd12
+[91mConnecting to files.phpmyadmin.net (89.187.160.9:443)
 [0m[91msaving to 'phpMyAdmin-4.9.5-all-languages.tar.gz'
-[0m[91mphpMyAdmin-4.9.5-all   6% |*                               |  607k  0:00:15 ETA
-[0m[91mphpMyAdmin-4.9.5-all  82% |**************************      | 8191k  0:00:00 ETA
-[0m[91mphpMyAdmin-4.9.5-all 100% |********************************| 9907k  0:00:00 ETA
-[0m[91m'phpMyAdmin-4.9.5-all-languages.tar.gz' saved
-[0mRemoving intermediate container 1e884fc9bcb7
- ---> bebf336535a7
+[0m[91mphpMyAdmin-4.9.5-all  59% |*******************             | 5903k  0:00:00 ETA
+[0m[91mphpMyAdmin-4.9.5-all 100% |********************************| 9907k[0m[91m  0:00:00 ETA
+'phpMyAdmin-4.9.5-all-languages.tar.gz' saved
+[0mRemoving intermediate container 310bacb8dd12
+ ---> a349f6e49e29
 Step 5/14 : RUN	tar -xvf /phpMyAdmin-4.9.5-all-languages.tar.gz
- ---> Running in 2494a0bb3d7b
+ ---> Running in d63ba7989bf5
 phpMyAdmin-4.9.5-all-languages/
 phpMyAdmin-4.9.5-all-languages/CODE_OF_CONDUCT.md
 phpMyAdmin-4.9.5-all-languages/CONTRIBUTING.md
@@ -3238,52 +3193,52 @@ phpMyAdmin-4.9.5-all-languages/version_check.php
 phpMyAdmin-4.9.5-all-languages/view_create.php
 phpMyAdmin-4.9.5-all-languages/view_operations.php
 phpMyAdmin-4.9.5-all-languages/yarn.lock
-Removing intermediate container 2494a0bb3d7b
- ---> 0cef69f41971
+Removing intermediate container d63ba7989bf5
+ ---> 13a0cfa392de
 Step 6/14 : RUN	rm -f /phpMyAdmin-4.9.5-all-languages.tar.gz
- ---> Running in 5ddffe454810
-Removing intermediate container 5ddffe454810
- ---> 0eba22d4a861
+ ---> Running in 848654958f99
+Removing intermediate container 848654958f99
+ ---> c12289e59dc0
 Step 7/14 : RUN	mv /phpMyAdmin-4.9.5-all-languages /var/www/phpmyadmin
- ---> Running in 69325967775c
-Removing intermediate container 69325967775c
- ---> bef46cfc1ed8
+ ---> Running in c5e03fd95326
+Removing intermediate container c5e03fd95326
+ ---> e39e3c7cee33
 Step 8/14 : RUN	rm -rf /var/cache/apk/*
- ---> Running in 2037f642edf4
-Removing intermediate container 2037f642edf4
- ---> 4fe1f73bb1aa
+ ---> Running in 062727f98c7f
+Removing intermediate container 062727f98c7f
+ ---> 32b154380449
 Step 9/14 : COPY default.conf /etc/nginx/conf.d/
- ---> 66a6306ead27
+ ---> 950f028d014a
 Step 10/14 : COPY config.inc.php /var/www/phpmyadmin/config.inc.php
- ---> b2aba3d7b91f
+ ---> 709440007354
 Step 11/14 : RUN chmod 705 /var/www/phpmyadmin/config.inc.php
- ---> Running in 9b1116ceaced
-Removing intermediate container 9b1116ceaced
- ---> f19ae0bec1cd
+ ---> Running in 289c0aadf4ef
+Removing intermediate container 289c0aadf4ef
+ ---> 5314ff385c60
 Step 12/14 : RUN mkdir -p /run/nginx
- ---> Running in e33f301cff23
-Removing intermediate container e33f301cff23
- ---> 6d7bd3903ee1
+ ---> Running in 08bad6f6a891
+Removing intermediate container 08bad6f6a891
+ ---> 720470007752
 Step 13/14 : EXPOSE 5000
- ---> Running in 17f371ef33d3
-Removing intermediate container 17f371ef33d3
- ---> 441830499a12
+ ---> Running in e4167e1b5539
+Removing intermediate container e4167e1b5539
+ ---> 186acd9378b8
 Step 14/14 : CMD php-fpm7 && 	nginx -g "daemon off;"
- ---> Running in c30efbedb5c4
-Removing intermediate container c30efbedb5c4
- ---> 580eee273f41
-Successfully built 580eee273f41
+ ---> Running in 7cb34e2d450a
+Removing intermediate container 7cb34e2d450a
+ ---> f551a5db7922
+Successfully built f551a5db7922
 Successfully tagged ft_services-phpmyadmin:latest
 service/phpmyadmin created
 deployment.apps/phpmyadmin created
-Sending build context to Docker daemon  9.728kB
+Sending build context to Docker daemon  50.18kB
 Step 1/12 : FROM alpine:3.12.0
  ---> a24bb4013296
 Step 2/12 : RUN apk update
  ---> Using cache
- ---> 629681a43756
+ ---> 4f245533c552
 Step 3/12 : RUN apk --update --no-cache add nginx 	php7 php7-fpm php7-mbstring php7-session 	php7-common php7-iconv php7-json php7-gd php7-curl php7-xml 	php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql 	php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap 	php7-ctype php7-dom mysql-client
- ---> Running in af5c27e40535
+ ---> Running in 207da73fec44
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
 fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
 (1/66) Installing fcgi (2.4.2-r0)
@@ -3356,21 +3311,20 @@ Executing nginx-1.18.0-r1.pre-install
 Executing busybox-1.31.1-r16.trigger
 Executing ca-certificates-20191127-r4.trigger
 OK: 73 MiB in 80 packages
-Removing intermediate container af5c27e40535
- ---> 579e44c65ca4
+Removing intermediate container 207da73fec44
+ ---> cc993b95e187
 Step 4/12 : RUN wget https://wordpress.org/latest.tar.gz
- ---> Running in 900295c281f9
+ ---> Running in 564cce3f13c1
 [91mConnecting to wordpress.org (198.143.164.252:443)
 [0m[91msaving to 'latest.tar.gz'
-[0m[91mlatest.tar.gz          0% |                                | 32361  0:08:07 ETA
-[0m[91mlatest.tar.gz          5% |*                               |  879k  0:00:32 ETA
-[0m[91mlatest.tar.gz        [0m[91m 38% |************                    | 5903k  0:00:04 ETA[0m[91m
+[0m[91mlatest.tar.gz          0% |                                | 65129  0:04:01 ETA
+[0m[91mlatest.tar.gz        [0m[91m 19% [0m[91m|******                          | [0m[91m3071k[0m[91m  0:00:08 ETA[0m[91m
 [0m[91mlatest.tar.gz        100% |********************************| 15.0M  0:00:00 ETA
 'latest.tar.gz' saved
-[0mRemoving intermediate container 900295c281f9
- ---> 608f521bb642
+[0mRemoving intermediate container 564cce3f13c1
+ ---> 29df94d55cf3
 Step 5/12 : RUN tar -xvf latest.tar.gz && 	rm -f latest.tar.gz && 	mv wordpress/ /var/www/
- ---> Running in 68a125046e59
+ ---> Running in 78c95b5a965a
 wordpress/
 wordpress/xmlrpc.php
 wordpress/wp-blog-header.php
@@ -5853,20 +5807,884 @@ wordpress/wp-admin/themes.php
 wordpress/wp-admin/options-reading.php
 wordpress/wp-trackback.php
 wordpress/wp-comments-post.php
-Removing intermediate container 68a125046e59
- ---> 20479e814aa8
+Removing intermediate container 78c95b5a965a
+ ---> fc4fd11e1f88
 Step 6/12 : COPY wp-config.php /var/www/wordpress/
- ---> d5e6b39e354f
+ ---> a4bd465eb449
 Step 7/12 : COPY default.conf /etc/nginx/conf.d/
- ---> 7dec78e67959
+ ---> 8d1e57668191
 Step 8/12 : EXPOSE 5050
- ---> Running in 9fa20e2d0e15
-Removing intermediate container 9fa20e2d0e15
- ---> 601b3ff248a5
+ ---> Running in a788143fa3a9
+Removing intermediate container a788143fa3a9
+ ---> 6032946da70c
 Step 9/12 : COPY wordpress_setup.sh /usr/sbin/wordpress_setup.sh
- ---> 6e39f8ae3f27
+ ---> 800404194046
 Step 10/12 : RUN chmod +x /usr/sbin/wordpress_setup.sh && 	mkdir -p /run/nginx
- ---> Running in 5526ceb47513
-Removing intermediate container 5526ceb47513
- ---> 648aeccf8e0e
+ ---> Running in 7eb0309ccbad
+Removing intermediate container 7eb0309ccbad
+ ---> ab92ee10214a
 Step 11/12 : COPY wordpress.sql /run/nginx/wordpress.sql
+ ---> ee94f14e32a8
+Step 12/12 : CMD /bin/sh "/usr/sbin/wordpress_setup.sh" && 	php-fpm7 && 	nginx -g "daemon off;"
+ ---> Running in 1042a8240396
+Removing intermediate container 1042a8240396
+ ---> 77182caabd5f
+Successfully built 77182caabd5f
+Successfully tagged ft_services-wordpress:latest
+deployment.apps/wordpress created
+service/wordpress created
+Sending build context to Docker daemon  8.704kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update 	&& apk --update --no-cache add 	bash vsftpd openssl
+ ---> Running in 2588a97cc776
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+v3.12.7-35-g721ca84683 [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.7-36-g44b0396cc6 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12762 distinct packages available
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/8) Installing ncurses-terminfo-base (6.2_p20200523-r0)
+(2/8) Installing ncurses-libs (6.2_p20200523-r0)
+(3/8) Installing readline (8.0.4-r0)
+(4/8) Installing bash (5.0.17-r0)
+Executing bash-5.0.17-r0.post-install
+(5/8) Installing openssl (1.1.1k-r0)
+(6/8) Installing libcap (2.27-r0)
+(7/8) Installing linux-pam (1.3.1-r4)
+(8/8) Installing vsftpd (3.0.3-r6)
+Executing vsftpd-3.0.3-r6.pre-install
+Executing busybox-1.31.1-r16.trigger
+OK: 10 MiB in 22 packages
+Removing intermediate container 2588a97cc776
+ ---> 720ddb64cfbd
+Step 3/9 : ARG PASV=${pasv_address}
+ ---> Running in 027921df76dc
+Removing intermediate container 027921df76dc
+ ---> a258cce87c94
+Step 4/9 : ENV FTP_USER=user     FTP_PASS=pass     PASV_ENABLE=YES     PASV_MIN_PORT=20000     PASV_MAX_PORT=20003 	NODE_ADDRESS=${PASV}
+ ---> Running in 747fb8852cb9
+Removing intermediate container 747fb8852cb9
+ ---> b12e8ad1aa24
+Step 5/9 : COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+ ---> 3274713623c3
+Step 6/9 : COPY ftps_setup.sh /usr/sbin/
+ ---> ed599008372c
+Step 7/9 : RUN chmod +x /usr/sbin/ftps_setup.sh
+ ---> Running in 97dc065269e1
+Removing intermediate container 97dc065269e1
+ ---> fba9140955e0
+Step 8/9 : EXPOSE 20 21 20000-20004
+ ---> Running in 07b867b04a88
+Removing intermediate container 07b867b04a88
+ ---> 1faadda22e7a
+Step 9/9 : ENTRYPOINT [ "/usr/sbin/ftps_setup.sh" ]
+ ---> Running in b9649d03983a
+Removing intermediate container b9649d03983a
+ ---> d67ba363532d
+Successfully built d67ba363532d
+Successfully tagged ft_services-ftps:latest
+deployment.apps/ftps created
+service/ftps created
+Sending build context to Docker daemon  9.216kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update && 	apk --update --no-cache add influxdb 	--repository http://dl-2.alpinelinux.org/alpine/edge/community/
+ ---> Running in dbeb7853adfa
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+v3.12.7-35-g721ca84683 [http://dl-cdn.alpinelinux.org/alpine/v3.12/main]
+v3.12.7-36-g44b0396cc6 [http://dl-cdn.alpinelinux.org/alpine/v3.12/community]
+OK: 12762 distinct packages available
+fetch http://dl-2.alpinelinux.org/alpine/edge/community/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/main/x86_64/APKINDEX.tar.gz
+fetch http://dl-cdn.alpinelinux.org/alpine/v3.12/community/x86_64/APKINDEX.tar.gz
+(1/1) Installing influxdb (1.8.3-r2)
+Executing influxdb-1.8.3-r2.pre-install
+Executing busybox-1.31.1-r16.trigger
+OK: 205 MiB in 15 packages
+Removing intermediate container dbeb7853adfa
+ ---> 55aa64b7008f
+Step 3/9 : RUN mkdir -p /etc/influxdb
+ ---> Running in 061d2ba6603d
+Removing intermediate container 061d2ba6603d
+ ---> 7b2966c645dd
+Step 4/9 : RUN mkdir -p /var/lib/influxdb
+ ---> Running in 76b89d45bcf2
+Removing intermediate container 76b89d45bcf2
+ ---> 030b1e20909e
+Step 5/9 : COPY influxdb.conf /etc/influxdb/influxdb.conf
+ ---> e610c418c991
+Step 6/9 : EXPOSE 8086
+ ---> Running in dda4fdb9538b
+Removing intermediate container dda4fdb9538b
+ ---> 090aeb1c87d6
+Step 7/9 : COPY ./influxdb_setup.sh  /usr/sbin/influxdb_setup.sh
+ ---> 301da6063db3
+Step 8/9 : RUN chmod +x /usr/sbin/influxdb_setup.sh
+ ---> Running in bc47a2b73d28
+Removing intermediate container bc47a2b73d28
+ ---> 6a46a15401ec
+Step 9/9 : ENTRYPOINT ["/usr/sbin/influxdb_setup.sh"]
+ ---> Running in e8a6550e5b08
+Removing intermediate container e8a6550e5b08
+ ---> c239048df8a1
+Successfully built c239048df8a1
+Successfully tagged ft_services-influxdb:latest
+deployment.apps/influxdb created
+persistentvolumeclaim/influxdb-pvc created
+service/influxdb created
+Sending build context to Docker daemon  11.26kB
+Step 1/8 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/8 : RUN apk update && 	apk --update --no-cache add 	nginx openssl openssh-server
+ ---> Using cache
+ ---> 4d8610fa5a76
+Step 3/8 : COPY ./index.html /var/www/index.html
+ ---> Using cache
+ ---> 35b55d33a88e
+Step 4/8 : COPY ./nginx_setup.sh /usr/sbin/nginx_setup.sh
+ ---> Using cache
+ ---> 441f879d7ba6
+Step 5/8 : RUN chmod +x /usr/sbin/nginx_setup.sh
+ ---> Using cache
+ ---> d64163f1dcbc
+Step 6/8 : COPY ./nginx.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 2db02af7cc73
+Step 7/8 : EXPOSE 80 443 22
+ ---> Using cache
+ ---> 9e9afd818a76
+Step 8/8 : ENTRYPOINT ["/usr/sbin/nginx_setup.sh"]
+ ---> Using cache
+ ---> b274c0dd3566
+Successfully built b274c0dd3566
+Successfully tagged ft_services-nginx:latest
+secret/ssh-secret configured
+deployment.apps/nginx unchanged
+service/nginx unchanged
+Sending build context to Docker daemon   7.68kB
+Step 1/8 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/8 : RUN apk update && 	apk --update --no-cache add 	mysql mysql-client
+ ---> Using cache
+ ---> b31f3b0e2127
+Step 3/8 : COPY ./mysql_setup.sh /usr/sbin/mysql_setup.sh
+ ---> Using cache
+ ---> a1db9f6121a0
+Step 4/8 : RUN chmod +x /usr/sbin/mysql_setup.sh
+ ---> Using cache
+ ---> 19d137560eb8
+Step 5/8 : COPY my.cnf /etc/my.cnf
+ ---> Using cache
+ ---> 9e8d92b4fe6e
+Step 6/8 : RUN chmod 644 /etc/my.cnf
+ ---> Using cache
+ ---> 08327d6b5f74
+Step 7/8 : EXPOSE 3306
+ ---> Using cache
+ ---> 862783226b42
+Step 8/8 : ENTRYPOINT ["/usr/sbin/mysql_setup.sh"]
+ ---> Using cache
+ ---> 47a5e8aeeb1f
+Successfully built 47a5e8aeeb1f
+Successfully tagged ft_services-mysql:latest
+deployment.apps/mysql unchanged
+service/mysql unchanged
+persistentvolumeclaim/mysql-pv unchanged
+Sending build context to Docker daemon  12.29kB
+Step 1/14 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/14 : RUN apk update
+ ---> Using cache
+ ---> 4f245533c552
+Step 3/14 : RUN apk add --no-cache nginx php7 php7-fpm php7-mbstring php7-session php7-common 	php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap 	php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix 	php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom openssl
+ ---> Using cache
+ ---> f3d3a42923ce
+Step 4/14 : RUN	wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> a349f6e49e29
+Step 5/14 : RUN	tar -xvf /phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> 13a0cfa392de
+Step 6/14 : RUN	rm -f /phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> c12289e59dc0
+Step 7/14 : RUN	mv /phpMyAdmin-4.9.5-all-languages /var/www/phpmyadmin
+ ---> Using cache
+ ---> e39e3c7cee33
+Step 8/14 : RUN	rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 32b154380449
+Step 9/14 : COPY default.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 950f028d014a
+Step 10/14 : COPY config.inc.php /var/www/phpmyadmin/config.inc.php
+ ---> Using cache
+ ---> 709440007354
+Step 11/14 : RUN chmod 705 /var/www/phpmyadmin/config.inc.php
+ ---> Using cache
+ ---> 5314ff385c60
+Step 12/14 : RUN mkdir -p /run/nginx
+ ---> Using cache
+ ---> 720470007752
+Step 13/14 : EXPOSE 5000
+ ---> Using cache
+ ---> 186acd9378b8
+Step 14/14 : CMD php-fpm7 && 	nginx -g "daemon off;"
+ ---> Using cache
+ ---> f551a5db7922
+Successfully built f551a5db7922
+Successfully tagged ft_services-phpmyadmin:latest
+service/phpmyadmin unchanged
+deployment.apps/phpmyadmin unchanged
+Sending build context to Docker daemon  50.18kB
+Step 1/12 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/12 : RUN apk update
+ ---> Using cache
+ ---> 4f245533c552
+Step 3/12 : RUN apk --update --no-cache add nginx 	php7 php7-fpm php7-mbstring php7-session 	php7-common php7-iconv php7-json php7-gd php7-curl php7-xml 	php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql 	php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap 	php7-ctype php7-dom mysql-client
+ ---> Using cache
+ ---> cc993b95e187
+Step 4/12 : RUN wget https://wordpress.org/latest.tar.gz
+ ---> Using cache
+ ---> 29df94d55cf3
+Step 5/12 : RUN tar -xvf latest.tar.gz && 	rm -f latest.tar.gz && 	mv wordpress/ /var/www/
+ ---> Using cache
+ ---> fc4fd11e1f88
+Step 6/12 : COPY wp-config.php /var/www/wordpress/
+ ---> Using cache
+ ---> a4bd465eb449
+Step 7/12 : COPY default.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 8d1e57668191
+Step 8/12 : EXPOSE 5050
+ ---> Using cache
+ ---> 6032946da70c
+Step 9/12 : COPY wordpress_setup.sh /usr/sbin/wordpress_setup.sh
+ ---> Using cache
+ ---> 800404194046
+Step 10/12 : RUN chmod +x /usr/sbin/wordpress_setup.sh && 	mkdir -p /run/nginx
+ ---> Using cache
+ ---> ab92ee10214a
+Step 11/12 : COPY wordpress.sql /run/nginx/wordpress.sql
+ ---> Using cache
+ ---> ee94f14e32a8
+Step 12/12 : CMD /bin/sh "/usr/sbin/wordpress_setup.sh" && 	php-fpm7 && 	nginx -g "daemon off;"
+ ---> Using cache
+ ---> 77182caabd5f
+Successfully built 77182caabd5f
+Successfully tagged ft_services-wordpress:latest
+deployment.apps/wordpress unchanged
+service/wordpress unchanged
+Sending build context to Docker daemon  8.704kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update 	&& apk --update --no-cache add 	bash vsftpd openssl
+ ---> Using cache
+ ---> 720ddb64cfbd
+Step 3/9 : ARG PASV=${pasv_address}
+ ---> Using cache
+ ---> a258cce87c94
+Step 4/9 : ENV FTP_USER=user     FTP_PASS=pass     PASV_ENABLE=YES     PASV_MIN_PORT=20000     PASV_MAX_PORT=20003 	NODE_ADDRESS=${PASV}
+ ---> Using cache
+ ---> b12e8ad1aa24
+Step 5/9 : COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+ ---> Using cache
+ ---> 3274713623c3
+Step 6/9 : COPY ftps_setup.sh /usr/sbin/
+ ---> Using cache
+ ---> ed599008372c
+Step 7/9 : RUN chmod +x /usr/sbin/ftps_setup.sh
+ ---> Using cache
+ ---> fba9140955e0
+Step 8/9 : EXPOSE 20 21 20000-20004
+ ---> Using cache
+ ---> 1faadda22e7a
+Step 9/9 : ENTRYPOINT [ "/usr/sbin/ftps_setup.sh" ]
+ ---> Using cache
+ ---> d67ba363532d
+Successfully built d67ba363532d
+Successfully tagged ft_services-ftps:latest
+deployment.apps/ftps unchanged
+service/ftps unchanged
+Sending build context to Docker daemon  9.216kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update && 	apk --update --no-cache add influxdb 	--repository http://dl-2.alpinelinux.org/alpine/edge/community/
+ ---> Using cache
+ ---> 55aa64b7008f
+Step 3/9 : RUN mkdir -p /etc/influxdb
+ ---> Using cache
+ ---> 7b2966c645dd
+Step 4/9 : RUN mkdir -p /var/lib/influxdb
+ ---> Using cache
+ ---> 030b1e20909e
+Step 5/9 : COPY influxdb.conf /etc/influxdb/influxdb.conf
+ ---> Using cache
+ ---> e610c418c991
+Step 6/9 : EXPOSE 8086
+ ---> Using cache
+ ---> 090aeb1c87d6
+Step 7/9 : COPY ./influxdb_setup.sh  /usr/sbin/influxdb_setup.sh
+ ---> Using cache
+ ---> 301da6063db3
+Step 8/9 : RUN chmod +x /usr/sbin/influxdb_setup.sh
+ ---> Using cache
+ ---> 6a46a15401ec
+Step 9/9 : ENTRYPOINT ["/usr/sbin/influxdb_setup.sh"]
+ ---> Using cache
+ ---> c239048df8a1
+Successfully built c239048df8a1
+Successfully tagged ft_services-influxdb:latest
+secret/influxdb-secret created
+deployment.apps/influxdb unchanged
+persistentvolumeclaim/influxdb-pvc unchanged
+service/influxdb unchanged
+Sending build context to Docker daemon   7.68kB
+Step 1/8 : FROM alpine:3.12
+3.12: Pulling from library/alpine
+339de151aab4: Pulling fs layer
+339de151aab4: Verifying Checksum
+339de151aab4: Download complete
+339de151aab4: Pull complete
+Digest: sha256:36553b10a4947067b9fbb7d532951066293a68eae893beba1d9235f7d11a20ad
+Status: Downloaded newer image for alpine:3.12
+ ---> 13621d1b12d4
+Step 2/8 : RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Running in 86716d1e5999
+[91mConnecting to dl.influxdata.com (13.35.89.39:443)
+[0m[91msaving to 'telegraf-1.15.3_static_linux_amd64.tar.gz'
+[0m[91mtelegraf-1.15.3_stat   0% |                                |  185k  0:01:51 ETA
+[0m[91mtelegraf-1.15.3_stat [0m[91m 61% |*******************             | 12.5M  0:00:01 ETA
+[0m[91mtelegraf-1.15.3_stat [0m[91m100% [0m[91m|********************************| [0m[91m20.2M[0m[91m  0:00:00 ETA[0m[91m
+[0m[91m'telegraf-1.15.3_static_linux_amd64.tar.gz' saved
+[0mRemoving intermediate container 86716d1e5999
+ ---> 1fe8149953cf
+Step 3/8 : RUN tar -C . -xzf telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Running in 454148e529ed
+Removing intermediate container 454148e529ed
+ ---> 7410937cc3a2
+Step 4/8 : RUN cp -r telegraf-1.15.3/* /
+ ---> Running in 417bbbcf980a
+Removing intermediate container 417bbbcf980a
+ ---> 28acc4aa42b7
+Step 5/8 : RUN ln -s /bin/sh bash
+ ---> Running in f68d41dbea45
+Removing intermediate container f68d41dbea45
+ ---> 98e7dee5c732
+Step 6/8 : COPY ./telegraf_setup.sh /usr/sbin/telegraf_setup.sh
+ ---> 3d069633e3f3
+Step 7/8 : RUN chmod +x /usr/sbin/telegraf_setup.sh
+ ---> Running in 5d422ce94d2c
+Removing intermediate container 5d422ce94d2c
+ ---> 5b7f985c5eed
+Step 8/8 : ENTRYPOINT ["/usr/sbin/telegraf_setup.sh"]
+ ---> Running in d12cda4ec157
+Removing intermediate container d12cda4ec157
+ ---> e01e22436802
+Successfully built e01e22436802
+Successfully tagged ft_services-telegraf:latest
+deployment.apps/telegraf created
+Sending build context to Docker daemon  11.26kB
+Step 1/8 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/8 : RUN apk update && 	apk --update --no-cache add 	nginx openssl openssh-server
+ ---> Using cache
+ ---> 4d8610fa5a76
+Step 3/8 : COPY ./index.html /var/www/index.html
+ ---> Using cache
+ ---> 35b55d33a88e
+Step 4/8 : COPY ./nginx_setup.sh /usr/sbin/nginx_setup.sh
+ ---> Using cache
+ ---> 441f879d7ba6
+Step 5/8 : RUN chmod +x /usr/sbin/nginx_setup.sh
+ ---> Using cache
+ ---> d64163f1dcbc
+Step 6/8 : COPY ./nginx.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 2db02af7cc73
+Step 7/8 : EXPOSE 80 443 22
+ ---> Using cache
+ ---> 9e9afd818a76
+Step 8/8 : ENTRYPOINT ["/usr/sbin/nginx_setup.sh"]
+ ---> Using cache
+ ---> b274c0dd3566
+Successfully built b274c0dd3566
+Successfully tagged ft_services-nginx:latest
+secret/ssh-secret configured
+deployment.apps/nginx unchanged
+service/nginx unchanged
+Sending build context to Docker daemon   7.68kB
+Step 1/8 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/8 : RUN apk update && 	apk --update --no-cache add 	mysql mysql-client
+ ---> Using cache
+ ---> b31f3b0e2127
+Step 3/8 : COPY ./mysql_setup.sh /usr/sbin/mysql_setup.sh
+ ---> Using cache
+ ---> a1db9f6121a0
+Step 4/8 : RUN chmod +x /usr/sbin/mysql_setup.sh
+ ---> Using cache
+ ---> 19d137560eb8
+Step 5/8 : COPY my.cnf /etc/my.cnf
+ ---> Using cache
+ ---> 9e8d92b4fe6e
+Step 6/8 : RUN chmod 644 /etc/my.cnf
+ ---> Using cache
+ ---> 08327d6b5f74
+Step 7/8 : EXPOSE 3306
+ ---> Using cache
+ ---> 862783226b42
+Step 8/8 : ENTRYPOINT ["/usr/sbin/mysql_setup.sh"]
+ ---> Using cache
+ ---> 47a5e8aeeb1f
+Successfully built 47a5e8aeeb1f
+Successfully tagged ft_services-mysql:latest
+deployment.apps/mysql unchanged
+service/mysql unchanged
+persistentvolumeclaim/mysql-pv unchanged
+Sending build context to Docker daemon  12.29kB
+Step 1/14 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/14 : RUN apk update
+ ---> Using cache
+ ---> 4f245533c552
+Step 3/14 : RUN apk add --no-cache nginx php7 php7-fpm php7-mbstring php7-session php7-common 	php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap 	php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix 	php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom openssl
+ ---> Using cache
+ ---> f3d3a42923ce
+Step 4/14 : RUN	wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> a349f6e49e29
+Step 5/14 : RUN	tar -xvf /phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> 13a0cfa392de
+Step 6/14 : RUN	rm -f /phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> c12289e59dc0
+Step 7/14 : RUN	mv /phpMyAdmin-4.9.5-all-languages /var/www/phpmyadmin
+ ---> Using cache
+ ---> e39e3c7cee33
+Step 8/14 : RUN	rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 32b154380449
+Step 9/14 : COPY default.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 950f028d014a
+Step 10/14 : COPY config.inc.php /var/www/phpmyadmin/config.inc.php
+ ---> Using cache
+ ---> 709440007354
+Step 11/14 : RUN chmod 705 /var/www/phpmyadmin/config.inc.php
+ ---> Using cache
+ ---> 5314ff385c60
+Step 12/14 : RUN mkdir -p /run/nginx
+ ---> Using cache
+ ---> 720470007752
+Step 13/14 : EXPOSE 5000
+ ---> Using cache
+ ---> 186acd9378b8
+Step 14/14 : CMD php-fpm7 && 	nginx -g "daemon off;"
+ ---> Using cache
+ ---> f551a5db7922
+Successfully built f551a5db7922
+Successfully tagged ft_services-phpmyadmin:latest
+service/phpmyadmin unchanged
+deployment.apps/phpmyadmin unchanged
+Sending build context to Docker daemon  50.18kB
+Step 1/12 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/12 : RUN apk update
+ ---> Using cache
+ ---> 4f245533c552
+Step 3/12 : RUN apk --update --no-cache add nginx 	php7 php7-fpm php7-mbstring php7-session 	php7-common php7-iconv php7-json php7-gd php7-curl php7-xml 	php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql 	php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap 	php7-ctype php7-dom mysql-client
+ ---> Using cache
+ ---> cc993b95e187
+Step 4/12 : RUN wget https://wordpress.org/latest.tar.gz
+ ---> Using cache
+ ---> 29df94d55cf3
+Step 5/12 : RUN tar -xvf latest.tar.gz && 	rm -f latest.tar.gz && 	mv wordpress/ /var/www/
+ ---> Using cache
+ ---> fc4fd11e1f88
+Step 6/12 : COPY wp-config.php /var/www/wordpress/
+ ---> Using cache
+ ---> a4bd465eb449
+Step 7/12 : COPY default.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 8d1e57668191
+Step 8/12 : EXPOSE 5050
+ ---> Using cache
+ ---> 6032946da70c
+Step 9/12 : COPY wordpress_setup.sh /usr/sbin/wordpress_setup.sh
+ ---> Using cache
+ ---> 800404194046
+Step 10/12 : RUN chmod +x /usr/sbin/wordpress_setup.sh && 	mkdir -p /run/nginx
+ ---> Using cache
+ ---> ab92ee10214a
+Step 11/12 : COPY wordpress.sql /run/nginx/wordpress.sql
+ ---> Using cache
+ ---> ee94f14e32a8
+Step 12/12 : CMD /bin/sh "/usr/sbin/wordpress_setup.sh" && 	php-fpm7 && 	nginx -g "daemon off;"
+ ---> Using cache
+ ---> 77182caabd5f
+Successfully built 77182caabd5f
+Successfully tagged ft_services-wordpress:latest
+deployment.apps/wordpress unchanged
+service/wordpress unchanged
+Sending build context to Docker daemon  8.704kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update 	&& apk --update --no-cache add 	bash vsftpd openssl
+ ---> Using cache
+ ---> 720ddb64cfbd
+Step 3/9 : ARG PASV=${pasv_address}
+ ---> Using cache
+ ---> a258cce87c94
+Step 4/9 : ENV FTP_USER=user     FTP_PASS=pass     PASV_ENABLE=YES     PASV_MIN_PORT=20000     PASV_MAX_PORT=20003 	NODE_ADDRESS=${PASV}
+ ---> Using cache
+ ---> b12e8ad1aa24
+Step 5/9 : COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+ ---> Using cache
+ ---> 3274713623c3
+Step 6/9 : COPY ftps_setup.sh /usr/sbin/
+ ---> Using cache
+ ---> ed599008372c
+Step 7/9 : RUN chmod +x /usr/sbin/ftps_setup.sh
+ ---> Using cache
+ ---> fba9140955e0
+Step 8/9 : EXPOSE 20 21 20000-20004
+ ---> Using cache
+ ---> 1faadda22e7a
+Step 9/9 : ENTRYPOINT [ "/usr/sbin/ftps_setup.sh" ]
+ ---> Using cache
+ ---> d67ba363532d
+Successfully built d67ba363532d
+Successfully tagged ft_services-ftps:latest
+deployment.apps/ftps unchanged
+service/ftps unchanged
+Sending build context to Docker daemon  9.216kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update && 	apk --update --no-cache add influxdb 	--repository http://dl-2.alpinelinux.org/alpine/edge/community/
+ ---> Using cache
+ ---> 55aa64b7008f
+Step 3/9 : RUN mkdir -p /etc/influxdb
+ ---> Using cache
+ ---> 7b2966c645dd
+Step 4/9 : RUN mkdir -p /var/lib/influxdb
+ ---> Using cache
+ ---> 030b1e20909e
+Step 5/9 : COPY influxdb.conf /etc/influxdb/influxdb.conf
+ ---> Using cache
+ ---> e610c418c991
+Step 6/9 : EXPOSE 8086
+ ---> Using cache
+ ---> 090aeb1c87d6
+Step 7/9 : COPY ./influxdb_setup.sh  /usr/sbin/influxdb_setup.sh
+ ---> Using cache
+ ---> 301da6063db3
+Step 8/9 : RUN chmod +x /usr/sbin/influxdb_setup.sh
+ ---> Using cache
+ ---> 6a46a15401ec
+Step 9/9 : ENTRYPOINT ["/usr/sbin/influxdb_setup.sh"]
+ ---> Using cache
+ ---> c239048df8a1
+Successfully built c239048df8a1
+Successfully tagged ft_services-influxdb:latest
+secret/influxdb-secret configured
+deployment.apps/influxdb unchanged
+persistentvolumeclaim/influxdb-pvc unchanged
+service/influxdb unchanged
+Sending build context to Docker daemon   7.68kB
+Step 1/8 : FROM alpine:3.12
+ ---> 13621d1b12d4
+Step 2/8 : RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Using cache
+ ---> 1fe8149953cf
+Step 3/8 : RUN tar -C . -xzf telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Using cache
+ ---> 7410937cc3a2
+Step 4/8 : RUN cp -r telegraf-1.15.3/* /
+ ---> Using cache
+ ---> 28acc4aa42b7
+Step 5/8 : RUN ln -s /bin/sh bash
+ ---> Using cache
+ ---> 98e7dee5c732
+Step 6/8 : COPY ./telegraf_setup.sh /usr/sbin/telegraf_setup.sh
+ ---> Using cache
+ ---> 3d069633e3f3
+Step 7/8 : RUN chmod +x /usr/sbin/telegraf_setup.sh
+ ---> Using cache
+ ---> 5b7f985c5eed
+Step 8/8 : ENTRYPOINT ["/usr/sbin/telegraf_setup.sh"]
+ ---> Using cache
+ ---> e01e22436802
+Successfully built e01e22436802
+Successfully tagged ft_services-telegraf:latest
+deployment.apps/telegraf unchanged
+Sending build context to Docker daemon  11.26kB
+Step 1/8 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/8 : RUN apk update && 	apk --update --no-cache add 	nginx openssl openssh-server
+ ---> Using cache
+ ---> 4d8610fa5a76
+Step 3/8 : COPY ./index.html /var/www/index.html
+ ---> Using cache
+ ---> 35b55d33a88e
+Step 4/8 : COPY ./nginx_setup.sh /usr/sbin/nginx_setup.sh
+ ---> Using cache
+ ---> 441f879d7ba6
+Step 5/8 : RUN chmod +x /usr/sbin/nginx_setup.sh
+ ---> Using cache
+ ---> d64163f1dcbc
+Step 6/8 : COPY ./nginx.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 2db02af7cc73
+Step 7/8 : EXPOSE 80 443 22
+ ---> Using cache
+ ---> 9e9afd818a76
+Step 8/8 : ENTRYPOINT ["/usr/sbin/nginx_setup.sh"]
+ ---> Using cache
+ ---> b274c0dd3566
+Successfully built b274c0dd3566
+Successfully tagged ft_services-nginx:latest
+secret/ssh-secret configured
+deployment.apps/nginx unchanged
+service/nginx unchanged
+Sending build context to Docker daemon   7.68kB
+Step 1/8 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/8 : RUN apk update && 	apk --update --no-cache add 	mysql mysql-client
+ ---> Using cache
+ ---> b31f3b0e2127
+Step 3/8 : COPY ./mysql_setup.sh /usr/sbin/mysql_setup.sh
+ ---> Using cache
+ ---> a1db9f6121a0
+Step 4/8 : RUN chmod +x /usr/sbin/mysql_setup.sh
+ ---> Using cache
+ ---> 19d137560eb8
+Step 5/8 : COPY my.cnf /etc/my.cnf
+ ---> Using cache
+ ---> 9e8d92b4fe6e
+Step 6/8 : RUN chmod 644 /etc/my.cnf
+ ---> Using cache
+ ---> 08327d6b5f74
+Step 7/8 : EXPOSE 3306
+ ---> Using cache
+ ---> 862783226b42
+Step 8/8 : ENTRYPOINT ["/usr/sbin/mysql_setup.sh"]
+ ---> Using cache
+ ---> 47a5e8aeeb1f
+Successfully built 47a5e8aeeb1f
+Successfully tagged ft_services-mysql:latest
+deployment.apps/mysql unchanged
+service/mysql unchanged
+persistentvolumeclaim/mysql-pv unchanged
+Sending build context to Docker daemon  12.29kB
+Step 1/14 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/14 : RUN apk update
+ ---> Using cache
+ ---> 4f245533c552
+Step 3/14 : RUN apk add --no-cache nginx php7 php7-fpm php7-mbstring php7-session php7-common 	php7-iconv php7-json php7-gd php7-curl php7-xml php7-mysqli php7-imap 	php7-cgi fcgi php7-pdo php7-pdo_mysql php7-soap php7-xmlrpc php7-posix 	php7-mcrypt php7-gettext php7-ldap php7-ctype php7-dom openssl
+ ---> Using cache
+ ---> f3d3a42923ce
+Step 4/14 : RUN	wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> a349f6e49e29
+Step 5/14 : RUN	tar -xvf /phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> 13a0cfa392de
+Step 6/14 : RUN	rm -f /phpMyAdmin-4.9.5-all-languages.tar.gz
+ ---> Using cache
+ ---> c12289e59dc0
+Step 7/14 : RUN	mv /phpMyAdmin-4.9.5-all-languages /var/www/phpmyadmin
+ ---> Using cache
+ ---> e39e3c7cee33
+Step 8/14 : RUN	rm -rf /var/cache/apk/*
+ ---> Using cache
+ ---> 32b154380449
+Step 9/14 : COPY default.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 950f028d014a
+Step 10/14 : COPY config.inc.php /var/www/phpmyadmin/config.inc.php
+ ---> Using cache
+ ---> 709440007354
+Step 11/14 : RUN chmod 705 /var/www/phpmyadmin/config.inc.php
+ ---> Using cache
+ ---> 5314ff385c60
+Step 12/14 : RUN mkdir -p /run/nginx
+ ---> Using cache
+ ---> 720470007752
+Step 13/14 : EXPOSE 5000
+ ---> Using cache
+ ---> 186acd9378b8
+Step 14/14 : CMD php-fpm7 && 	nginx -g "daemon off;"
+ ---> Using cache
+ ---> f551a5db7922
+Successfully built f551a5db7922
+Successfully tagged ft_services-phpmyadmin:latest
+service/phpmyadmin unchanged
+deployment.apps/phpmyadmin unchanged
+Sending build context to Docker daemon  50.18kB
+Step 1/12 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/12 : RUN apk update
+ ---> Using cache
+ ---> 4f245533c552
+Step 3/12 : RUN apk --update --no-cache add nginx 	php7 php7-fpm php7-mbstring php7-session 	php7-common php7-iconv php7-json php7-gd php7-curl php7-xml 	php7-mysqli php7-imap php7-cgi fcgi php7-pdo php7-pdo_mysql 	php7-soap php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap 	php7-ctype php7-dom mysql-client
+ ---> Using cache
+ ---> cc993b95e187
+Step 4/12 : RUN wget https://wordpress.org/latest.tar.gz
+ ---> Using cache
+ ---> 29df94d55cf3
+Step 5/12 : RUN tar -xvf latest.tar.gz && 	rm -f latest.tar.gz && 	mv wordpress/ /var/www/
+ ---> Using cache
+ ---> fc4fd11e1f88
+Step 6/12 : COPY wp-config.php /var/www/wordpress/
+ ---> Using cache
+ ---> a4bd465eb449
+Step 7/12 : COPY default.conf /etc/nginx/conf.d/
+ ---> Using cache
+ ---> 8d1e57668191
+Step 8/12 : EXPOSE 5050
+ ---> Using cache
+ ---> 6032946da70c
+Step 9/12 : COPY wordpress_setup.sh /usr/sbin/wordpress_setup.sh
+ ---> Using cache
+ ---> 800404194046
+Step 10/12 : RUN chmod +x /usr/sbin/wordpress_setup.sh && 	mkdir -p /run/nginx
+ ---> Using cache
+ ---> ab92ee10214a
+Step 11/12 : COPY wordpress.sql /run/nginx/wordpress.sql
+ ---> Using cache
+ ---> ee94f14e32a8
+Step 12/12 : CMD /bin/sh "/usr/sbin/wordpress_setup.sh" && 	php-fpm7 && 	nginx -g "daemon off;"
+ ---> Using cache
+ ---> 77182caabd5f
+Successfully built 77182caabd5f
+Successfully tagged ft_services-wordpress:latest
+deployment.apps/wordpress unchanged
+service/wordpress unchanged
+Sending build context to Docker daemon  8.704kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update 	&& apk --update --no-cache add 	bash vsftpd openssl
+ ---> Using cache
+ ---> 720ddb64cfbd
+Step 3/9 : ARG PASV=${pasv_address}
+ ---> Using cache
+ ---> a258cce87c94
+Step 4/9 : ENV FTP_USER=user     FTP_PASS=pass     PASV_ENABLE=YES     PASV_MIN_PORT=20000     PASV_MAX_PORT=20003 	NODE_ADDRESS=${PASV}
+ ---> Using cache
+ ---> b12e8ad1aa24
+Step 5/9 : COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+ ---> Using cache
+ ---> 3274713623c3
+Step 6/9 : COPY ftps_setup.sh /usr/sbin/
+ ---> Using cache
+ ---> ed599008372c
+Step 7/9 : RUN chmod +x /usr/sbin/ftps_setup.sh
+ ---> Using cache
+ ---> fba9140955e0
+Step 8/9 : EXPOSE 20 21 20000-20004
+ ---> Using cache
+ ---> 1faadda22e7a
+Step 9/9 : ENTRYPOINT [ "/usr/sbin/ftps_setup.sh" ]
+ ---> Using cache
+ ---> d67ba363532d
+Successfully built d67ba363532d
+Successfully tagged ft_services-ftps:latest
+deployment.apps/ftps unchanged
+service/ftps unchanged
+Sending build context to Docker daemon  9.216kB
+Step 1/9 : FROM alpine:3.12.0
+ ---> a24bb4013296
+Step 2/9 : RUN apk update && 	apk --update --no-cache add influxdb 	--repository http://dl-2.alpinelinux.org/alpine/edge/community/
+ ---> Using cache
+ ---> 55aa64b7008f
+Step 3/9 : RUN mkdir -p /etc/influxdb
+ ---> Using cache
+ ---> 7b2966c645dd
+Step 4/9 : RUN mkdir -p /var/lib/influxdb
+ ---> Using cache
+ ---> 030b1e20909e
+Step 5/9 : COPY influxdb.conf /etc/influxdb/influxdb.conf
+ ---> Using cache
+ ---> e610c418c991
+Step 6/9 : EXPOSE 8086
+ ---> Using cache
+ ---> 090aeb1c87d6
+Step 7/9 : COPY ./influxdb_setup.sh  /usr/sbin/influxdb_setup.sh
+ ---> Using cache
+ ---> 301da6063db3
+Step 8/9 : RUN chmod +x /usr/sbin/influxdb_setup.sh
+ ---> Using cache
+ ---> 6a46a15401ec
+Step 9/9 : ENTRYPOINT ["/usr/sbin/influxdb_setup.sh"]
+ ---> Using cache
+ ---> c239048df8a1
+Successfully built c239048df8a1
+Successfully tagged ft_services-influxdb:latest
+secret/influxdb-secret configured
+deployment.apps/influxdb unchanged
+persistentvolumeclaim/influxdb-pvc unchanged
+service/influxdb unchanged
+Sending build context to Docker daemon   7.68kB
+Step 1/8 : FROM alpine:3.12
+ ---> 13621d1b12d4
+Step 2/8 : RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Using cache
+ ---> 1fe8149953cf
+Step 3/8 : RUN tar -C . -xzf telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Using cache
+ ---> 7410937cc3a2
+Step 4/8 : RUN cp -r telegraf-1.15.3/* /
+ ---> Using cache
+ ---> 28acc4aa42b7
+Step 5/8 : RUN ln -s /bin/sh bash
+ ---> Using cache
+ ---> 98e7dee5c732
+Step 6/8 : COPY ./telegraf_setup.sh /usr/sbin/telegraf_setup.sh
+ ---> Using cache
+ ---> 3d069633e3f3
+Step 7/8 : RUN chmod +x /usr/sbin/telegraf_setup.sh
+ ---> Using cache
+ ---> 5b7f985c5eed
+Step 8/8 : ENTRYPOINT ["/usr/sbin/telegraf_setup.sh"]
+ ---> Using cache
+ ---> e01e22436802
+Successfully built e01e22436802
+Successfully tagged ft_services-telegraf:latest
+deployment.apps/telegraf unchanged
+configmap/telegraf created
+Sending build context to Docker daemon   7.68kB
+Step 1/8 : FROM alpine:3.12
+ ---> 13621d1b12d4
+Step 2/8 : RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Using cache
+ ---> 1fe8149953cf
+Step 3/8 : RUN tar -C . -xzf telegraf-1.15.3_static_linux_amd64.tar.gz
+ ---> Using cache
+ ---> 7410937cc3a2
+Step 4/8 : RUN cp -r telegraf-1.15.3/* /
+ ---> Using cache
+ ---> 28acc4aa42b7
+Step 5/8 : RUN ln -s /bin/sh bash
+ ---> Using cache
+ ---> 98e7dee5c732
+Step 6/8 : COPY ./telegraf_setup.sh /usr/sbin/telegraf_setup.sh
+ ---> Using cache
+ ---> 3d069633e3f3
+Step 7/8 : RUN chmod +x /usr/sbin/telegraf_setup.sh
+ ---> Using cache
+ ---> 5b7f985c5eed
+Step 8/8 : ENTRYPOINT ["/usr/sbin/telegraf_setup.sh"]
+ ---> Using cache
+ ---> e01e22436802
+Successfully built e01e22436802
+Successfully tagged ft_services-grafana:latest
+deployment.apps/grafana created
+service/grafana created
+configmap/grafana-config created

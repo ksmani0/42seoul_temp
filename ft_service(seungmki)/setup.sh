@@ -26,7 +26,8 @@ welcome()
 #metrics-server collects metrics such as CPU and memory usage and displays them on the dashboard.
 if [[ $(minikube status | grep -c "Running") == 0 ]]
 then
-	minikube start --driver virtualbox #For cluster
+	minikube start --driver=hyperkit #For my home
+#	minikube start --driver virtualbox #For cluster
 	minikube addons enable metrics-server
 	minikube addons enable dashboard
 	minikube addons enable metallb
