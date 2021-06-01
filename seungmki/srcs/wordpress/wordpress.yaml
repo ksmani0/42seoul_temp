@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
+  name: wordpress #wordpress-service
+  labels:
+    app: wordpress
+spec:
+  selector:
+    app: wordpress
+  type: LoadBalancer
+  loadBalancerIP: MINI_IP #mini_ip(must be entered in uppercase)
+  ports:
+    - port: 5050
+      name: wordpress
+      protocol: TCP
+      targetPort: 5050
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress #wordpress-deployment
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      name: wordpress #wordpress-pod
+      labels:
+        app: wordpress
+    spec:
+      containers:
+        - name: wordpress #wordpress-container
+          image: wordpress
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5050
+#          livenessProbe: #added from here.
+#            exec: #Command probe method to check if the pot is operating normally.
+#              command:
+#                - cat
+#                - /tmp/healthy
+#            initialDelaySeconds: 60
+#            periodSeconds: 3

@@ -1,0 +1,9 @@
+secret/ssh-secret configured
+deployment.apps/nginx unchanged
+service/nginx created
+secret/ssh-secret configured
+deployment.apps/nginx created
+service/nginx created
+secret/ssh-secret configured
+deployment.apps/nginx created
+service/nginx created
