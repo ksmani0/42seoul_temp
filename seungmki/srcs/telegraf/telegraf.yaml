@@ -22,7 +22,7 @@ spec:
               mountPath: /var/run/docker.sock
           envFrom:
             - secretRef:
-              name: influxdb-secret
+                name: influxdb-secret
       volumes:
         - name: docker-unix-socket
           hostPath: #The path of the node where the Pods are located is used as the volume.

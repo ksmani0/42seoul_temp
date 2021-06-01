@@ -19,20 +19,21 @@ welcome()
 	echo "   F       T         S    S  E      E R         V V   I  C     C  E      E S    S "
 	echo "   F        TTT ----  SSSS    EEEEEE  R          V    I   CCCCC    EEEEEE   SSSS  "
 	echo -e $BLUE
-	echo "##################################################################################${END}"
+	echo "##################################################################################"
+	echo -e $END
 }
 
 #Install minikube if it is not installed.
 #metrics-server collects metrics such as CPU and memory usage and displays them on the dashboard.
 #export MINIKUBE_HOME=~/goinfre for cluster
-if [[ $(minikube status | grep -c "Running") == 0 ]]
-then
+#if [[ $(minikube status | grep -c "Running") == 0 ]]
+#then
 #	minikube start #For my home
 	minikube start --driver virtualbox #For cluster
 	minikube addons enable metrics-server
 	minikube addons enable dashboard
 	minikube addons enable metallb
-fi
+#fi
 #minikube addons enable dashboard: Dashboards can be displayed directly in the browser
 #without entering a token.
 #minikube addons enable metallb: No need to use complex Kubernetes manifest methods.
@@ -44,6 +45,13 @@ eval $(minikube docker-env)
 #In non-Linux, must check the path with which sed before using sed.
 MINI_IP=$(minikube ip)
 sed -i "s/MINI_IP/$MINI_IP/g" srcs/metallb.yaml
+sed -i "s/MINI_IP/$MINI_IP/g" srcs/nginx/nginx.yaml
+sed -i "s/MINI_IP/$MINI_IP/g" srcs/phpmyadmin/phpmyadmin.yaml
+sed -i "s/MINI_IP/$MINI_IP/g" srcs/wordpress/wordpress.yaml
+sed -i "s/MINI_IP/$MINI_IP/g" srcs/ftps/ftps.yaml
+sed -i "s/MINI_IP/$MINI_IP/g" srcs/grafana/grafana.yaml
+
+sed -i "s/MINI_IP/$MINI_IP/g" srcs/phpmyadmin/config.inc.php
 sed -i "s/MINI_IP/$MINI_IP/g" srcs/ftps/vsftpd.conf
 sed -i "s/MINI_IP/$MINI_IP/g" srcs/wordpress/wordpress.sql
 kubectl apply -f ./srcs/metallb.yaml
@@ -96,5 +104,4 @@ minikube service list
 #Show IP address can be accssed.
 echo "⭐️ seungmki's ft_services IP(minikube ip): $MINI_IP"
 
-printf "${YELLOW}...Dashboard launching...\n${END}"
-minikube dashboard
+printf "${YELLOW}If you want to see dashboard, enter 'minikube dashboard' in terminal\n${END}"

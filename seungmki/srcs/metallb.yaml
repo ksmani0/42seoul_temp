@@ -10,7 +10,7 @@ data:
     - name: default
       protocol: layer2
       addresses:
-      - MINI_IP-MINI_IP
+      - 192.168.99.117-MINI_IP
 #Setting the ip band that minikube can use.
 #Private ip band in my MAC: 192.168.49.1 ~ 192.168.49.255
 #Private ip band in 42seoul cluster MAC: 192.168.99.100-192.168.99.255
