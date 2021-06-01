@@ -9,9 +9,6 @@ COPY influxdb.conf /etc/influxdb/influxdb.conf
 EXPOSE 8086
 #Default port that runs the InfluxDB HTTP service.
 
-COPY ./influxdb_setup.sh  /usr/sbin/influxdb_setup.sh
-RUN chmod +x /usr/sbin/influxdb_setup.sh
-
 #Equivalent to doing ENTRYPOINT ["influxd"] after mkdir -p /run/influxd.
 ENTRYPOINT  ["/usr/sbin/influxd"]
 #DB name, user, password, etc. can be resolved with global variables.

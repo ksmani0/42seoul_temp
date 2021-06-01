@@ -11,7 +11,7 @@ RUN apk --update --no-cache add php7-fpm php7-common php7-iconv php7-json \
 RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -zxvf latest.tar.gz && \
 	rm -f latest.tar.gz && \
-	mv wordpress/ /var/www/ \
+	mv wordpress/ /var/www/ && \
 	chmod -R 777 /var/www/*
 
 COPY wp-config.php /var/www/wordpress/

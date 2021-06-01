@@ -94,7 +94,7 @@ data:
       database: telegraf
       isDefault: true
       user: admin
-      password: "1234"
+      password: admin
       url: http://influxdb:8086
   dashboards.yml: | #dashboards.yaml tells where the created dashboard is.
     apiVersion: 1
