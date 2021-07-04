@@ -5,48 +5,41 @@
 #                                                     +:+ +:+         +:+      #
 #    By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/07/02 19:00:19 by seungmki          #+#    #+#              #
-#    Updated: 2021/07/02 19:35:42 by seungmki         ###   ########.fr        #
+#    Created: 2021/07/01 19:00:19 by seungmki          #+#    #+#              #
+#    Updated: 2021/07/01 19:35:42 by seungmki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := phillo
+NAME := philo
 
 CC := gcc
-CFLAGS = -Wall -Wextra -Werror -lpthread
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -pthread
 #CFLAGS = -Wall -Wextra -Werror -g
 INCLUDE := -I./includes
-AR := ar -rcs
 RM := rm -rf
 .SUFFIXES : .c .o
 
-SRCS := main.c
+SRCS := main.c ft_isdigit.c ft_atoi.c routine.c utils.c
 OBJ_DIR := ./obj
 OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 all : $(NAME)
-	@echo "(つ ◕▽◕)つ checker, push_swap is complete! c(◕▽◕ c)"
+	@echo "\033[32m(つ ◕▽◕)つ    philo is complete!    c(◕▽◕ c)\033[0m"
 
-$(NAME) : $(OBJS1) $(LIBFT_DIR)/$(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS1) $(INCLUDE) $(LIBFT_DIR)/$(LIBFT) -o $(NAME1)
-	@echo "(つ >_<)つ    checker has been created!    c(>_< c)"
+$(NAME) : $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDE) -o $(NAME)
+	@echo "\033[32m(つ >_<)つ philo has been compiled! c(>_< c)\033[0m"
 
 $(OBJ_DIR)/%.o : ./%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-$(LIBFT_DIR)/$(LIBFT) :
-	@$(MAKE) all -C $(LIBFT_DIR)
-	@echo "(つ 0◇0)つ    libft.a has been created!    c(0◇0 c)"
-
 clean :
-	@$(MAKE) -C $(LIBFT_DIR) clean;
 	@$(RM) $(OBJ_DIR)/*.o
 
 fclean : clean
-	@$(MAKE) -C $(LIBFT_DIR) fclean;
-	@$(RM) $(NAME1) $(NAME2)
+	@$(RM) $(NAME)
 
 re : fclean all
 
-.PHONY : all bonus clean fclean re
+.PHONY : all clean fclean re
