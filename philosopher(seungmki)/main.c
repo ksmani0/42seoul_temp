@@ -67,6 +67,7 @@ int				philo_mutex_malloc(t_philo **philos, t_info *info)
 	while (++i < info->philo_nums)
 		pthread_mutex_init(&info->fork[i], NULL);//뮤텍스 초기화
 	pthread_mutex_init(&info->print_state, NULL);//초기화 안 해주면 lock(), unlock()이 제기능 못함
+	pthread_mutex_init(&info->first_die, NULL);
 	return (1);
 }
 

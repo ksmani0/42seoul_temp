@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungmki <seungmki@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 20:13:07 by seungmki          #+#    #+#             */
-/*   Updated: 2021/04/16 20:16:24 by seungmki         ###   ########.fr       */
+/*   Created: 2021/07/01 20:13:07 by seungmki          #+#    #+#             */
+/*   Updated: 2021/07/01 20:16:24 by seungmki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void			free_philos(t_philo *philos)
 	while (++i < info->philo_nums)
 		pthread_mutex_destroy(&info->fork[i]);//뮤텍스 개체 파괴
 	pthread_mutex_destroy(&info->print_state);
+	pthread_mutex_destroy(&info->first_die);
 	free(info->fork);
 	free(philos);
 }
@@ -33,7 +34,7 @@ void			philo_thread_init(t_philo *philos, t_info *info)
 	i = 0;
 	while (i < info->philo_nums)
 	{//철학자 수만큼 반복문 돌면서 변수 채울 거 채우고 뮤텍스 초기화, 스레드 생성
-		philos[i].name = i + 1;
+		philos[i].id = i + 1;
 		philos[i].r_fork = i;//오른쪽 포크는 색인대로
 		if (i == 0)//왼쪽 포크는 현재 철학자 전 순서의 철학자 색인 대입
 			philos[i].l_fork = info->philo_nums - 1;

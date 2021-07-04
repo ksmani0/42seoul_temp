@@ -13,8 +13,8 @@
 NAME := philo
 
 CC := gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address -pthread
-#CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -pthread
+#CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address 
 INCLUDE := -I./includes
 RM := rm -rf
 .SUFFIXES : .c .o
