@@ -16,11 +16,6 @@ char 	*get_input()
 	return (void *)0;
 }
 
-void	free_input(char **input)
-{
-
-}
-
 void	init_term2()
 {
 	tcgetattr(STDIN_FILENO, &g_data->main_term);
@@ -47,9 +42,9 @@ t_sh_data	*init_setting(char **envp)
 	g_data->envp = envp;
 	g_data->forked = 0;
 	g_data->signal = 0;
-	signal(SIGINT, main_signal);
-	signal(SIGQUIT, main_signal);
 	init_term2();
+	signal(SIGINT, main_signal);//원래 init_term2()위에
+	signal(SIGQUIT, main_signal);//있던 걸 아래로 옮김!!
 }
 
 //"echo $haha\"$haha\"'haha'";
