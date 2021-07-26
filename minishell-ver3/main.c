@@ -9,7 +9,10 @@ char 	*get_input()
 	if (g_data->input)
 	{
 		if (check_parse_error(g_data->input) == -1)
+		{
+			g_data->ret = 2;
 			return (0);
+		}
 		g_data->input = ft_trim(g_data->input, ' ');
 		return (g_data->input);
 	}
@@ -43,8 +46,8 @@ t_sh_data	*init_setting(char **envp)
 	g_data->forked = 0;
 	g_data->signal = 0;
 	init_term2();
-	signal(SIGINT, main_signal);//원래 init_term2()위에
-	signal(SIGQUIT, main_signal);//있던 걸 아래로 옮김!!
+	signal(SIGINT, main_signal);//moved!!
+	signal(SIGQUIT, main_signal);//moved!!
 }
 
 //"echo $haha\"$haha\"'haha'";
@@ -64,7 +67,10 @@ int main(int argc, char **argv, char **envp)
 				add_history(g_data->input);
 		}
 		else
-			return (0);
+		{
+			if (g_data->ret != 2)
+				return (0);
+		}
 		free_buffer(&g_data->input);
 	}
 	return (0);

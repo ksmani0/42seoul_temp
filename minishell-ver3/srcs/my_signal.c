@@ -14,18 +14,22 @@ void        main_signal(int sig_number)
         if(g_data->forked == 0)
 			write(1, "\n$", 2);
         else
-		{
-			g_data->ret = 130;
 			write(1, "\n", 1);
-		}
+		g_data->ret = 130;
 		rl_redisplay();
     }
     else if (sig_number == SIGQUIT)
     {
         if (g_data->forked == 1)
         {
-            write(1, "Quit: 3\n", 8);//: 3 추가!!
-            //kill(0, SIGKILL);//삭제!!
+            write(1, "Quit: 3\n", 8);//modificated!!
+            //kill(0, SIGKILL);//delete!
+            g_data->ret = 131;//added!!
         }
+        else//added!!
+        {//added!!
+            rl_on_new_line();//added!!
+            rl_redisplay();//added!!
+        }//added!!
     }
 }
