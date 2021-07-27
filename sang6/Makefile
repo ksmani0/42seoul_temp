@@ -8,8 +8,8 @@ LIBFT_FILE = $(LIBFT_DIR)/$(LIBFT)
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CFLAGS += -I $(LIBFT_DIR)
 CFLAGS += -I ./inc/
-LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib
-CPPFLAGS = -I/Users/$(USER)/.brew/opt/readline/include
+LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
+CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
 
 FILES = parse_env \
 		convert_quotes \
