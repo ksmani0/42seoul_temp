@@ -22,14 +22,13 @@ void        main_signal(int sig_number)
     {
         if (g_data->forked == 1)
         {
-            write(1, "Quit: 3\n", 8);//modificated!!
-            //kill(0, SIGKILL);//delete!
-            g_data->ret = 131;//added!!
+            write(1, "Quit\n", 5);
+			g_data->ret = 131;
         }
-        else//added!!
-        {//added!!
-            rl_on_new_line();//added!!
-            rl_redisplay();//added!!
-        }//added!!
+		else
+		{
+			rl_on_new_line();
+			rl_redisplay();
+		}
     }
 }
