@@ -20,6 +20,7 @@ static void norm_pass(char *b)
 {
 	printf("exit\n");
 	printf("bash: exit: %s: numeric argument required\n", b);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
 	exit(255);
 }
 
@@ -32,6 +33,7 @@ void	    ft_exit(t_cmd *c_list, t_sh_data *g_data)
 	if ((ft_lstsize(c_list->cmd)) == 1)
 	{
 		printf("exit\n");
+		tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
 		exit(g_data->ret);
 	}
 	else if ((ft_lstsize(c_list->cmd)) == 2)
@@ -40,6 +42,7 @@ void	    ft_exit(t_cmd *c_list, t_sh_data *g_data)
 		{
 			ret = ft_atoi(c_list->cmd->next->content);
 			printf("exit\n");
+			tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
 			exit(ret);
 		}
 		else

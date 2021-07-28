@@ -5,7 +5,7 @@ char 	*get_input()
 	char	**commands;
 	char	**tmp2;
 
-	g_data->input = readline("$");
+	g_data->input = readline("$ ");
 	if (g_data->input)
 	{
 		if (check_parse_error(g_data->input) == -1)
@@ -23,7 +23,7 @@ void	init_term2()
 {
 	tcgetattr(STDIN_FILENO, &g_data->main_term);
 	tcgetattr(STDIN_FILENO, &g_data->child_term);
-	g_data->main_term.c_lflag &= ~ICANON;
+	//g_data->main_term.c_lflag &= ~ICANON;
 	g_data->main_term.c_lflag &= ECHO;
 	g_data->main_term.c_cc[VMIN] = 0;
 	g_data->main_term.c_cc[VTIME] = 0;
@@ -68,6 +68,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		else
 		{
+			tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
 			if (g_data->ret != 2)
 				return (0);
 		}
