@@ -24,14 +24,15 @@ void	rd_norm_pass(char *buf, char **command)
 	*command = *command + 1;
 }
 
-void	child_execute(t_cmd *c_list)
+int	child_execute(t_cmd *c_list)
 {
 	if (is_same(c_list->cmd->content, "pwd"))
-		ft_pwd(c_list);
+		return (ft_pwd(c_list));
 	else if (is_same(c_list->cmd->content, "env"))
-		ft_env(c_list, g_data);
+		return (ft_env(c_list, g_data));
 	else if (is_same(c_list->cmd->content, "echo"))
-		ft_echo(c_list);
+		return (ft_echo(c_list));
+	return (0);
 }
 
 char	*get_env2(char **commands, int *j)
@@ -55,11 +56,4 @@ char	*get_env2(char **commands, int *j)
 	tmp[i] = 0;
 	*commands = tmp2;
 	return (get_env_value(tmp));
-}
-
-void	fucing_norm3(char *tmp, char **commands, int *i)
-{
-	tmp = *commands;
-	tmp++;
-	*i = 0;
 }

@@ -82,3 +82,12 @@ void	delete_tmp(void)
 	unlink(tmp);
 	free(tmp);
 }
+
+void	fucking_norm(int pid, int status, t_cmd *c_list)
+{
+	waitpid(pid, &status, 0);
+	close(c_list->fds[1]);
+	if (WIFEXITED(status))
+		g_data->ret = WEXITSTATUS(status);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_data->main_term);
+}

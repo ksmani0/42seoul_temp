@@ -73,7 +73,7 @@ size_t	ft_strlen2(const char *str)
 	return (i);
 }
 
-void	norm(size_t *i, size_t *j)
+static	void	norm(size_t *i, size_t *j)
 {
 	*i = 0;
 	*j = 0;

@@ -42,7 +42,7 @@ int	refill_buff(int fd, char **sbuffer, char *tmp, char **line)
 	while (true)
 	{
 		rs = read(fd, tmp, BUFFER_SIZE);
-		if (rs == -1)
+		if (rs == -1 )
 			break ;
 		if (rs == 0)
 			break ;
@@ -70,7 +70,9 @@ int	get_next_line(int fd, char **line)
 	*line = ft_strdup("");
 	tmp = ft_strchr((const char *)sbuffer, '\n');
 	if (tmp)
+	{
 		return (print_buffer(&sbuffer, line, tmp));
+	}
 	tmp = (char *)malloc(BUFFER_SIZE + 1);
 	rs = refill_buff(fd, &sbuffer, tmp, line);
 	free(tmp);

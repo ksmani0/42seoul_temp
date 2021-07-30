@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanghpar <sanghpar@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 17:02:05 by sanghpar          #+#    #+#             */
-/*   Updated: 2020/10/08 17:16:21 by sanghpar         ###   ########.fr       */
+/*   Created: 2020/10/06 20:20:58 by sanghpar          #+#    #+#             */
+/*   Updated: 2020/10/07 03:50:34 by sanghpar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_putdig_fd(unsigned int n, int fd)
 {
-	t_list	*tmp;
+	if (n > 9)
+		ft_putdig_fd(n / 10, fd);
+	ft_putchar_fd('0' + (n % 10), fd);
+}
 
-	tmp = (t_list *)malloc(sizeof(t_list));
-	if (!(tmp))
-		return (NULL);
-	if (!content)
+void	ft_putnbr_fd(int n, int fd)
+{
+	unsigned int	i;
+
+	if (n < 0)
 	{
-		tmp->content = NULL;
-		tmp->next = NULL;
+		i = -n;
+		if (i)
+			ft_putchar_fd('-', fd);
 	}
 	else
 	{
-		tmp->content = content;
-		tmp->next = NULL;
+		i = n;
 	}
-	return (tmp);
+	ft_putdig_fd(i, fd);
 }

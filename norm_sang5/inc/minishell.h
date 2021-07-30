@@ -125,7 +125,7 @@ int		ft_pwd(t_cmd *c_list);
 t_env	*make_env(char *key, char *value);
 int		ft_env(t_cmd *c_list, t_sh_data *g_data);
 int		ft_echo(t_cmd *c_list);
-void	child_execute(t_cmd *c_list);
+int		child_execute(t_cmd *c_list);
 int		my_strcmp(char *a, char *b);
 int		check_none_fork(t_cmd *c_list);
 void	etc(t_cmd *c_list);
@@ -143,6 +143,6 @@ void	init_term(struct termios term);
 void	child_signal(int sig_number);
 void	herodoc(char *filename, t_rd *next);
 void	delete_tmp(void);
-void	shit_norm_1(int pid, int status, t_cmd *c_list);
-void	fucing_norm3(char *tmp, char **commands, int *i);
+void	fucking_norm(int pid, int status, t_cmd *c_list);
+void	fck_norm(char **tmp, char **commands, int *i);
 #endif

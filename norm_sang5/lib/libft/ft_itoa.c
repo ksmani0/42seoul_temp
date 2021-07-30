@@ -29,14 +29,19 @@ int	ft_nbrlen(int n)
 	return (count);
 }
 
+static	void	norm(int n, int *len, char **arr)
+{
+	*len = ft_nbrlen(n);
+	*arr = (char *)malloc(*len * sizeof(char));
+	*arr[*len - 1] = 0x00;
+}
+
 char	*ft_itoa(int n)
 {
 	char	*arr;
 	int		len;
 
-	len = ft_nbrlen(n);
-	arr = (char *)malloc(len * sizeof(char));
-	arr[len - 1] = 0x00;
+	norm(n, &len, &arr);
 	len--;
 	if (n < 0)
 	{

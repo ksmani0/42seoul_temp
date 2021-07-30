@@ -64,16 +64,7 @@ void	execute_etc(t_cmd *c_list, char *buf)
 		}
 	}
 	else
-		shit_norm_1(pid, status, c_list);
-}
-
-void	shit_norm_1(int pid, int status, t_cmd *c_list)
-{
-	waitpid(pid, &status, 0);
-	close(c_list->fds[1]);
-	if (WIFEXITED(status))
-		g_data->ret = WEXITSTATUS(status);
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_data->main_term);
+		fucking_norm(pid, status, c_list);
 }
 
 int	check_executable(char *buf, t_cmd *c_list)

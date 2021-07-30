@@ -81,3 +81,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
+
+void	fck_norm(char **tmp, char **commands, int *i)
+{
+	*tmp = *commands;
+	*tmp = *tmp + 1;
+	*i = 0;
+}

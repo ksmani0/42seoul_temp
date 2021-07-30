@@ -36,35 +36,29 @@ static	void	norm_pass(char *b)
 	exit(255);
 }
 
-static void	norm(int *ret, t_cmd *c_list)
+static	void	norm(void)
 {
-	*ret = ft_atoi(c_list->cmd->next->content);
 	printf("exit\n");
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
-}
-
-static	void	norm2(t_cmd *c_list)
-{
-	set_pipe(c_list);
-	set_rd(c_list->r_list);
 }
 
 void	ft_exit(t_cmd *c_list, t_sh_data *g_data)
 {
 	int	ret;
 
-	norm2(c_list);
+	set_pipe(c_list);
+	set_rd(c_list->r_list);
 	if ((ft_lstsize(c_list->cmd)) == 1)
 	{
-		printf("exit\n");
-		tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
+		norm();
 		exit(g_data->ret);
 	}
 	else if ((ft_lstsize(c_list->cmd)) == 2)
 	{
 		if (is_num_str(c_list->cmd->next->content))
 		{
-			norm(&ret, c_list);
+			ret = ft_atoi(c_list->cmd->next->content);
+			norm();
 			exit(ret);
 		}
 		else

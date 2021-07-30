@@ -22,7 +22,7 @@ void	set_pipe(t_cmd *c_list)
 		dup2(c_list->fds[1], 1);
 }
 
-void	none_fork_execute(t_cmd *c_list)
+int	none_fork_execute(t_cmd *c_list)
 {
 	char	*tmp;
 
@@ -35,6 +35,7 @@ void	none_fork_execute(t_cmd *c_list)
 		ft_export(c_list, g_data);
 	else if (ft_strcmp(tmp, "exit") == 0)
 		ft_exit(c_list, g_data);
+	return (0);
 }
 
 void	fork_execute(t_cmd *c_list)
@@ -48,7 +49,7 @@ void	fork_execute(t_cmd *c_list)
 		return ;
 	if (pid == 0)
 	{
-		child_execute(c_list);
+		exit(child_execute(c_list));
 	}
 	else
 	{

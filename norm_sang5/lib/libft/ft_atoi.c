@@ -21,12 +21,11 @@ static	int	ft_check_overflow_int(int sign, unsigned int u_num)
 	return (1);
 }
 
-void	norm2(unsigned char *u_str, const char *str)
+static	void	norm(unsigned char **u_str)
 {
-	u_str = (unsigned char *)str;
-	while (*u_str == '\t' || *u_str == '\v' || *u_str == '\n'
-		|| *u_str == '\r' || *u_str == '\f' || *u_str == ' ')
-		u_str++;
+	while (**u_str == '\t' || **u_str == '\v' || **u_str == '\n'
+		|| **u_str == '\r' || **u_str == '\f' || **u_str == ' ')
+		*u_str = *u_str + 1;
 }
 
 int	ft_atoi(const char *str)
@@ -36,8 +35,8 @@ int	ft_atoi(const char *str)
 	unsigned int	u_num;
 	int				res;
 
-	u_str = 0;
-	norm2(u_str, str);
+	u_str = (unsigned char *)str;
+	norm(&u_str);
 	sign = 1;
 	if (*u_str == '-' || *u_str == '+')
 	{

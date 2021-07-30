@@ -61,7 +61,7 @@ void	convert_double_quotes(char **start, char **commands)
 	char	*env_value;
 	int		i;
 
-	fucing_norm3(tmp, commands, &i);
+	fck_norm(&tmp, commands, &i);
 	while (*tmp)
 	{
 		if (*tmp == '"')
