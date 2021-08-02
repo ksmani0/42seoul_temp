@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_execute.c                                    :+:      :+:    :+:   */
+/*   my_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanghpar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,48 +12,38 @@
 
 #include "minishell.h"
 
-void	init_term(struct termios term)
+void	sig_off(int sig_number)
 {
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	(void)sig_number;
+	signal(SIGINT, main_signal);
+	signal(SIGQUIT, main_signal);
 }
 
-void	rd_norm_pass(char *buf, char **command)
+void	main_signal(int sig_number)
 {
-	*buf = **command;
-	buf = buf + 1;
-	*command = *command + 1;
-}
-
-int	child_execute(t_cmd *c_list)
-{
-	if (is_same(c_list->cmd->content, "pwd"))
-		return (ft_pwd(c_list));
-	else if (is_same(c_list->cmd->content, "env"))
-		return (ft_env(c_list, g_data));
-	else if (is_same(c_list->cmd->content, "echo"))
-		return (ft_echo(c_list));
-	return (0);
-}
-
-char	*get_env2(char **commands, int *j)
-{
-	int		size;
-	char	tmp[1000];
-	int		i;
-	char	*tmp2;
-
-	i = 0;
-	tmp2 = *commands;
-	size = get_env_len(*commands);
-	*j = size;
-	tmp2++;
-	while (i < size)
+	if (sig_number == SIGINT)
 	{
-		tmp[i] = *tmp2;
-		tmp2++;
-		i++;
+		rl_replace_line("", 0);
+		if (g_data->forked == 0)
+			write(1, "\n$ ", 3);
+		else
+		{
+			write(1, "\n", 1);
+		}
+		g_data->ret = 130;
+		rl_redisplay();
 	}
-	tmp[i] = 0;
-	*commands = tmp2;
-	return (get_env_value(tmp));
+	else if (sig_number == SIGQUIT)
+	{
+		if (g_data->forked == 1)
+		{
+			write(1, "Quit\n", 5);
+			g_data->ret = 131;
+		}
+		else
+		{
+			rl_on_new_line();
+			rl_redisplay();
+		}
+	}
 }

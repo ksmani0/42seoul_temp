@@ -73,6 +73,8 @@ typedef struct s_sh_data
 	char			*cl;
 	char			*cm;
 	char			*ce;
+	int				last_pid;
+	int				status;
 }					t_sh_data;
 
 t_sh_data	*g_data;
@@ -143,6 +145,6 @@ void	init_term(struct termios term);
 void	child_signal(int sig_number);
 void	herodoc(char *filename, t_rd *next);
 void	delete_tmp(void);
-void	fucking_norm(int pid, int status, t_cmd *c_list);
+void	fucking_norm(void);
 void	fck_norm(char **tmp, char **commands, int *i);
 #endif

@@ -43,8 +43,10 @@ void	fork_execute(t_cmd *c_list)
 	pid_t	pid;
 	int		status;
 
+	status = 0;
 	g_data->forked = 1;
 	pid = fork();
+	g_data->last_pid = pid;
 	if (pid < 0)
 		return ;
 	if (pid == 0)

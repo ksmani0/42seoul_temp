@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 
 LIBFT = libft.a
@@ -20,8 +20,8 @@ LIBFT_FILE = $(LIBFT_DIR)/$(LIBFT)
 LIBFT_FLAGS = -L./$(LIBFT_DIR) -lft
 CFLAGS += -I $(LIBFT_DIR)
 CFLAGS += -I ./inc/
-#LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
-#CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
+LDFLAGS="-L/Users/$(USER)/.brew/opt/readline/lib"
+CPPFLAGS="-I/Users/$(USER)/.brew/opt/readline/include"
 
 FILES = parse_env \
 		convert_quotes \
@@ -57,7 +57,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	$(MAKE) -C ./lib/libft
-	$(CC) $(CFLAGS) -g -o $(NAME) main.c $(SRCS) $(LIBFT_FLAGS) -lreadline $(LDFLAGS) $(CPPFLAGS) -lncurses
+	$(CC) $(CFLAGS) -o $(NAME) main.c $(SRCS) $(LIBFT_FLAGS) -lreadline $(LDFLAGS) $(CPPFLAGS) -lncurses
 	
 clean :
 	$(MAKE) clean -C ./lib/libft

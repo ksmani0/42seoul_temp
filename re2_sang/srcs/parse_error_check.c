@@ -107,10 +107,8 @@ bool	make_redirection_list(t_list *tmp, t_rd **r_list)
 int	check_parse_error(char *commands)
 {
 	t_list	*tmp;
-	t_list	*start;
 
 	tmp = make_token_list(commands);
-	start = tmp;
 	if (check_redirect_parse(tmp) == false)
 	{
 		free_list(tmp);

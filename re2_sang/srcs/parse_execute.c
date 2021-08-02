@@ -52,5 +52,6 @@ void	parse_execute(char *command)
 		execute(c_list);
 		c_list = c_list->next;
 	}
+	waitpid(g_data->last_pid, &g_data->status, 0);
 	free_cmd(c_backup);
 }

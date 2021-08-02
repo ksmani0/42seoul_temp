@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_signal.c                                        :+:      :+:    :+:   */
+/*   free_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanghpar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,38 +12,25 @@
 
 #include "minishell.h"
 
-void	sig_off(int sig_number)
+void	parent_fork(t_cmd *c_list)
 {
-	(void)sig_number;
-	signal(SIGINT, main_signal);
-	signal(SIGQUIT, main_signal);
-}
+	pid_t	pid;
+	//int		status;
 
-void	main_signal(int sig_number)
-{
-	if (sig_number == SIGINT)
+	g_data->forked = 1;
+	pid = fork();
+	g_data->last_pid = pid;
+	if (pid < 0)
+		return ;
+	if (pid == 0)
 	{
-		//rl_replace_line("", 0);
-		if (g_data->forked == 0)
-			write(1, "\n$ ", 3);
-		else
-		{
-			write(1, "\n", 1);
-		}
-		g_data->ret = 130;
-		rl_redisplay();
+		exit(child_execute(c_list));
 	}
-	else if (sig_number == SIGQUIT)
+	else
 	{
-		if (g_data->forked == 1)
-		{
-			write(1, "Quit\n", 5);
-			g_data->ret = 131;
-		}
-		else
-		{
-			rl_on_new_line();
-			rl_redisplay();
-		}
+		waitpid(pid, &status, 0);
+		close(c_list->fds[1]);
+		if (WIFEXITED(status))
+			g_data->ret = WEXITSTATUS(status);
 	}
 }

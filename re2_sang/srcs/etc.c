@@ -41,14 +41,12 @@ static char	**make_argv(t_cmd *c_list, char *buf)
 
 void	execute_etc(t_cmd *c_list, char *buf)
 {
-	int		status;
 	char	**argv;
 	pid_t	pid;
 
-	status = 0;
 	g_data->forked = 1;
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
 	pid = fork();
+	g_data->last_pid = pid;
 	if (pid == 0)
 	{
 		set_pipe(c_list);
@@ -64,8 +62,6 @@ void	execute_etc(t_cmd *c_list, char *buf)
 			free_split(argv);
 		}
 	}
-	else
-		fucking_norm(pid, status, c_list);
 }
 
 int	check_executable(char *buf, t_cmd *c_list)
@@ -97,6 +93,32 @@ int	check_executable(char *buf, t_cmd *c_list)
 	}
 }
 
+void	fork_execute2(t_cmd *c_list)
+{
+	pid_t	pid;
+	int		status;
+
+	status = 0;
+	g_data->forked = 1;
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_data->child_term);
+	pid = fork();
+	g_data->last_pid = pid;
+	if (pid < 0)
+		return ;
+	if (pid == 0)
+	{
+		execute_etc(c_list, c_list->cmd->content);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		tcsetattr(STDIN_FILENO, TCSANOW, &g_data->main_term);
+		close(c_list->fds[1]);
+		if (WIFEXITED(status))
+			g_data->ret = WEXITSTATUS(status);
+	}
+}
+
 void	etc(t_cmd *c_list)
 {
 	char	*cmd;
@@ -114,7 +136,7 @@ void	etc(t_cmd *c_list)
 	else
 	{
 		if (check_executable(c_list->cmd->content, c_list) == 0)
-			execute_etc(c_list, c_list->cmd->content);
+			fork_execute2(c_list);
 		else
 			print_error(c_list);
 	}

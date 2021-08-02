@@ -14,9 +14,6 @@
 
 t_list	*set_start(t_list *tmp)
 {
-	bool	first;
-
-	first = false;
 	while (tmp)
 	{
 		if (ft_strcmp((char *)tmp->content, ">") == 0
