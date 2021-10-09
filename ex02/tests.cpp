@@ -19,10 +19,10 @@ int		main( void ) {
 	typedef std::vector<int>								  ints_t;
 	typedef std::pair<accounts_t::iterator, ints_t::iterator> acc_int_t;
 
-	int	const				amounts[]	= { 42, 54, 957, 432, 1234, 0, 754, 16576 };
+	int const 				amounts[]	= { 42, 54, 957, 432, 1234, 0, 754, 16576 };
 	size_t const			amounts_size( sizeof(amounts) / sizeof(int) );
-	accounts_t				accounts( amounts, amounts + amounts_size );
-	accounts_t::iterator	acc_begin	= accounts.begin();
+	accounts_t				accounts( amounts, amounts + amounts_size );//(배열 시작 주소, 배열 끝 주소)
+	accounts_t::iterator	acc_begin	= accounts.begin();//[19920104_091532] index:0;amount:42;created
 	accounts_t::iterator	acc_end		= accounts.end();
 
 	int	const			d[]			= { 5, 765, 564, 2, 87, 23, 9, 20 };
@@ -37,15 +37,16 @@ int		main( void ) {
 	ints_t::iterator	wit_begin	= withdrawals.begin();
 	ints_t::iterator	wit_end		= withdrawals.end();
 
-	Account::displayAccountsInfos();
+	Account::displayAccountsInfos();//[19920104_091532] accounts:8;total:20049;deposits:0;withdrawals:0
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	//[19920104_091532] index:0;amount:42;deposits:0;withdrawals:0
 
-	for ( acc_int_t it( acc_begin, dep_begin );
+	for ( acc_int_t it( acc_begin, dep_begin );//계좌에 예금 대입
 		  it.first != acc_end && it.second != dep_end;
 		  ++(it.first), ++(it.second) ) {
 
 		(*(it.first)).makeDeposit( *(it.second) );
-	}
+	}//[19920104_091532] index:0;p_amount:42;deposit:5;amount:47;nb_deposits:1
 
 	Account::displayAccountsInfos();
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
@@ -55,12 +56,12 @@ int		main( void ) {
 		  ++(it.first), ++(it.second) ) {
 
 		(*(it.first)).makeWithdrawal( *(it.second) );
-	}
+	}//[19920104_091532] index:1;p_amount:819;withdrawal:34;amount:785;nb_withdrawals:1
 
 	Account::displayAccountsInfos();
 	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
-	return 0;
+	return 0;//[19920104_091532] index:0;amount:47;closed
 }
 
 

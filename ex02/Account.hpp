@@ -13,6 +13,8 @@
 #define __ACCOUNT_H__
 
 #include <iostream>
+#include <ctime>
+#include <cstring>
 
 // ************************************************************************** //
 //                               Account Class                                //
