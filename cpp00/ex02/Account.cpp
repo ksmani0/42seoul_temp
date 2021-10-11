@@ -55,8 +55,8 @@ void	Account::displayStatus( void ) const
 void Account::displayAccountsInfos( void )
 {
     _displayTimestamp();//아래서 get~() 써서 static 변수값 가져와도 되긴 함
-    std::cout << " account:" << _nbAccounts << ";total:" << _totalAmount <<
-    ";deposit" << _totalNbDeposits << ";withdrals:" << _totalNbWithdrawals << std::endl;
+    std::cout << " accounts:" << _nbAccounts << ";total:" << _totalAmount <<
+    ";deposits:" << _totalNbDeposits << ";withdrawals:" << _totalNbWithdrawals << std::endl;
 }//[19920104_091532] accounts:8;total:20049;deposits:0;withdrawals:0
 
 void	Account::makeDeposit(int deposit)
@@ -68,7 +68,7 @@ void	Account::makeDeposit(int deposit)
     
     _displayTimestamp();
     std::cout << " index:" << _accountIndex << ";p_amount:" << _amount - deposit << 
-    ";deposit" << deposit << ";amount:" << _amount << ";nb_deposit:" << _nbDeposits << std::endl;
+    ";deposit:" << deposit << ";amount:" << _amount << ";nb_deposit:" << _nbDeposits << std::endl;
 }//[19920104_091532] index:0;p_amount:42;deposit:5;amount:47;nb_deposits:1
 bool	Account::makeWithdrawal(int withdrawal)
 {
@@ -85,7 +85,7 @@ bool	Account::makeWithdrawal(int withdrawal)
     ++_nbWithdrawals;
     ++_totalNbWithdrawals;
     std::cout << ";withdrawal:" << withdrawal << ";amount:"
-    << _amount << "nb_withdrawals:" << _nbWithdrawals << std::endl;
+    << _amount << ";nb_withdrawals:" << _nbWithdrawals << std::endl;
     
     return true;
 }//[19920104_091532] index:1;p_amount:819;withdrawal:34;amount:785;nb_withdrawals:1

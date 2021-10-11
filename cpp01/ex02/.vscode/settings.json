@@ -60,7 +60,6 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "utility": "cpp",
-        "vector": "cpp",
-        "iomanip": "cpp"
+        "vector": "cpp"
     }
 }
