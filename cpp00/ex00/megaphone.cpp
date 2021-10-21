@@ -11,15 +11,10 @@ int main(int ac, char** av)
 
     std::string result;
     for (int i = 1; i < ac; ++i)
-    {
         result += av[i];
-    }
 
     for (int i = 0; i < result.length(); ++i)
-    {
-        if (result[i] >= 'a' && result[i] <= 'z')
-            result[i] = toupper(result[i]);
-    }
+        result[i] = toupper(result[i]);
     std::cout << result << std::endl;
 
     return 0;
