@@ -1,26 +1,15 @@
-#include "PhoneBook.hpp"
+#include "Zombie.hpp"
 
 int main(void)
-{    
-    std::string input;
-    PhoneBook phonebook;
+{
+    int num = 5;
+    Zombie* arr = zombieHorde(num, "zombies");
 
-    while (true)
+    for (int i = 0; i < num; ++i)
     {
-        std::cout << "Please, Choose a command from ADD, SEARCH, or EXIT:\n";
-        std::cin >> input;
+        arr[i].announce();
+    }
+    delete[] arr;
 
-        if (input == "EXIT")
-            break;
-        else if (input == "SEARCH")
-        {
-            phonebook.ShowAllList();
-            phonebook.ShowOneContact();
-        }
-        else if (input == "ADD")
-            phonebook.AddList();
-        else
-            std::cout << "Wrong command! Input a right command.\n";
-    }    
     return 0;
 }

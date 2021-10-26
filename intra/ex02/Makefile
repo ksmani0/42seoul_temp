@@ -1,9 +1,9 @@
-NAME := account
+NAME := hi_this_is_brain
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := tests.cpp Account.cpp
+SRCS := main.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)

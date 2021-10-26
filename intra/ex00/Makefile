@@ -1,18 +1,18 @@
-NAME := megaphone
+NAME := BraiiiiiiinnnzzzZ
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRC := megaphone.cpp
-OBJ := $(SRC:.cpp=.o)
+SRCS := main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
 
 clean :
-	$(RM) $(OBJ)
+	$(RM) $(OBJS)
 
 fclean : clean
 	$(RM) $(NAME)
