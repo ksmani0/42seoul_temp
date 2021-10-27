@@ -12,13 +12,26 @@ void Karen::complain(std::string level)
 {
     std::string table[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
     std::string* p = std::find(table, table + 4, level);//요소가 4개니까
-    if (p == table + 4)
-    {
-        std::cout << "[ Probably complaining about insignificant problems ]\n";
-        return;
-    }
+    int idx = p - table;
 
-    (this->*f[p - table])();
+    switch (idx)
+	{
+	case 0:
+		(this->*f[0])();
+        break;
+	case 1:
+		(this->*f[1])();
+        break;
+	case 2:
+		(this->*f[2])();
+        break;
+	case 3:
+		(this->*f[3])();
+        break;
+	default:
+		std::cout << "[ Probably complaining about insignificant problems ]\n";
+		break;
+	}
 }
 
 void Karen::debug(void)
@@ -44,3 +57,18 @@ void Karen::error(void)
     std::cout << "[ ERROR ]\n" <<
     "This is unacceptable, I want to speak to the manager now.\n";
 }
+
+/*
+void Karen::complain(std::string level)
+{
+    std::string table[4] = { "DEBUG", "INFO", "WARNING", "ERROR" };
+    std::string* p = std::find(table, table + 4, level);//요소가 4개니까
+    if (p == table + 4)
+    {
+        std::cout << "[ Probably complaining about insignificant problems ]\n";
+        return;
+    }
+
+    (this->*f[p - table])();
+}
+*/
