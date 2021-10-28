@@ -1,9 +1,9 @@
-NAME := Moarbrainz
+NAME := more_useful_fixed_point
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := main.cpp Zombie.cpp ZombieHorde.cpp
+SRCS := main.cpp Fixed.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)

@@ -1,17 +1,19 @@
-#include <iostream>
-#include <cstring>
+#include "Fixed.hpp"
 
 int main(void)
 {
-    std::string s("HI THIS IS BRAIN");
-    std::string* stringPtr = &s;
-    std::string& stringRef = s;
+    Fixed a;
+    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
 
-    std::cout << "address of s : " << &s << std::endl;
-    std::cout << "value of stringPtr : " << stringPtr << std::endl;
-    std::cout << "address of stringRef : " << &stringRef << std::endl;
-	std::cout << "stringPtr's string : " << *stringPtr << std::endl;
-	std::cout << "stringRef's string : " << stringRef << std::endl;
-
+    std::cout << a << std::endl;
+    std::cout << ++a << std::endl;
+    std::cout << a << std::endl;
+    std::cout << a++ << std::endl;
+    std::cout << a << std::endl;
+    
+    std::cout << b << std::endl;
+    
+    std::cout << Fixed::max( a, b ) << std::endl;
+    std::cout << Fixed::min( a, b ) << std::endl;//추가해봄
     return 0;
 }

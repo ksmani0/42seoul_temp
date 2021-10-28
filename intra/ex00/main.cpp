@@ -1,15 +1,15 @@
-#include "Zombie.hpp"
+#include "Fixed.hpp"
 
 int main(void)
-{//const char*를 인자로 한 string 객체 생성자 자동 호출
-    Zombie zombie1("zombie1");
-    zombie1.announce();//스택 저장됐다 main()의 return 만나면 소멸자 호출
+{
+    Fixed a;
+    Fixed b(a);//복사 생성자 호출
+    Fixed c;
+    c = b;//대입 연산자 오버로딩 호출
 
-    Zombie* zombie2 = newZombie("zombie2");
-    zombie2->announce();//힙에 할당됐다
-    delete zombie2;//여기서 해제되고 소멸자 호출
+    std::cout << a.getRawBits() << std::endl;
+    std::cout << b.getRawBits() << std::endl;
+    std::cout << c.getRawBits() << std::endl;
 
-    randomChump("zombie3");
-    //함수 내서 지역변수로 객체 생성됐다가 함수 반환 후 객체 소멸자 호출
     return 0;
 }

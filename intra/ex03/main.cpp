@@ -1,26 +1,23 @@
-#include "Weapon.hpp"
-#include "HumanA.hpp"
-#include "HumanB.hpp"
+#include <iostream>
+#include "Point.hpp"
 
 int main(void)
 {
-    {
-        Weapon club = Weapon("crude spiked club");//디폴트 대입연산자 호출
+    Point	a(0, 0);
+	Point	b(20, 0);
+	Point	c(10, 30);
+	Point	in(10, 15);
+	Point	out(30, 50);
 
-        HumanA bob("Bob", club);
-        bob.attack();
-        club.setType("some other type of club");
-        bob.attack();
-    }
-    {
-        Weapon club = Weapon("crude spiked club");
-
-        HumanB jim("jim");
-        jim.setWeapon(club);
-        jim.attack();
-        club.setType("some other type of club");
-        jim.attack();
-    }
-
-    return 0;
+	std::cout << "Point \"in\" created at x:" << in.GetX() << " y:" << in.GetY() << std::endl;
+	std::cout << "Point \"out\" created at x:" << out.GetX() << " y:" << out.GetY() << std::endl;
+	if (bsp(a, b, c, in))
+		std::cout << "\"in\" is in the triangle\n";
+	else
+		std::cout << "\"in\" is out of the triangle\n";
+	if (bsp(a, b, c, out))
+		std::cout << "\"out\" is in the triangle\n";
+	else
+		std::cout << "\"out\" is out of the triangle\n";
+	return 0;
 }

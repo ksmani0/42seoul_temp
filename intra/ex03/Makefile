@@ -1,9 +1,9 @@
-NAME := unnecessary_violence
+NAME := bsp
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+SRCS := main.cpp Fixed.cpp Point.cpp bsp.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)

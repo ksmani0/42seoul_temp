@@ -1,9 +1,9 @@
-NAME := hi_this_is_brain
+NAME := fixed02
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := main.cpp
+SRCS := main.cpp Fixed.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)
