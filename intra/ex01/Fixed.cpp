@@ -40,7 +40,7 @@ void Fixed::setRawBits(int const raw)
 float Fixed::toFloat( void ) const
 {//고정소수점 값을 부동소수점 값으로 바꿈
     return (float)mFixedPoint / (1 << mFractionalBits);
-}//8비트 소수부에서 부동소수점 값을 고정소수점으로 바꾸는 공식
+}//고정소수점을 float로 강제 형변환해 부동소수점으로 변환하고 고정소수점의 Fractional Bits를 표현하기 위해 << 연산한 값을 되돌리기
 int Fixed::toInt( void ) const
 {//고정소수점 값을 정수로 바꿈
     return mFixedPoint >> 8;
