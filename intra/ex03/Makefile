@@ -1,5 +1,5 @@
-NAME := diamondtrap
-CFLAGS := -Wall -Wextra -Werror -Wshadow -Wno-shadow -std=c++98
+NAME := interface
+CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
@@ -7,7 +7,7 @@ INC := -I./inc
 .SUFFIXES: .o .cpp
 
 SRC_DIR := ./src
-SRCS := main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
+SRCS := main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp MateriaSource.cpp
 SRC_FILE := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR := ./obj
