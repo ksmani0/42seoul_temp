@@ -1,10 +1,13 @@
-#include "ScavTrap.hpp"
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main(void)
 {
-    ScavTrap kim("kim");
-	FragTrap lee("lee");
+    DiamondTrap kim("kim");
+	DiamondTrap lee("lee");
+	std::cout << std::endl;
+
+	kim.whoAmI();
+	lee.whoAmI();
 	std::cout << std::endl;
 
 	kim.attack("lee");

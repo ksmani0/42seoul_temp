@@ -1,15 +1,25 @@
-#include "Fixed.hpp"
+#include "ClapTrap.hpp"
 
 int main(void)
 {
-    Fixed a;
-    Fixed b(a);//복사 생성자 호출
-    Fixed c;
-    c = b;//대입 연산자 오버로딩 호출
+    ClapTrap kim("kim");
+	ClapTrap lee("lee");
+	ClapTrap park("park");
 
-    std::cout << a.getRawBits() << std::endl;
-    std::cout << b.getRawBits() << std::endl;
-    std::cout << c.getRawBits() << std::endl;
+	std::cout << std::endl;
+	kim.attack("lee");
+	lee.takeDamage(kim.GetHitPoint());
+	std::cout << std::endl;
 
-    return 0;
+	lee.attack("kim");
+	kim.takeDamage(lee.GetHitPoint());
+	std::cout << std::endl;
+
+	park.attack("lee");
+	lee.takeDamage(park.GetHitPoint());
+	std::cout << std::endl;
+	
+    lee.beRepaired(25);
+
+	return (0);
 }
