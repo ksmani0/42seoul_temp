@@ -40,4 +40,7 @@ void DiamondTrap::attack(const std::string& target)
 
 //////////
 
-DiamondTrap::~DiamondTrap(void) {}
+DiamondTrap::~DiamondTrap(void)
+{
+    std::cout << "DiamondTrap <" << GetName() << "> Destructor called\n";
+}
