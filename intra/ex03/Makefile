@@ -1,4 +1,4 @@
-NAME := interface
+NAME := bureaucrat
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
@@ -7,7 +7,8 @@ INC := -I./inc
 .SUFFIXES: .o .cpp
 
 SRC_DIR := ./src
-SRCS := main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp MateriaSource.cpp
+SRCS := main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp \
+		RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 SRC_FILE := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR := ./obj

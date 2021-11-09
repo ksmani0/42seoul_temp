@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "exception": "cpp",
         "__bit_reference": "cpp",
         "__config": "cpp",
         "__debug": "cpp",
@@ -33,7 +34,6 @@
         "ctime": "cpp",
         "cwchar": "cpp",
         "cwctype": "cpp",
-        "exception": "cpp",
         "functional": "cpp",
         "initializer_list": "cpp",
         "ios": "cpp",

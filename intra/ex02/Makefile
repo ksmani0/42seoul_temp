@@ -1,32 +1,22 @@
-NAME := abstract
+NAME := bureaucrat
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-INC := -I./inc
-.SUFFIXES: .o .cpp
-
-SRC_DIR := ./src
-SRCS := main.cpp Animal.cpp Cat.cpp Dog.cpp Brain.cpp
-SRC_FILE := $(addprefix $(SRC_DIR)/, $(SRCS))
-
-OBJ_DIR := ./obj
-OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+SRCS := main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp \
+		RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(INC) -o $(NAME) $(OBJS)
-
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $^
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean :
-	@$(RM) $(OBJ_DIR)/*.o
+	$(RM) $(OBJS)
 
 fclean : clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
 
