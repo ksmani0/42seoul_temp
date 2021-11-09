@@ -70,18 +70,11 @@ void ScalarConversion::ToFloat(void) const
         else if (mInf == true)
             throw ConversionException("+inff");
 
-        float temp = static_cast<float>(mDouble);
-        float difference = temp - static_cast<int>(temp);
-
-        std::stringstream s(temp);
-        std::string str(s.str());
-
-        if (temp == 0 || difference == 0)
-            std::cout << static_cast<float>(mDouble) << ".0f\n";
-        else if (str.find('.') == std::string::npos)
-            std::cout << static_cast<float>(mDouble) << ".0f\n";
-        else if (difference != 0 || str.find('.') != std::string::npos)
-            std::cout << static_cast<float>(mDouble) << "f\n";
+        float fValue = static_cast<float>(mDouble);
+        if (fValue - static_cast<int>(fValue) == 0.0f)
+            std::cout << fValue << ".0f\n";
+        else
+            std::cout << fValue << "f\n";
     }
     catch(const std::exception& e)
     {
@@ -100,15 +93,9 @@ void ScalarConversion::ToDouble(void) const
         else if (mInf == true)
             throw ConversionException("+inf");
 
-        double difference = mDouble - static_cast<int>(mDouble);
-        std::stringstream s(mDouble);
-        std::string str(s.str());
-
-        if (mDouble == 0 || difference == 0)
+        if (mDouble - static_cast<int>(mDouble) == 0.0)
             std::cout << mDouble << ".0\n";
-        else if (str.find('.') == std::string::npos)
-            std::cout << mDouble << ".0\n";
-        else if (difference != 0 || str.find('.') != std::string::npos)
+        else
             std::cout << mDouble << "\n";
     }
     catch(const std::exception& e)
@@ -130,3 +117,16 @@ ScalarConversion::ConversionException::~ConversionException(void) throw() {}
 //////////
 
 ScalarConversion::~ScalarConversion(void) {}
+
+/*
+        double difference = mDouble - static_cast<int>(mDouble);
+        std::stringstream s(mDouble);
+        std::string str(s.str());
+
+        if (mDouble == 0 || difference == 0)
+            std::cout << mDouble << ".0\n";
+        else if (difference != 0 || str.find('.') != std::string::npos)
+            std::cout << mDouble << "\n";
+        else if (str.find('.') == std::string::npos)
+            std::cout << mDouble << ".0\n";
+*/
