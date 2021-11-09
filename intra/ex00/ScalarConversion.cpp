@@ -66,15 +66,14 @@ void ScalarConversion::ToFloat(void) const
         if (mNan == true)
             throw ConversionException("nanf");
         else if (mInf == true && mDouble < 0)
-            throw ConversionException("-inf");
+            throw ConversionException("-inff");
         else if (mInf == true)
-            throw ConversionException("+inf");
+            throw ConversionException("+inff");
 
         float temp = static_cast<float>(mDouble);
-        float difference = temp >= 0 ?
-            temp - static_cast<int>(temp) : temp + static_cast<int>(temp);
+        float difference = temp - static_cast<int>(temp);
         if (temp == 0)
-            std::cout << "0.0f\n";
+            std::cout << static_cast<float>(mDouble) << ".0f\n";
         else if (difference == 0)
             std::cout << static_cast<float>(mDouble) << ".0f\n";
         else if (difference != 0)
@@ -97,14 +96,13 @@ void ScalarConversion::ToDouble(void) const
         else if (mInf == true)
             throw ConversionException("+inf");
 
-        float difference = mDouble >= 0 ?
-            mDouble - static_cast<int>(mDouble) : mDouble + static_cast<int>(mDouble);
+        float difference = mDouble - static_cast<int>(mDouble);
         if (mDouble == 0)
-            std::cout << "0.0\n";
+            std::cout << mDouble << ".0\n";
         else if (difference == 0)
-            std::cout << static_cast<float>(mDouble) << ".0\n";
+            std::cout << mDouble << ".0\n";
         else if (difference != 0)
-            std::cout << static_cast<float>(mDouble) << "\n";
+            std::cout << mDouble << "\n";
     }
     catch(const std::exception& e)
     {
