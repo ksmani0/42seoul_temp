@@ -31,8 +31,8 @@ void ScalarConversion::ToChar(void) const
     std::cout << "char: ";
     try
     {
-        if (mDouble < 0 || mNan == true || mInf == true)
-            throw ConversionException("impossible");
+        if (mDouble < 0 || mDouble > 255 || mNan == true || mInf == true)
+            throw ConversionException("impossible");//char의 오버플로우, 언더플로우도 처리
         
         char result = static_cast<char>(mDouble);
         if (result < 32 || result > 122)
@@ -49,7 +49,8 @@ void ScalarConversion::ToInt(void) const
     std::cout << "int: ";
     try
     {
-        if (mNan == true || mInf == true)
+        long iValue = static_cast<long>(mDouble);//int의 오버플로우, 언더플로우도 처리
+        if (mNan == true || mInf == true || iValue > INT_MAX || iValue < INT_MIN)
             throw ConversionException("impossible");
         std::cout << static_cast<int>(mDouble) << "\n";
     }
@@ -63,13 +64,13 @@ void ScalarConversion::ToFloat(void) const
     std::cout << "float: ";
     try
     {
-        if (mNan == true)
+        if (mNan == true)//수학적으로 정상적인 연산이 안되는데 억지로 했을 때
             throw ConversionException("nanf");
         else if (mInf == true && mDouble < 0)
             throw ConversionException("-inff");
-        else if (mInf == true)
+        else if (mInf == true)//실수의 오버플로우는 +-무한대로 처리됨
             throw ConversionException("+inff");
-
+        
         float fValue = static_cast<float>(mDouble);
         if (fValue - static_cast<int>(fValue) == 0.0f)
             std::cout << fValue << ".0f\n";
