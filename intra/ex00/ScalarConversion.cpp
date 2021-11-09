@@ -31,7 +31,7 @@ void ScalarConversion::ToChar(void) const
     std::cout << "char: ";
     try
     {
-        if (mNan == true || mInf == true)
+        if (mDouble < 0 || mNan == true || mInf == true)
             throw ConversionException("impossible");
         
         char result = static_cast<char>(mDouble);
@@ -72,11 +72,15 @@ void ScalarConversion::ToFloat(void) const
 
         float temp = static_cast<float>(mDouble);
         float difference = temp - static_cast<int>(temp);
-        if (temp == 0)
+
+        std::stringstream s(temp);
+        std::string str(s.str());
+
+        if (temp == 0 || difference == 0)
             std::cout << static_cast<float>(mDouble) << ".0f\n";
-        else if (difference == 0)
+        else if (str.find('.') == std::string::npos)
             std::cout << static_cast<float>(mDouble) << ".0f\n";
-        else if (difference != 0)
+        else if (difference != 0 || str.find('.') != std::string::npos)
             std::cout << static_cast<float>(mDouble) << "f\n";
     }
     catch(const std::exception& e)
@@ -96,12 +100,15 @@ void ScalarConversion::ToDouble(void) const
         else if (mInf == true)
             throw ConversionException("+inf");
 
-        float difference = mDouble - static_cast<int>(mDouble);
-        if (mDouble == 0)
+        double difference = mDouble - static_cast<int>(mDouble);
+        std::stringstream s(mDouble);
+        std::string str(s.str());
+
+        if (mDouble == 0 || difference == 0)
             std::cout << mDouble << ".0\n";
-        else if (difference == 0)
+        else if (str.find('.') == std::string::npos)
             std::cout << mDouble << ".0\n";
-        else if (difference != 0)
+        else if (difference != 0 || str.find('.') != std::string::npos)
             std::cout << mDouble << "\n";
     }
     catch(const std::exception& e)
