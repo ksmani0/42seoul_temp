@@ -1,9 +1,9 @@
-NAME := bureaucrat
+NAME := ScalarConversion
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := main.cpp Bureaucrat.cpp
+SRCS := main.cpp ScalarConversion.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)

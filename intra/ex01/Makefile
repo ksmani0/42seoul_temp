@@ -1,9 +1,9 @@
-NAME := bureaucrat
+NAME := Serialization
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := main.cpp Bureaucrat.cpp Form.cpp
+SRCS := main.cpp Data.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)

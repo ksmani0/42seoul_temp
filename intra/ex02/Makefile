@@ -1,22 +1,32 @@
-NAME := bureaucrat
+NAME := IdentifyRealType
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp \
-		RobotomyRequestForm.cpp PresidentialPardonForm.cpp
-OBJS := $(SRCS:.cpp=.o)
+INC := -I./inc
+.SUFFIXES: .o .cpp
+
+SRC_DIR := ./src
+SRCS := main.cpp Base.cpp A.cpp B.cpp C.cpp
+SRC_FILE := $(addprefix $(SRC_DIR)/, $(SRCS))
+
+OBJ_DIR := ./obj
+OBJS := $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $(INC) -o $(NAME) $(OBJS)
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(INC) -c -o $@ $^
 
 clean :
-	$(RM) $(OBJS)
+	@$(RM) $(OBJ_DIR)/*.o
 
 fclean : clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re : fclean all
 

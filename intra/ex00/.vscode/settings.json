@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "exception": "cpp",
+        "string": "cpp",
+        "cmath": "cpp",
         "__bit_reference": "cpp",
         "__config": "cpp",
         "__debug": "cpp",
@@ -23,7 +24,6 @@
         "cctype": "cpp",
         "chrono": "cpp",
         "clocale": "cpp",
-        "cmath": "cpp",
         "complex": "cpp",
         "cstdarg": "cpp",
         "cstddef": "cpp",
@@ -34,6 +34,7 @@
         "ctime": "cpp",
         "cwchar": "cpp",
         "cwctype": "cpp",
+        "exception": "cpp",
         "functional": "cpp",
         "initializer_list": "cpp",
         "ios": "cpp",
@@ -52,7 +53,6 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "string": "cpp",
         "string_view": "cpp",
         "system_error": "cpp",
         "tuple": "cpp",

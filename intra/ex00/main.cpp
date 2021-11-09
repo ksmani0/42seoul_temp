@@ -1,37 +1,18 @@
-#include "Bureaucrat.hpp"
+#include "ScalarConversion.hpp"
 
-int main(void)
+int main(int ac, char** av)
 {
-    try
+    if (ac != 2)
     {
-        Bureaucrat kim("kim", 15);
-        std::cout << kim;
-
-        kim.UpGrade(7);//8
-        std::cout << kim;
-        kim.DownGrade(90);//98
-        std::cout << kim;
-
-        Bureaucrat lee("lee", 0);//에러 나야 함
-        std::cout << lee;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
+        std::cout << "Wrong number of arguments!\n";
+        return 0;
     }
 
-    try
-    {
-        Bureaucrat park("park", 100);
-        std::cout << park;
+    ScalarConversion conversion(av[1]);
+    conversion.ToChar();
+    conversion.ToInt();
+    conversion.ToFloat();
+    conversion.ToDouble();
 
-        park.DownGrade(51);//에러 나야 함
-        std::cout << park;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    
     return 0;
 }
