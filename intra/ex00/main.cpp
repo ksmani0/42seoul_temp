@@ -1,18 +1,29 @@
-#include "ScalarConversion.hpp"
+#include <iostream>
+#include "whatever.hpp"
 
-int main(int ac, char** av)
+int main(void)
 {
-    if (ac != 2)
-    {
-        std::cout << "Wrong number of arguments!\n";
-        return 0;
-    }
+    int a = 2;
+    int b = 3;
 
-    ScalarConversion conversion(av[1]);
-    conversion.ToChar();
-    conversion.ToInt();
-    conversion.ToFloat();
-    conversion.ToDouble();
+    ::swap( a, b );
+    std::cout << "a = " << a << ", b = " << b << std::endl;
+    std::cout << "min( a, b ) = " << min( a, b ) << std::endl;
+    std::cout << "max( a, b ) = " << max( a, b ) << std::endl;
+
+    std::string c = "chaine1";
+    std::string d = "chaine2";
+    
+    ::swap(c, d);
+    std::cout << "c = " << c << ", d = " << d << std::endl;
+    std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
+    std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
+
+    double e = -100;
+    double f = 100;
+    std::cout << "e = " << e << ", f = " << f << std::endl;
+    std::cout << "min( c, d ) = " << ::min( e, f ) << std::endl;
+    std::cout << "max( c, d ) = " << ::max( e, f ) << std::endl;
 
     return 0;
 }

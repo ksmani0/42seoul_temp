@@ -1,9 +1,9 @@
-NAME := ScalarConversion
+NAME := AFewFunction
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf
 
-SRCS := main.cpp ScalarConversion.cpp
+SRCS := main.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 all : $(NAME)

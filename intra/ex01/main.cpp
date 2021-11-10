@@ -1,15 +1,18 @@
-#include "Data.hpp"
+#include "iter.hpp"
 
 int main(void)
 {
-    Data me = { "seungmki", 35, 164 };
-    std::cout << "address of me: " << &me << std::endl;
+    std::string str[3] = { "cat", "game", "sleep" };
+    iter(str, 3, PrintArr);
 
-    uintptr_t adr = serialize(&me);
-    std::cout << "value of adr: " << adr << std::endl;
+    std::cout << "\n";
+    int intArr[5] = { 2800, 74, 10, -17, 99 };
+    iter(intArr, sizeof(intArr) / sizeof(int), AddFiveNPrint);
+    //템플릿 함수는 iter<T> 형태로 안 써도 됨. 컴파일러가 인자 자료형을 추측해서 대입해줌
 
-    Data* temp = deserialize(adr);
-    std::cout << "value of temp: " << temp << std::endl;
+    std::cout << "\n";
+    double doubleArr[4] = { -42.1, -1.5, 0.0, 109.8 };
+    iter(doubleArr, sizeof(doubleArr) / sizeof(double), AddFiveNPrint);
 
     return 0;
 }
