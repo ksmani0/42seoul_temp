@@ -1,4 +1,4 @@
-NAME := AFewFunction
+NAME := Easyfind
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := clang++
 RM := rm -rf

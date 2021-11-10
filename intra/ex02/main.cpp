@@ -1,43 +1,42 @@
-#include "Array.hpp"
+#include "mutantstack.hpp"
 
 int main(void)
 {
-    Array<int> arr1(4);
-    arr1[0] = -3; arr1[1] = -89; arr1[2] = 10; arr1[3] = 756;
+    MutantStack<int> mstack;
+    mstack.push(5);
+    mstack.push(17);
+    std::cout << "mstack.top(): " << mstack.top() << std::endl;//17
 
-    for (int i = 0; i < arr1.size(); ++i)
-        std::cout << "[" << i << "]: " << arr1[i] << "\n";
-    
-    try
+    mstack.pop();
+    std::cout << "mstack.size(): " << mstack.size() << std::endl;//1
+
+    mstack.push(3);
+    mstack.push(5);
+    mstack.push(737); //5 3 5 737
+
+    MutantStack<int>::iterator it = mstack.begin();
+    MutantStack<int>::iterator ite = mstack.end();
+    ++it;
+    --it;
+    while (it != ite)
     {
-        arr1[4] = 0;
+        std::cout << *it << std::endl;//5 3 5 737
+        ++it;
     }
-    catch(const std::exception& e)
+    std::cout << "--ite value: " << *(--ite) << std::endl;//737
+
+    std::cout << "\n*** const iterator test ***\n";
+
+    const MutantStack<int> constMS(mstack);
+    MutantStack<int>::const_iterator cIt = constMS.begin();
+    MutantStack<int>::const_iterator cIte = constMS.end();
+
+    while (cIt != cIte)
     {
-        std::cerr << e.what() << '\n';
+        std::cout << *cIt << std::endl;//5 3 5 737
+        ++cIt;
     }
-
-    std::cout << "\n";
-    Array<std::string> arr2;
-    std::cout << arr2.size() << "\n";
-
-    Array<std::string> arr3(2);
-    arr3[0] = "happy"; arr3[1] = "days";
-
-    arr2 = arr3;
-    for (int i = 0; i < arr2.size(); ++i)
-        std::cout << "[" << i << "]: " << arr2[i] << "\n";
-    
-    try
-    {
-        arr3[-1] = ":)";
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-
-    system("leaks Array");
+    std::cout << "--cIte value: " << *(--cIte) << std::endl;//737
 
     return 0;
 }

@@ -1,29 +1,24 @@
-#include <iostream>
-#include "whatever.hpp"
+#include <vector>
+#include <iterator>
+#include "easyfind.hpp"
 
 int main(void)
 {
-    int a = 2;
-    int b = 3;
+    int nums[8]	= { 42, 54, 957, 432, 1234, 0, 754, 16576 };
+    std::vector<int> v1(nums, nums + sizeof(nums) / sizeof(int));
+    //cpp01 ex02 tests.cpp, 모두의코드 확인했지만 문제 없음
 
-    ::swap( a, b );
-    std::cout << "a = " << a << ", b = " << b << std::endl;
-    std::cout << "min( a, b ) = " << min( a, b ) << std::endl;
-    std::cout << "max( a, b ) = " << max( a, b ) << std::endl;
+    std::vector<int>::iterator iter = easyfind(v1, 42);
+    std::cout << *iter << std::endl;;
 
-    std::string c = "chaine1";
-    std::string d = "chaine2";
-    
-    ::swap(c, d);
-    std::cout << "c = " << c << ", d = " << d << std::endl;
-    std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
-    std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
-
-    double e = -100;
-    double f = 100;
-    std::cout << "e = " << e << ", f = " << f << std::endl;
-    std::cout << "min( c, d ) = " << ::min( e, f ) << std::endl;
-    std::cout << "max( c, d ) = " << ::max( e, f ) << std::endl;
+    try
+    {
+        iter = easyfind(v1, -1);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     return 0;
 }
